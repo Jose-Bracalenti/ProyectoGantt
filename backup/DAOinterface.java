@@ -11,4 +11,5 @@ public interface DAOinterface<T> {
     public List<T> buscarPorNombre(String nombre);
     public List<T> buscarPorEje(Eje eje);
     public List<T> buscarPorSecretaria(Secretaria secretaria);
+    public List<T> buscarPorObjetivo(Objetivo objetivo);
 }

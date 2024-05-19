@@ -1,14 +1,15 @@
 package gantt.proyecto.Repositorios.DAOS;
-
+import gantt.proyecto.Modelo.*;
+import gantt.proyecto.Repositorios.Interfaces.*;
+import jakarta.persistence.EntityManager;
 import java.util.List;
 
-import gantt.proyecto.Modelo.Area;
-import gantt.proyecto.Modelo.Eje;
-import gantt.proyecto.Modelo.Secretaria;
-import gantt.proyecto.Repositorios.Interfaces.DAOinterface;
-import jakarta.persistence.EntityManager;
-public class AreaDAO implements DAOinterface<Area>{
-    public void insertar(Area obj) {
+import org.springframework.stereotype.Repository;
+
+@Repository
+
+public class ObjetivoDAO implements DAOinterface<Objetivo>{
+    public void insertar(Objetivo obj) {
         // TODO Auto-generated method stub
         try {
             EntityManager em = HibernateUtil.getEntityManager();
@@ -21,7 +22,7 @@ public class AreaDAO implements DAOinterface<Area>{
             e.printStackTrace();
         }
     }
-    public void modificar(Area obj) {
+    public void modificar(Objetivo obj) {
         // TODO Auto-generated method stub
         try {
             EntityManager em = HibernateUtil.getEntityManager();
@@ -34,7 +35,7 @@ public class AreaDAO implements DAOinterface<Area>{
             e.printStackTrace();
         }
     }
-    public void eliminar(Area obj) {
+    public void eliminar(Objetivo obj) {
         // TODO Auto-generated method stub
         try {
             EntityManager em = HibernateUtil.getEntityManager();
@@ -47,11 +48,11 @@ public class AreaDAO implements DAOinterface<Area>{
             e.printStackTrace();
         }
     }
-    public Area buscarPorId(long id) {
+    public Objetivo buscarPorId(long id) {
         // TODO Auto-generated method stub
         try {
             EntityManager em = HibernateUtil.getEntityManager();
-            return em.find(Area.class, id);
+            return em.find(Objetivo.class, id);
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -59,23 +60,25 @@ public class AreaDAO implements DAOinterface<Area>{
         }
     }
     @SuppressWarnings("unchecked")
-    public List<Area> buscarTodos() {
+
+    public List<Objetivo> buscarTodos() {
         // TODO Auto-generated method stub
         try {
             EntityManager em = HibernateUtil.getEntityManager();
-            return em.createQuery("from Area").getResultList();
+            return em.createQuery("from Objetivo").getResultList();
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
             return null;
         }
     }
+    
     @SuppressWarnings("unchecked")
-    public List<Area> buscarPorNombre(String nombre) {
+    public List<Objetivo> buscarPorNombre(String nombre) {
         // TODO Auto-generated method stub
         try {
             EntityManager em = HibernateUtil.getEntityManager();
-            return em.createQuery("from Area where nombre = :nombre").setParameter("nombre", nombre).getResultList();
+            return em.createQuery("from Objetivo where nombre like %:nombre%").setParameter("nombre", nombre).getResultList();
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -83,14 +86,20 @@ public class AreaDAO implements DAOinterface<Area>{
         }
     }
     @Override
-    public List<Area> buscarPorEje(Eje eje) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'buscarPorEje'");
-    }
-    @Override
-    public List<Area> buscarPorSecretaria(Secretaria secretaria) {
+    public List<Objetivo> buscarPorSecretaria(Secretaria secretaria) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'buscarPorSecretaria'");
     }
-    
+    @Override
+    public List<Objetivo> buscarPorEje(Eje eje) {
+        List<Objetivo> objetivos = null;
+        objetivos = eje.getObjetivos();
+        return objetivos;
+    }
+    @Override
+    public List<Objetivo> buscarPorObjetivo(Objetivo objetivo) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'buscarPorObjetivo'");
+    }
+
 }

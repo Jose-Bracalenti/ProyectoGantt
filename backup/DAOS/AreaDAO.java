@@ -1,10 +1,19 @@
 package gantt.proyecto.Repositorios.DAOS;
-import gantt.proyecto.Modelo.*;
-import gantt.proyecto.Repositorios.Interfaces.*;
-import jakarta.persistence.EntityManager;
+
 import java.util.List;
-public class PoliticaDAO implements DAOinterface<Politica>{
-    public void insertar(Politica obj) {
+
+import org.springframework.stereotype.Repository;
+
+import gantt.proyecto.Modelo.Area;
+import gantt.proyecto.Modelo.Eje;
+import gantt.proyecto.Modelo.Objetivo;
+import gantt.proyecto.Modelo.Secretaria;
+import gantt.proyecto.Repositorios.Interfaces.DAOinterface;
+import jakarta.persistence.EntityManager;
+
+@Repository
+public class AreaDAO implements DAOinterface<Area>{
+    public void insertar(Area obj) {
         // TODO Auto-generated method stub
         try {
             EntityManager em = HibernateUtil.getEntityManager();
@@ -17,7 +26,7 @@ public class PoliticaDAO implements DAOinterface<Politica>{
             e.printStackTrace();
         }
     }
-    public void modificar(Politica obj) {
+    public void modificar(Area obj) {
         // TODO Auto-generated method stub
         try {
             EntityManager em = HibernateUtil.getEntityManager();
@@ -30,7 +39,7 @@ public class PoliticaDAO implements DAOinterface<Politica>{
             e.printStackTrace();
         }
     }
-    public void eliminar(Politica obj) {
+    public void eliminar(Area obj) {
         // TODO Auto-generated method stub
         try {
             EntityManager em = HibernateUtil.getEntityManager();
@@ -43,11 +52,11 @@ public class PoliticaDAO implements DAOinterface<Politica>{
             e.printStackTrace();
         }
     }
-    public Politica buscarPorId(long id) {
+    public Area buscarPorId(long id) {
         // TODO Auto-generated method stub
         try {
             EntityManager em = HibernateUtil.getEntityManager();
-            return em.find(Politica.class, id);
+            return em.find(Area.class, id);
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -55,11 +64,11 @@ public class PoliticaDAO implements DAOinterface<Politica>{
         }
     }
     @SuppressWarnings("unchecked")
-    public List<Politica> buscarTodos() {
+    public List<Area> buscarTodos() {
         // TODO Auto-generated method stub
         try {
             EntityManager em = HibernateUtil.getEntityManager();
-            return em.createQuery("from Politica").getResultList();
+            return em.createQuery("from Area").getResultList();
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -67,35 +76,31 @@ public class PoliticaDAO implements DAOinterface<Politica>{
         }
     }
     @SuppressWarnings("unchecked")
-    public List<Politica> buscarPorNombre(String nombre) {
+    public List<Area> buscarPorNombre(String nombre) {
         // TODO Auto-generated method stub
         try {
             EntityManager em = HibernateUtil.getEntityManager();
-            return em.createQuery("from Politica where nombre = :nombre").setParameter("nombre", nombre).getResultList();
+            return em.createQuery("from Area where nombre like %:nombre%").setParameter("nombre", nombre).getResultList();
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
             return null;
-        }  
-    }
-    @SuppressWarnings("unchecked")
-    public List<Politica> buscarPorEje(Eje eje) {
-        // TODO Auto-generated method stub
-        List<Politica> politicas = null;
-        politicas = eje.getObjetivos().stream().map(Objetivo::getPoliticas).flatMap(List::stream).toList();
-        return politicas;
+        }
     }
     @Override
-    @SuppressWarnings("unchecked")
-    public List<Politica> buscarPorSecretaria(Secretaria secretaria) {
+    public List<Area> buscarPorEje(Eje eje) {
         // TODO Auto-generated method stub
-        try {
-            EntityManager em = HibernateUtil.getEntityManager();
-            return em.createQuery("from Politica where secretaria_id = :id").setParameter("id", secretaria.getid()).getResultList();
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-            return null;
-        }
+        throw new UnsupportedOperationException("Unimplemented method 'buscarPorEje'");
     }
+    @Override
+    public List<Area> buscarPorSecretaria(Secretaria secretaria) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'buscarPorSecretaria'");
+    }
+    @Override
+    public List<Area> buscarPorObjetivo(Objetivo objetivo) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'buscarPorObjetivo'");
+    }
+    
 }

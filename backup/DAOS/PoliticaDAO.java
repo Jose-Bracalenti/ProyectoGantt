@@ -1,14 +1,15 @@
 package gantt.proyecto.Repositorios.DAOS;
-
-import java.util.List;
-
-
 import gantt.proyecto.Modelo.*;
 import gantt.proyecto.Repositorios.Interfaces.*;
 import jakarta.persistence.EntityManager;
+import java.util.List;
 
-public class ActividadDAO implements DAOinterface<Actividad>{
-    public void insertar(Actividad obj) {
+import org.springframework.stereotype.Repository;
+
+@Repository
+
+public class PoliticaDAO implements DAOinterface<Politica>{
+    public void insertar(Politica obj) {
         // TODO Auto-generated method stub
         try {
             EntityManager em = HibernateUtil.getEntityManager();
@@ -19,9 +20,9 @@ public class ActividadDAO implements DAOinterface<Actividad>{
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }   
+        }
     }
-    public void modificar(Actividad obj) {
+    public void modificar(Politica obj) {
         // TODO Auto-generated method stub
         try {
             EntityManager em = HibernateUtil.getEntityManager();
@@ -34,7 +35,7 @@ public class ActividadDAO implements DAOinterface<Actividad>{
             e.printStackTrace();
         }
     }
-    public void eliminar(Actividad obj) {
+    public void eliminar(Politica obj) {
         // TODO Auto-generated method stub
         try {
             EntityManager em = HibernateUtil.getEntityManager();
@@ -47,13 +48,11 @@ public class ActividadDAO implements DAOinterface<Actividad>{
             e.printStackTrace();
         }
     }
-
-
-    public Actividad buscarPorId(long id) {
+    public Politica buscarPorId(long id) {
         // TODO Auto-generated method stub
         try {
             EntityManager em = HibernateUtil.getEntityManager();
-            return em.find(Actividad.class, id);
+            return em.find(Politica.class, id);
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -61,11 +60,11 @@ public class ActividadDAO implements DAOinterface<Actividad>{
         }
     }
     @SuppressWarnings("unchecked")
-    public List<Actividad> buscarTodos() {
+    public List<Politica> buscarTodos() {
         // TODO Auto-generated method stub
         try {
             EntityManager em = HibernateUtil.getEntityManager();
-            return em.createQuery("from Actividad").getResultList();
+            return em.createQuery("from Politica").getResultList();
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -73,23 +72,31 @@ public class ActividadDAO implements DAOinterface<Actividad>{
         }
     }
     @SuppressWarnings("unchecked")
-    public List<Actividad> buscarPorNombre(String nombre) {
+    public List<Politica> buscarPorNombre(String nombre) {
         // TODO Auto-generated method stub
         try {
             EntityManager em = HibernateUtil.getEntityManager();
-            return em.createQuery("from Actividad where nombre = :nombre").setParameter("nombre", nombre).getResultList();
+            return em.createQuery("from Politica where nombre like %:nombre%").setParameter("nombre", nombre).getResultList();
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
             return null;
-        }
+        }  
     }
-    public List<Actividad> buscarPorEje(Eje eje) {
+    @SuppressWarnings("unchecked")
+    public List<Politica> buscarPorEje(Eje eje) {
+        // TODO Auto-generated method stub
+        List<Politica> politicas = null;
+        politicas = eje.getObjetivos().stream().map(Objetivo::getPoliticas).flatMap(List::stream).toList();
+        return politicas;
+    }
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<Politica> buscarPorSecretaria(Secretaria secretaria) {
         // TODO Auto-generated method stub
         try {
-            List<Actividad> actividades = null;
-            actividades = eje.getObjetivos().stream().map(objetivo -> objetivo.getPoliticas()).flatMap(politica -> politica.stream()).map(politica -> politica.getActividades()).flatMap(actividad -> actividad.stream()).toList();
-            return actividades;
+            EntityManager em = HibernateUtil.getEntityManager();
+            return em.createQuery("from Politica where secretaria_id = :id").setParameter("id", secretaria.getid()).getResultList();
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -97,11 +104,10 @@ public class ActividadDAO implements DAOinterface<Actividad>{
         }
     }
     @Override
-    public List<Actividad> buscarPorSecretaria(Secretaria secretaria) {
-        List<Actividad> actividades = null;
-        actividades = secretaria.getPoliticas().stream().map(politica -> politica.getActividades()).flatMap(actividad -> actividad.stream()).toList();
-        return actividades;
+    public List<Politica> buscarPorObjetivo(Objetivo objetivo) {
+        // TODO Auto-generated method stub
+        List<Politica> politicas = null;
+        politicas = objetivo.getPoliticas();
+        return politicas;
     }
-
-    
 }
