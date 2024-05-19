@@ -19,8 +19,6 @@ public class Actividad {
     @Column
     private LocalDate fecha_fin;
     @Column
-    private float costo;
-    @Column
     private String resultado_esperado;
     @ManyToOne
     @JoinColumn(name = "idpolitica",nullable = false, referencedColumnName = "politica_id", foreignKey = @ForeignKey(name = "FK_ACTIVIDAD_POLITICA", value = ConstraintMode.CONSTRAINT))
@@ -33,14 +31,12 @@ public class Actividad {
     public Actividad() {
     }
 
-    public Actividad(long id, String nombre, String descripcion, LocalDate fecha_inicio, LocalDate fecha_fin,
-            float costo, String resultado_esperado, Politica politica, Area area) {
+    public Actividad(long id, String nombre, String descripcion, LocalDate fecha_inicio, LocalDate fecha_fin, String resultado_esperado, Politica politica, Area area) {
         this.actividad_id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.fecha_inicio = fecha_inicio;
         this.fecha_fin = fecha_fin;
-        this.costo = costo;
         this.resultado_esperado = resultado_esperado;
         this.politica = politica;
         this.area = area;
@@ -84,14 +80,6 @@ public class Actividad {
 
     public void setFecha_fin(LocalDate fecha_fin) {
         this.fecha_fin = fecha_fin;
-    }
-
-    public float getCosto() {
-        return costo;
-    }
-
-    public void setCosto(float costo) {
-        this.costo = costo;
     }
 
     public String getResultado_esperado() {

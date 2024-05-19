@@ -2,12 +2,14 @@ package gantt.proyecto.Servicios.Implemenaciones;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import gantt.proyecto.Modelo.*;
 import gantt.proyecto.Repositorios.DAOS.ActividadDAO;
 import gantt.proyecto.Servicios.Interfaces.ServicioActividadInterface;
+@Service
 public class ServicioActividad implements ServicioActividadInterface{
     @Autowired
     private ActividadDAO actividadDAO;

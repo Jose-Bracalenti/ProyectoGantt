@@ -6,6 +6,6 @@ public interface ServicioSecretariaInterface {
     void modificar(Secretaria obj);
     void eliminar(Secretaria obj);
     Secretaria buscarPorId(long id);
-    Secretaria buscarPorNombre(String nombre);
+    List<Secretaria> buscarPorNombre(String nombre);
     List<Secretaria> buscarTodo();
 }
