@@ -56,6 +56,7 @@ public class SecretariaDAO implements DAOinterface<Secretaria>{
             return null;
         }
     }
+    @SuppressWarnings("unchecked")
     public List<Secretaria> buscarTodos() {
         try {
             EntityManager em = HibernateUtil.getEntityManager();
@@ -66,6 +67,7 @@ public class SecretariaDAO implements DAOinterface<Secretaria>{
             return null;
         }
     }
+    @SuppressWarnings("unchecked")
     public List<Secretaria> buscarPorNombre(String nombre) {
         try {
             EntityManager em = HibernateUtil.getEntityManager();

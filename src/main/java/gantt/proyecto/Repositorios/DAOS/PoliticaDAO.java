@@ -83,7 +83,6 @@ public class PoliticaDAO implements DAOinterface<Politica>{
             return null;
         }  
     }
-    @SuppressWarnings("unchecked")
     public List<Politica> buscarPorEje(Eje eje) {
         // TODO Auto-generated method stub
         List<Politica> politicas = null;
