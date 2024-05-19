@@ -24,11 +24,11 @@ public class Area {
         this.actividades = new ArrayList<Actividad>();
     }
 
-    public long getArea_id() {
+    public long getid() {
         return area_id;
     }
 
-    public void setArea_id(long area_id) {
+    public void setid(long area_id) {
         this.area_id = area_id;
     }
 
