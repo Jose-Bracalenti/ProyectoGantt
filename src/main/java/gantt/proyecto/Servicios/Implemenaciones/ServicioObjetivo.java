@@ -7,35 +7,35 @@ import org.springframework.stereotype.Service;
 
 import gantt.proyecto.Modelo.*;
 import gantt.proyecto.Repositorios.DAOS.ObjetivoDAO;
+
 import gantt.proyecto.Servicios.Interfaces.ServicioObjetivoInterface;
 import jakarta.transaction.Transactional;
 
 @Service
+@Transactional(rollbackOn = {Exception.class})
 public class ServicioObjetivo implements ServicioObjetivoInterface{
-    @Autowired 
-    private ObjetivoDAO objetivoDAO;
-    @Transactional
-    public void insertar(Objetivo obj) {
-        objetivoDAO.insertar(obj);
+    @Autowired
+    private ObjetivoDAO ObjetivoDAO;
+    public Objetivo insertar(Objetivo Objetivo) {
+       return ObjetivoDAO.save(Objetivo);
     }
-    @Transactional
-    public void modificar(Objetivo obj) {
-        objetivoDAO.modificar(obj);
+    public Objetivo modificar(Objetivo obj) {
+         return ObjetivoDAO.save(obj);
     }
-    @Transactional
     public void eliminar(Objetivo obj) {
-        objetivoDAO.eliminar(obj);
+        ObjetivoDAO.delete(obj);
     }
     public Objetivo buscarPorId(long id) {
-        return objetivoDAO.buscarPorId(id);
+        return ObjetivoDAO.findById(id).get();
     }
     public List<Objetivo> buscarPorNombre(String nombre) {
-        return objetivoDAO.buscarPorNombre(nombre);
-    }
-    public List<Objetivo> buscarPorEje(Eje eje) {
-        return objetivoDAO.buscarPorEje(eje);
+        return ObjetivoDAO.findByNombre(nombre);
     }
     public List<Objetivo> buscarTodo() {
-        return objetivoDAO.buscarTodos();
+        return ObjetivoDAO.findAll();
+    }
+    @Override
+    public List<Objetivo> buscarPorEje(Eje eje) {
+        return eje.getObjetivos();
     }
 }

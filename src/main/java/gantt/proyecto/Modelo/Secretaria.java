@@ -19,7 +19,7 @@ public class Secretaria {
     @Column
     private String nombre;
     @OneToMany
-    @JoinColumn(name = "idSecretaria", referencedColumnName = "secretaria_id", nullable = true)
+    @JoinColumn(name = "secretaria_id", referencedColumnName = "secretaria_id", nullable = true)
     private List<Politica> politicas;
 
     public Secretaria() {

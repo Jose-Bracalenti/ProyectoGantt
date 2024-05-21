@@ -4,35 +4,31 @@ import java.util.List;
 import gantt.proyecto.Servicios.Interfaces.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+
 
 import gantt.proyecto.Repositorios.DAOS.EjeDAO;
+
 import gantt.proyecto.Modelo.*;
 @Service
 public class ServicioEje implements ServicioEJeInterface{
-    @Autowired
-    private EjeDAO ejeDAO;
-
-    @Transactional
-    public void insertar(Eje obj) {
-        ejeDAO.insertar(obj);
+   @Autowired
+    private EjeDAO EjeDAO;
+    public Eje insertar(Eje Eje) {
+       return EjeDAO.save(Eje);
     }
-    @Transactional
-    public void modificar(Eje obj) {
-        ejeDAO.modificar(obj);
+    public Eje modificar(Eje obj) {
+         return EjeDAO.save(obj);
     }
-    @Transactional
     public void eliminar(Eje obj) {
-        ejeDAO.eliminar(obj);
+        EjeDAO.delete(obj);
     }
     public Eje buscarPorId(long id) {
-        return ejeDAO.buscarPorId(id);
+        return EjeDAO.findById(id).get();
     }
     public List<Eje> buscarPorNombre(String nombre) {
-        return ejeDAO.buscarPorNombre(nombre);
+        return EjeDAO.findByNombre(nombre);
     }
     public List<Eje> buscarTodo() {
-        return ejeDAO.buscarTodos();
+        return EjeDAO.findAll();
     }
-    
 }

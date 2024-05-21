@@ -16,13 +16,13 @@ public class Politica {
     @Column(name = "costo")
     private float costo;
     @ManyToOne
-    @JoinColumn(name = "idSecretaria", referencedColumnName="secretaria_id", nullable = false, foreignKey = @ForeignKey(name = "FK_POLITICA_SECRETARIA", value = ConstraintMode.CONSTRAINT))
+    @JoinColumn(name = "secretaria_id", referencedColumnName="secretaria_id", nullable = false, foreignKey = @ForeignKey(name = "FK_POLITICA_SECRETARIA", value = ConstraintMode.CONSTRAINT))
     private Secretaria secretaria_responsable;
     @ManyToOne
-    @JoinColumn(name = "idObjetivo", referencedColumnName = "objetivo_id", nullable = false, foreignKey = @ForeignKey(name = "FK_POLITICA_OBJETIVO", value = ConstraintMode.CONSTRAINT))
+    @JoinColumn(name = "objetivo_id", referencedColumnName = "objetivo_id", nullable = false, foreignKey = @ForeignKey(name = "FK_POLITICA_OBJETIVO", value = ConstraintMode.CONSTRAINT))
     private Objetivo objetivo;
     @OneToMany
-    @JoinColumn(name = "idPolitica", referencedColumnName = "politica_id", nullable = true)
+    @JoinColumn(name = "politica_id", referencedColumnName = "politica_id", nullable = true)
     private List<Actividad> actividades;
 
 

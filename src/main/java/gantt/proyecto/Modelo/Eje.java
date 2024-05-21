@@ -16,7 +16,7 @@ public class Eje {
     @Column
     private String descripcion;
     @OneToMany
-    @JoinColumn(name = "idEje", referencedColumnName = "eje_id", nullable = true)
+    @JoinColumn(name = "eje_id", referencedColumnName = "eje_id", nullable = true)
     private List<Objetivo> objetivos;
 
     public Eje() {

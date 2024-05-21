@@ -8,29 +8,27 @@ import gantt.proyecto.Repositorios.DAOS.SecretariaDAO;
 import gantt.proyecto.Servicios.Interfaces.ServicioSecretariaInterface;
 import jakarta.transaction.Transactional;
 @Service
+@Transactional(rollbackOn = {Exception.class})
 public class ServicioSecretaria implements ServicioSecretariaInterface{
     @Autowired
     private SecretariaDAO secretariaDAO;
-    @Transactional
-    public void insertar(Secretaria obj) {
-        secretariaDAO.insertar(obj);
+    public Secretaria insertar(Secretaria secretaria) {
+       return secretariaDAO.save(secretaria);
     }
-    @Transactional
-    public void modificar(Secretaria obj) {
-        secretariaDAO.modificar(obj);
+    public Secretaria modificar(Secretaria obj) {
+         return secretariaDAO.save(obj);
     }
-    @Transactional
     public void eliminar(Secretaria obj) {
-        secretariaDAO.eliminar(obj);
+        secretariaDAO.delete(obj);
     }
     public Secretaria buscarPorId(long id) {
-        return secretariaDAO.buscarPorId(id);
+        return secretariaDAO.findById(id).get();
     }
     public List<Secretaria> buscarPorNombre(String nombre) {
-        return secretariaDAO.buscarPorNombre(nombre);
+        return secretariaDAO.findByNombre(nombre);
     }
     public List<Secretaria> buscarTodo() {
-        return secretariaDAO.buscarTodos();
+        return secretariaDAO.findAll();
     }
     
 }

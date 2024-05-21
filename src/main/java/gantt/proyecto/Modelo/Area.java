@@ -12,7 +12,7 @@ public class Area {
     @Column
     private String nombre;
     @OneToMany
-    @JoinColumn(name = "idArea",referencedColumnName = "area_id", nullable = true)
+    @JoinColumn(name = "area_id",referencedColumnName = "area_id", nullable = true)
     private List<Actividad> actividades;
 
     public Area() {

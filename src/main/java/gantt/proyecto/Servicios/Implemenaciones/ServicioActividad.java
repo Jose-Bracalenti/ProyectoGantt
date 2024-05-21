@@ -3,52 +3,57 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+
 import gantt.proyecto.Modelo.*;
 import gantt.proyecto.Repositorios.DAOS.ActividadDAO;
+
 import gantt.proyecto.Servicios.Interfaces.ServicioActividadInterface;
 @Service
 public class ServicioActividad implements ServicioActividadInterface{
     @Autowired
-    private ActividadDAO actividadDAO;
-
-    @Transactional
-    public void insertar(@Validated @RequestBody Actividad obj) {
-        actividadDAO.insertar(obj);
+    private ActividadDAO ActividadDAO;
+    public Actividad insertar(Actividad Actividad) {
+       return ActividadDAO.save(Actividad);
     }
-    @Transactional
-    public void modificar(@Validated @RequestBody Actividad obj) {
-        actividadDAO.modificar(obj);
+    public Actividad modificar(Actividad obj) {
+         return ActividadDAO.save(obj);
     }
-    @Transactional
-    public void eliminar(@Validated @RequestBody Actividad obj) {
-        actividadDAO.eliminar(obj);
+    public void eliminar(Actividad obj) {
+        ActividadDAO.delete(obj);
     }
-    
     public Actividad buscarPorId(long id) {
-        return actividadDAO.buscarPorId(id);
+        return ActividadDAO.findById(id).get();
     }
-   
     public List<Actividad> buscarPorNombre(String nombre) {
-        return actividadDAO.buscarPorNombre(nombre);
+        return ActividadDAO.findByNombre(nombre);
     }
-    
+    public List<Actividad> buscarTodo() {
+        return ActividadDAO.findAll();
+    }
+    @Override
     public List<Actividad> buscarPorEje(Eje eje) {
-        return actividadDAO.buscarPorEje(eje);
+        return eje.getObjetivos().stream().map(Objetivo::getPoliticas).map(lista -> lista.stream().map(Politica::getActividades).reduce((a, b) -> {
+            a.addAll(b);
+            return a;
+        }).get()).reduce((a, b) -> {
+            a.addAll(b);
+            return a;
+        }).get();
     }
-    
+    @Override
     public List<Actividad> buscarPorSecretaria(Secretaria secretaria) {
-        return actividadDAO.buscarPorSecretaria(secretaria);
+        return secretaria.getPoliticas().stream().map(Politica::getActividades).reduce((a, b) -> {
+            a.addAll(b);
+            return a;
+        }).get();
     }
-    
+    @Override
     public List<Actividad> buscarTodos() {
-        return actividadDAO.buscarTodos();
+        return ActividadDAO.findAll();
     }
-    
+    @Override
     public List<Actividad> buscarPorArea(Area area) {
-        return actividadDAO.buscarPorArea(area);
+        return area.getActividades();
     }
 
 }

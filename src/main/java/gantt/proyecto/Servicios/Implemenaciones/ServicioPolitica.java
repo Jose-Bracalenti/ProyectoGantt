@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import gantt.proyecto.Modelo.*;
 import gantt.proyecto.Repositorios.DAOS.PoliticaDAO;
@@ -12,39 +11,39 @@ import gantt.proyecto.Servicios.Interfaces.ServicioPoliticaInterface;
 
 @Service
 public class ServicioPolitica implements ServicioPoliticaInterface{
+    
     @Autowired
-    private PoliticaDAO politicaDAO;
-    @Transactional
-    public void insertar(Politica obj) {
-        politicaDAO.insertar(obj);
+    private PoliticaDAO PoliticaDAO;
+    public Politica insertar(Politica Politica) {
+       return PoliticaDAO.save(Politica);
     }
-    @Transactional
-    public void modificar(Politica obj) {
-        politicaDAO.modificar(obj);
+    public Politica modificar(Politica obj) {
+         return PoliticaDAO.save(obj);
     }
-    @Transactional
     public void eliminar(Politica obj) {
-        politicaDAO.eliminar(obj);
+        PoliticaDAO.delete(obj);
     }
     public Politica buscarPorId(long id) {
-        return politicaDAO.buscarPorId(id);
+        return PoliticaDAO.findById(id).get();
     }
     public List<Politica> buscarPorNombre(String nombre) {
-        return politicaDAO.buscarPorNombre(nombre);
+        return PoliticaDAO.findByNombre(nombre);
     }
     public List<Politica> buscarTodo() {
-        return politicaDAO.buscarTodos();
+        return PoliticaDAO.findAll();
+    }
+    public List<Politica> buscarPorObjetivo(Objetivo objetivo) {
+        return objetivo.getPoliticas();
     }
     @Override
     public List<Politica> buscarPorEje(Eje eje) {
-        return politicaDAO.buscarPorEje(eje);
+        return eje.getObjetivos().stream().map(Objetivo::getPoliticas).reduce((a, b) -> {
+            a.addAll(b);
+            return a;
+        }).get();
     }
     @Override
     public List<Politica> buscarPorSecretaria(Secretaria secretaria) {
-       return politicaDAO.buscarPorSecretaria(secretaria);
-    }
-    @Override
-    public List<Politica> buscarPorObjetivo(Objetivo objetivo) {
-        return politicaDAO.buscarPorObjetivo(objetivo);
+        return secretaria.getPoliticas();
     }
 }

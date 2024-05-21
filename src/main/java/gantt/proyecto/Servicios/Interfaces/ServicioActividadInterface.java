@@ -5,8 +5,8 @@ import java.util.List;
 import gantt.proyecto.Modelo.*;
 
 public interface ServicioActividadInterface {
-    void insertar(Actividad obj);
-    void modificar(Actividad obj);
+    Actividad insertar(Actividad obj);
+    Actividad modificar(Actividad obj);
     void eliminar(Actividad obj);
     Actividad buscarPorId(long id);
     List<Actividad> buscarPorNombre(String nombre);

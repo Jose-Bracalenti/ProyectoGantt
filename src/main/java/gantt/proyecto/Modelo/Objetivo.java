@@ -16,10 +16,10 @@ public class Objetivo {
     @Column(name = "descripcion")
     private String descripcion;
     @OneToMany
-    @JoinColumn(name = "idObjetivo", referencedColumnName = "objetivo_id", nullable = true)
+    @JoinColumn(name = "objetivo_id", referencedColumnName = "objetivo_id", nullable = true)
     private List<Politica> Politicas;
     @ManyToOne
-    @JoinColumn(name = "idEje", referencedColumnName = "eje_id", nullable = false)
+    @JoinColumn(name = "eje_id", referencedColumnName = "eje_id", nullable = false)
     private Eje eje;
 
     

@@ -21,10 +21,10 @@ public class Actividad {
     @Column
     private String resultado_esperado;
     @ManyToOne
-    @JoinColumn(name = "idpolitica",nullable = false, referencedColumnName = "politica_id", foreignKey = @ForeignKey(name = "FK_ACTIVIDAD_POLITICA", value = ConstraintMode.CONSTRAINT))
+    @JoinColumn(name = "politica_id",nullable = true, referencedColumnName = "politica_id", foreignKey = @ForeignKey(name = "FK_ACTIVIDAD_POLITICA", value = ConstraintMode.CONSTRAINT))
     private Politica politica;
     @ManyToOne
-    @JoinColumn(name = "idArea",nullable = false, referencedColumnName = "area_id", foreignKey = @ForeignKey(name = "FK_ACTIVIDAD_AREA", value = ConstraintMode.CONSTRAINT))
+    @JoinColumn(name = "idArea",nullable = true, referencedColumnName = "area_id", foreignKey = @ForeignKey(name = "FK_ACTIVIDAD_AREA", value = ConstraintMode.CONSTRAINT))
     private Area area;
     private String participacion_ciudadana;
 
