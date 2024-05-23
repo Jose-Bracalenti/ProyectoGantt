@@ -26,6 +26,10 @@ public class ActividadesController {
     public ResponseEntity<Actividad> createActividad(@RequestBody Actividad actividad){
         return ResponseEntity.ok().body(servicioActividad.insertar(actividad));
     }
+    @GetMapping
+    public ResponseEntity<List<Actividad>> getActividades(){
+        return ResponseEntity.ok().body(servicioActividad.buscarTodos());
+    }
     @GetMapping("{actividad_id}")
     public ResponseEntity<Actividad> getActividad(@PathVariable(value = "actividad_id") long id){
         return ResponseEntity.ok().body(servicioActividad.buscarPorId(id));

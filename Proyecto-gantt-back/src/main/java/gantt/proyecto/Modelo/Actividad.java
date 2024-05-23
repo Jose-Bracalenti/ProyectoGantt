@@ -24,7 +24,7 @@ public class Actividad {
     @JoinColumn(name = "politica_id",nullable = true, referencedColumnName = "politica_id", foreignKey = @ForeignKey(name = "FK_ACTIVIDAD_POLITICA", value = ConstraintMode.CONSTRAINT))
     private Politica politica;
     @ManyToOne
-    @JoinColumn(name = "idArea",nullable = true, referencedColumnName = "area_id", foreignKey = @ForeignKey(name = "FK_ACTIVIDAD_AREA", value = ConstraintMode.CONSTRAINT))
+    @JoinColumn(name = "area_id",nullable = true, referencedColumnName = "area_id", foreignKey = @ForeignKey(name = "FK_ACTIVIDAD_AREA", value = ConstraintMode.CONSTRAINT))
     private Area area;
     private String participacion_ciudadana;
 

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 
 public interface ObjetivoDAO extends JpaRepository<Objetivo, Long>{
+    @SuppressWarnings("null")
     Optional<Objetivo> findById(Long id);
     List<Objetivo> findByNombre(String nombre);
     

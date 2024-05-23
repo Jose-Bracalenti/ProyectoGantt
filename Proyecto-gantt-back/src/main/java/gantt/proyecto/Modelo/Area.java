@@ -11,8 +11,7 @@ public class Area {
     private long area_id;
     @Column
     private String nombre;
-    @OneToMany
-    @JoinColumn(name = "area_id",referencedColumnName = "area_id", nullable = true)
+    @OneToMany(mappedBy = "area",fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Actividad> actividades;
 
     public Area() {

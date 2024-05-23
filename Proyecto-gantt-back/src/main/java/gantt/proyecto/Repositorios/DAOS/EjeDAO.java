@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 
 public interface EjeDAO extends JpaRepository<Eje, Long>{
+    @SuppressWarnings("null")
     Optional<Eje> findById(Long id);
     List<Eje> findByNombre(String nombre);
     

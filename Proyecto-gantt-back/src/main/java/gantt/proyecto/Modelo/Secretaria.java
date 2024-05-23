@@ -2,10 +2,11 @@ package gantt.proyecto.Modelo;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -18,8 +19,7 @@ public class Secretaria {
     private long secretaria_id;
     @Column
     private String nombre;
-    @OneToMany
-    @JoinColumn(name = "secretaria_id", referencedColumnName = "secretaria_id", nullable = true)
+    @OneToMany(mappedBy = "secretaria_responsable",fetch = FetchType.LAZY,cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Politica> politicas;
 
     public Secretaria() {

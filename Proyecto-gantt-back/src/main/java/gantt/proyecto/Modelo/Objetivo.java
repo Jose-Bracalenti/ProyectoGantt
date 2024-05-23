@@ -3,6 +3,7 @@ package gantt.proyecto.Modelo;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
 
@@ -15,10 +16,10 @@ public class Objetivo {
     private String nombre;
     @Column(name = "descripcion")
     private String descripcion;
-    @OneToMany
-    @JoinColumn(name = "objetivo_id", referencedColumnName = "objetivo_id", nullable = true)
+    @OneToMany(mappedBy = "objetivo",fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Politica> Politicas;
-    @ManyToOne
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "eje_id", referencedColumnName = "eje_id", nullable = false)
     private Eje eje;
 

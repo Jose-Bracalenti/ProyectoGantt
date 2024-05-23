@@ -21,8 +21,7 @@ public class Politica {
     @ManyToOne
     @JoinColumn(name = "objetivo_id", referencedColumnName = "objetivo_id", nullable = false, foreignKey = @ForeignKey(name = "FK_POLITICA_OBJETIVO", value = ConstraintMode.CONSTRAINT))
     private Objetivo objetivo;
-    @OneToMany
-    @JoinColumn(name = "politica_id", referencedColumnName = "politica_id", nullable = true)
+    @OneToMany(mappedBy = "politica",fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Actividad> actividades;
 
 

@@ -10,6 +10,7 @@ import gantt.proyecto.Modelo.*;
 @Repository
 
 public interface SecretariaDAO extends JpaRepository<Secretaria, Long>{
+    @SuppressWarnings("null")
     Optional<Secretaria> findById(Long id);    
     List<Secretaria> findByNombre(String nombre);
 }

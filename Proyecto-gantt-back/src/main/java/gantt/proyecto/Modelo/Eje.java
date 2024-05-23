@@ -4,6 +4,7 @@ package gantt.proyecto.Modelo;
 
 import java.util.List;
 
+
 import jakarta.persistence.*;
 
 @Entity
@@ -15,8 +16,7 @@ public class Eje {
     private String nombre;
     @Column
     private String descripcion;
-    @OneToMany
-    @JoinColumn(name = "eje_id", referencedColumnName = "eje_id", nullable = true)
+    @OneToMany(mappedBy = "eje",fetch = FetchType.LAZY)
     private List<Objetivo> objetivos;
 
     public Eje() {
