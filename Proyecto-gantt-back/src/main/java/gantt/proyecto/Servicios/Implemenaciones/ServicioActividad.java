@@ -4,6 +4,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import gantt.proyecto.DTOS.ActividadDTO;
 import gantt.proyecto.Modelo.*;
 import gantt.proyecto.Repositorios.DAOS.ActividadDAO;
 
@@ -12,14 +13,14 @@ import gantt.proyecto.Servicios.Interfaces.ServicioActividadInterface;
 public class ServicioActividad implements ServicioActividadInterface{
     @Autowired
     private ActividadDAO ActividadDAO;
-    public Actividad insertar(Actividad Actividad) {
-       return ActividadDAO.save(Actividad);
+    public Actividad insertar(ActividadDTO Actividad) {
+       return ActividadDAO.save(this.mapToEntity(Actividad));
     }
-    public Actividad modificar(Actividad obj) {
-         return ActividadDAO.save(obj);
+    public Actividad modificar(ActividadDTO obj) {
+         return ActividadDAO.save(this.mapToEntity(obj));
     }
-    public void eliminar(Actividad obj) {
-        ActividadDAO.delete(obj);
+    public void eliminar(ActividadDTO obj) {
+        ActividadDAO.delete(this.mapToEntity(obj));
     }
     public Actividad buscarPorId(long id) {
         return ActividadDAO.findById(id).get();
@@ -55,5 +56,28 @@ public class ServicioActividad implements ServicioActividadInterface{
     public List<Actividad> buscarPorArea(Area area) {
         return area.getActividades();
     }
-
+    public final ActividadDTO mapToDTO(Actividad actividad){
+        ActividadDTO dto = new ActividadDTO();
+        dto.setNombre(actividad.getNombre());
+        dto.setDescripcion(actividad.getDescripcion());
+        dto.setFechaInicio(actividad.getFecha_inicio());
+        dto.setFechaFin(actividad.getFecha_fin());
+        dto.setParticipacion_ciudadana(actividad.getParticipacion_ciudadana());
+        dto.setArea(actividad.getArea().getNombre());
+        dto.setArea_id(actividad.getArea().getid());
+        dto.setPolitica(actividad.getPolitica().getNombre());
+        dto.setPolitica_id(actividad.getPolitica().getPolitica_id());
+        dto.setResultado_esperado(actividad.getResultado_esperado());
+        return dto;
+    }
+    public final Actividad mapToEntity(ActividadDTO dto){
+        Actividad actividad = new Actividad();
+        actividad.setNombre(dto.getNombre());
+        actividad.setDescripcion(dto.getDescripcion());
+        actividad.setFecha_inicio(dto.getFechaInicio());
+        actividad.setFecha_fin(dto.getFechaFin());
+        actividad.setParticipacion_ciudadana(dto.getParticipacion_ciudadana());
+        actividad.setResultado_esperado(dto.getResultado_esperado());
+        return actividad;
+    }
 }
