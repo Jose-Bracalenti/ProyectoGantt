@@ -13,14 +13,18 @@ import gantt.proyecto.Servicios.Interfaces.ServicioActividadInterface;
 public class ServicioActividad implements ServicioActividadInterface{
     @Autowired
     private ActividadDAO ActividadDAO;
-    public Actividad insertar(ActividadDTO Actividad) {
-       return ActividadDAO.save(this.mapToEntity(Actividad));
+    @Autowired
+    private ServicioPolitica ServicioPolitica;
+    @Autowired
+    private ServicioArea ServicioArea;
+    public ActividadDTO insertar(ActividadDTO Actividad) {
+       return this.mapToDTO(ActividadDAO.save(this.mapToEntity(Actividad)));
     }
-    public Actividad modificar(ActividadDTO obj) {
-         return ActividadDAO.save(this.mapToEntity(obj));
+    public ActividadDTO modificar(ActividadDTO Actividad) {
+         return this.mapToDTO(ActividadDAO.save(this.mapToEntity(Actividad)));
     }
-    public void eliminar(ActividadDTO obj) {
-        ActividadDAO.delete(this.mapToEntity(obj));
+    public void eliminar(ActividadDTO Actividad) {
+        ActividadDAO.delete(this.mapToEntity(Actividad));
     }
     public Actividad buscarPorId(long id) {
         return ActividadDAO.findById(id).get();
@@ -78,6 +82,8 @@ public class ServicioActividad implements ServicioActividadInterface{
         actividad.setFecha_fin(dto.getFechaFin());
         actividad.setParticipacion_ciudadana(dto.getParticipacion_ciudadana());
         actividad.setResultado_esperado(dto.getResultado_esperado());
+        actividad.setPolitica(ServicioPolitica.buscarPorId(dto.getPolitica_id()));
+        actividad.setArea(ServicioArea.buscarPorId(dto.getArea_id()));
         return actividad;
     }
 }

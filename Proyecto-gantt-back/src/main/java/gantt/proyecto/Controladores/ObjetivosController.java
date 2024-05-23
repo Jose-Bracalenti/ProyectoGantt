@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import gantt.proyecto.DTOS.ObjetivoDTO;
 import gantt.proyecto.Modelo.Objetivo;
 import gantt.proyecto.Servicios.Implemenaciones.ServicioObjetivo;
 
@@ -21,19 +22,19 @@ public class ObjetivosController {
     @Autowired
     private ServicioObjetivo servicioObjetivo;
     @PostMapping
-    public ResponseEntity<Objetivo> createObjetivo(@RequestBody Objetivo Objetivo){
+    public ResponseEntity<ObjetivoDTO> createObjetivo(@RequestBody ObjetivoDTO Objetivo){
         return ResponseEntity.ok().body(servicioObjetivo.insertar(Objetivo));
     }
     @GetMapping
-    public ResponseEntity<List<Objetivo>> getObjetivos(){
-        return ResponseEntity.ok().body(servicioObjetivo.buscarTodo());
+    public ResponseEntity<List<ObjetivoDTO>> getObjetivos(){
+       return ResponseEntity.ok().body(servicioObjetivo.buscarTodo().stream().map(x -> servicioObjetivo.mapToDTO(x)).toList());
     }
     @GetMapping("{Objetivo_id}")
     public ResponseEntity<Objetivo> getObjetivo(@PathVariable(value = "Objetivo_id") long id){
         return ResponseEntity.ok().body(servicioObjetivo.buscarPorId(id));
     }
     @DeleteMapping
-    public ResponseEntity<Void> deleteObjetivo(@RequestBody Objetivo Objetivo){
+    public ResponseEntity<Void> deleteObjetivo(@RequestBody ObjetivoDTO Objetivo){
         servicioObjetivo.eliminar(Objetivo);
         return ResponseEntity.ok().build();
     }

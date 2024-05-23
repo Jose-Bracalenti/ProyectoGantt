@@ -1,10 +1,12 @@
 package gantt.proyecto.Servicios.Interfaces;
 import java.util.List;
+
+import gantt.proyecto.DTOS.EjeDTO;
 import gantt.proyecto.Modelo.*;
 public interface ServicioEJeInterface {
-    Eje insertar(Eje obj);
-    Eje modificar(Eje obj);
-    void eliminar(Eje obj);
+    EjeDTO insertar(EjeDTO obj);
+    EjeDTO modificar(EjeDTO obj);
+    void eliminar(EjeDTO obj);
     Eje buscarPorId(long id);
     List<Eje> buscarPorNombre(String nombre);
     List<Eje> buscarTodo();

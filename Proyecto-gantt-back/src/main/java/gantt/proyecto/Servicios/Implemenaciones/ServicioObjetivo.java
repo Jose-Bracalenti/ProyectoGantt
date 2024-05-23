@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import gantt.proyecto.DTOS.ObjetivoDTO;
 import gantt.proyecto.Modelo.*;
 import gantt.proyecto.Repositorios.DAOS.ObjetivoDAO;
 
@@ -16,14 +17,15 @@ import jakarta.transaction.Transactional;
 public class ServicioObjetivo implements ServicioObjetivoInterface{
     @Autowired
     private ObjetivoDAO ObjetivoDAO;
-    public Objetivo insertar(Objetivo Objetivo) {
-       return ObjetivoDAO.save(Objetivo);
+    private ServicioEje ServicioEje;
+    public ObjetivoDTO insertar(ObjetivoDTO Objetivo) {
+         return this.mapToDTO(ObjetivoDAO.save(this.mapToEntity(Objetivo)));
     }
-    public Objetivo modificar(Objetivo obj) {
-         return ObjetivoDAO.save(obj);
+    public ObjetivoDTO modificar(ObjetivoDTO obj) {
+            return this.mapToDTO(ObjetivoDAO.save(this.mapToEntity(obj)));
     }
-    public void eliminar(Objetivo obj) {
-        ObjetivoDAO.delete(obj);
+    public void eliminar(ObjetivoDTO obj) {
+        ObjetivoDAO.delete(this.mapToEntity(obj));
     }
     public Objetivo buscarPorId(long id) {
         return ObjetivoDAO.findById(id).get();
@@ -37,5 +39,22 @@ public class ServicioObjetivo implements ServicioObjetivoInterface{
     @Override
     public List<Objetivo> buscarPorEje(Eje eje) {
         return eje.getObjetivos();
+    }
+    public final ObjetivoDTO mapToDTO(Objetivo objetivo){
+        ObjetivoDTO dto = new ObjetivoDTO();
+        dto.setId(objetivo.getId());
+        dto.setNombre(objetivo.getNombre());
+        dto.setDescripcion(objetivo.getDescripcion());
+        dto.setEje(objetivo.getEje().getNombre());
+        dto.setEje_id(objetivo.getEje().getid());
+        return dto;
+    }
+    public final Objetivo mapToEntity(ObjetivoDTO dto){
+        Objetivo objetivo = new Objetivo();
+        objetivo.setId(dto.getId());
+        objetivo.setNombre(dto.getNombre());
+        objetivo.setDescripcion(dto.getDescripcion());
+        objetivo.setEje(ServicioEje.buscarPorId(dto.getEje_id()));
+        return objetivo;
     }
 }

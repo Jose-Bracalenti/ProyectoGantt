@@ -8,20 +8,20 @@ import org.springframework.stereotype.Service;
 import gantt.proyecto.Repositorios.DAOS.AreaDAO;
 
 import gantt.proyecto.Servicios.Interfaces.ServicioAreaInterface;
-
+import gantt.proyecto.DTOS.AreaDTO;
 import gantt.proyecto.Modelo.*;
 @Service
 public class ServicioArea implements ServicioAreaInterface{
    @Autowired
     private AreaDAO AreaDAO;
-    public Area insertar(Area Area) {
-       return AreaDAO.save(Area);
+    public AreaDTO insertar(AreaDTO Area) {
+       return this.mapToDTO(AreaDAO.save(this.mapToEntity(Area)));
     }
-    public Area modificar(Area obj) {
-         return AreaDAO.save(obj);
+    public AreaDTO modificar(AreaDTO obj) {
+         return this.mapToDTO(AreaDAO.save(this.mapToEntity(obj)));
     }
-    public void eliminar(Area obj) {
-        AreaDAO.delete(obj);
+    public void eliminar(AreaDTO obj) {
+        AreaDAO.delete(this.mapToEntity(obj));
     }
     public Area buscarPorId(long id) {
         return AreaDAO.findById(id).get();
@@ -32,6 +32,17 @@ public class ServicioArea implements ServicioAreaInterface{
     public List<Area> buscarTodo() {
         return AreaDAO.findAll();
     }
-  
+  public final AreaDTO mapToDTO(Area area){
+        AreaDTO dto = new AreaDTO();
+        dto.setId(area.getid());
+        dto.setNombre(area.getNombre());
+        return dto;
+    }
+    public final Area mapToEntity(AreaDTO dto){
+        Area area = new Area();
+        area.setid(dto.getId());
+        area.setNombre(dto.getNombre());
+        return area;
+    }
 
 }

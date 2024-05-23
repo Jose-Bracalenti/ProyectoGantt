@@ -7,20 +7,20 @@ import org.springframework.stereotype.Service;
 
 
 import gantt.proyecto.Repositorios.DAOS.EjeDAO;
-
+import gantt.proyecto.DTOS.EjeDTO;
 import gantt.proyecto.Modelo.*;
 @Service
 public class ServicioEje implements ServicioEJeInterface{
    @Autowired
     private EjeDAO EjeDAO;
-    public Eje insertar(Eje Eje) {
-       return EjeDAO.save(Eje);
+    public EjeDTO insertar(EjeDTO Eje) {
+         return this.mapToDTO(EjeDAO.save(this.mapToEntity(Eje)));
     }
-    public Eje modificar(Eje obj) {
-         return EjeDAO.save(obj);
+    public EjeDTO modificar(EjeDTO obj) {
+            return this.mapToDTO(EjeDAO.save(this.mapToEntity(obj)));
     }
-    public void eliminar(Eje obj) {
-        EjeDAO.delete(obj);
+    public void eliminar(EjeDTO obj) {
+        EjeDAO.delete(this.mapToEntity(obj));
     }
     public Eje buscarPorId(long id) {
         return EjeDAO.findById(id).get();
@@ -30,5 +30,17 @@ public class ServicioEje implements ServicioEJeInterface{
     }
     public List<Eje> buscarTodo() {
         return EjeDAO.findAll();
+    }
+    public final EjeDTO mapToDTO(Eje eje){
+        EjeDTO dto = new EjeDTO();
+        dto.setId(eje.getid());
+        dto.setNombre(eje.getNombre());
+        return dto;
+    }
+    public final Eje mapToEntity(EjeDTO dto){
+        Eje eje = new Eje();
+        eje.setid(dto.getId());
+        eje.setNombre(dto.getNombre());
+        return eje;
     }
 }
