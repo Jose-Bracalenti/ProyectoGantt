@@ -1,6 +1,7 @@
 package gantt.proyecto.Servicios.Implemenaciones;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,9 @@ import jakarta.transaction.Transactional;
 public class ServicioObjetivo implements ServicioObjetivoInterface{
     @Autowired
     private ObjetivoDAO ObjetivoDAO;
+    @Autowired
+    private ServicioPolitica ServicioPolitica;
+    @Autowired
     private ServicioEje ServicioEje;
     public ObjetivoDTO insertar(ObjetivoDTO Objetivo) {
          return this.mapToDTO(ObjetivoDAO.save(this.mapToEntity(Objetivo)));
@@ -47,6 +51,7 @@ public class ServicioObjetivo implements ServicioObjetivoInterface{
         dto.setDescripcion(objetivo.getDescripcion());
         dto.setEje(objetivo.getEje().getNombre());
         dto.setEje_id(objetivo.getEje().getid());
+        dto.setPoliticas(objetivo.getPoliticas().stream().map(x -> ServicioPolitica.mapToDTO(x)).collect(Collectors.toList()));
         return dto;
     }
     public final Objetivo mapToEntity(ObjetivoDTO dto){
@@ -55,6 +60,7 @@ public class ServicioObjetivo implements ServicioObjetivoInterface{
         objetivo.setNombre(dto.getNombre());
         objetivo.setDescripcion(dto.getDescripcion());
         objetivo.setEje(ServicioEje.buscarPorId(dto.getEje_id()));
+        objetivo.setPoliticas(dto.getPoliticas().stream().map(x -> ServicioPolitica.mapToEntity(x)).collect(Collectors.toList()));
         return objetivo;
     }
 }

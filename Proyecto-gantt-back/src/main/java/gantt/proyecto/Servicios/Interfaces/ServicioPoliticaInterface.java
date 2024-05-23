@@ -1,10 +1,12 @@
 package gantt.proyecto.Servicios.Interfaces;
 import java.util.List;
+
+import gantt.proyecto.DTOS.PoliticaDTO;
 import gantt.proyecto.Modelo.*;
 public interface ServicioPoliticaInterface {
-    Politica insertar(Politica obj);
-    Politica modificar(Politica obj);
-    void eliminar(Politica obj);
+    PoliticaDTO insertar(PoliticaDTO obj);
+    PoliticaDTO modificar(PoliticaDTO obj);
+    void eliminar(PoliticaDTO obj);
     Politica buscarPorId(long id);
     List<Politica> buscarPorNombre(String nombre);
     List<Politica> buscarTodo();

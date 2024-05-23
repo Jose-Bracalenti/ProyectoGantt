@@ -35,7 +35,7 @@ public class EjesController {
         return ResponseEntity.ok().body(servicioEje.buscarPorId(id));
     }
     @DeleteMapping
-    public ResponseEntity<Void> deleteEje(@RequestBody Eje Eje){
+    public ResponseEntity<Void> deleteEje(@RequestBody EjeDTO Eje){
         servicioEje.eliminar(Eje);
         return ResponseEntity.ok().build();
     }

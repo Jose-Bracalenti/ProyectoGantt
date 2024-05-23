@@ -1,15 +1,19 @@
 package gantt.proyecto.DTOS;
 
+import java.util.List;
+
 public class EjeDTO {
     private long id;
     private String nombre;
     private String descripcion;
+    private List<ObjetivoDTO> objetivos;
     public EjeDTO() {
     }
-    public EjeDTO(long id, String nombre, String descripcion) {
+    public EjeDTO(long id, String nombre, String descripcion, List<ObjetivoDTO> objetivos) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
+        this.objetivos = objetivos;
     }
     public long getId() {
         return id;
@@ -29,5 +33,11 @@ public class EjeDTO {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
-    
+    public List<ObjetivoDTO> getObjetivos() {
+        return objetivos;
+    }
+    public void setObjetivos(List<ObjetivoDTO> objetivos) {
+        this.objetivos = objetivos;
+    }
+   
 }

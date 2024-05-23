@@ -1,6 +1,7 @@
 package gantt.proyecto.Servicios.Implemenaciones;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,8 @@ import gantt.proyecto.Modelo.*;
 public class ServicioArea implements ServicioAreaInterface{
    @Autowired
     private AreaDAO AreaDAO;
+    @Autowired
+    private ServicioActividad ServicioActividad;
     public AreaDTO insertar(AreaDTO Area) {
        return this.mapToDTO(AreaDAO.save(this.mapToEntity(Area)));
     }
@@ -32,17 +35,20 @@ public class ServicioArea implements ServicioAreaInterface{
     public List<Area> buscarTodo() {
         return AreaDAO.findAll();
     }
-  public final AreaDTO mapToDTO(Area area){
+  public AreaDTO mapToDTO(Area obj) {
         AreaDTO dto = new AreaDTO();
-        dto.setId(area.getid());
-        dto.setNombre(area.getNombre());
+        dto.setId(obj.getid());
+        dto.setNombre(obj.getNombre());
+        dto.setActividades(obj.getActividades().stream().map(x -> ServicioActividad.mapToDTO(x)).collect(Collectors.toList()));
+        
         return dto;
     }
-    public final Area mapToEntity(AreaDTO dto){
-        Area area = new Area();
-        area.setid(dto.getId());
-        area.setNombre(dto.getNombre());
-        return area;
+    public Area mapToEntity(AreaDTO obj) {
+        Area entity = new Area();
+        entity.setid(obj.getId());
+        entity.setNombre(obj.getNombre());
+        entity.setActividades(obj.getActividades().stream().map(x -> ServicioActividad.mapToEntity(x)).collect(Collectors.toList()));
+        return entity;
     }
 
 }

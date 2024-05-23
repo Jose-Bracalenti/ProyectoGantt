@@ -1,10 +1,12 @@
 package gantt.proyecto.Servicios.Interfaces;
 import java.util.List;
+
+import gantt.proyecto.DTOS.SecretariaDTO;
 import gantt.proyecto.Modelo.*;
 public interface ServicioSecretariaInterface {
-    Secretaria insertar(Secretaria obj);
-    Secretaria modificar(Secretaria obj);
-    void eliminar(Secretaria obj);
+    SecretariaDTO insertar(SecretariaDTO obj);
+    SecretariaDTO modificar(SecretariaDTO obj);
+    void eliminar(SecretariaDTO obj);
     Secretaria buscarPorId(long id);
     List<Secretaria> buscarPorNombre(String nombre);
     List<Secretaria> buscarTodo();

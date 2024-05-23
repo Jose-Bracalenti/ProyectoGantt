@@ -1,49 +1,75 @@
 package gantt.proyecto.DTOS;
 
+import java.util.List;
+
 public class ObjetivoDTO {
     private long id;
     private String nombre;
     private String descripcion;
     private String eje;
     private long eje_id;
+    private List<PoliticaDTO> politicas;
+
     public ObjetivoDTO() {
     }
-    public ObjetivoDTO(long id, String nombre, String descripcion, String eje, long eje_id) {
+
+    public ObjetivoDTO(long id, String nombre, String descripcion, String eje, long eje_id,
+            List<PoliticaDTO> politicas) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.eje = eje;
         this.eje_id = eje_id;
+        this.politicas = politicas;
     }
+
     public long getId() {
         return id;
     }
+
     public void setId(long id) {
         this.id = id;
     }
+
     public String getNombre() {
         return nombre;
     }
+
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
     public String getDescripcion() {
         return descripcion;
     }
+
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
+
     public String getEje() {
         return eje;
     }
+
     public void setEje(String eje) {
         this.eje = eje;
     }
+
     public long getEje_id() {
         return eje_id;
     }
+
     public void setEje_id(long eje_id) {
         this.eje_id = eje_id;
     }
+
+    public List<PoliticaDTO> getPoliticas() {
+        return politicas;
+    }
+
+    public void setPoliticas(List<PoliticaDTO> politicas) {
+        this.politicas = politicas;
+    }
+    
     
 }
