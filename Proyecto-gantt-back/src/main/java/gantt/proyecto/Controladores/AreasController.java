@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import gantt.proyecto.DTOS.AreaDTO;
-import gantt.proyecto.Modelo.Area;
+
 import gantt.proyecto.Servicios.Implemenaciones.ServicioArea;
 
 @RestController
@@ -31,8 +31,8 @@ public class AreasController {
         return ResponseEntity.ok().body(servicioArea.buscarTodo().stream().map(x -> servicioArea.mapToDTO(x)).collect(Collectors.toList()));
     }
     @GetMapping("{Area_id}")
-    public ResponseEntity<Area> getArea(@PathVariable(value = "Area_id") long id){
-        return ResponseEntity.ok().body(servicioArea.buscarPorId(id));
+    public ResponseEntity<AreaDTO> getArea(@PathVariable(value = "Area_id") long id){
+        return ResponseEntity.ok().body(servicioArea.mapToDTO(servicioArea.buscarPorId(id)));
     }
     @DeleteMapping
     public ResponseEntity<Void> deleteArea(@RequestBody AreaDTO Area){

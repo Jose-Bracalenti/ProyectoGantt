@@ -53,7 +53,7 @@ public class ServicioPolitica implements ServicioPoliticaInterface{
         PoliticaDTO dto = new PoliticaDTO();
         dto.setId(obj.getPolitica_id());
         dto.setNombre(obj.getNombre());
-        dto.setDescripcion(obj.getDescripcion());
+        dto.setDescripcion(obj.getDescripcion()); 
         dto.setObjetivo(obj.getObjetivo().getNombre());
         dto.setObjetivo_id(obj.getObjetivo().getId());
         return dto;

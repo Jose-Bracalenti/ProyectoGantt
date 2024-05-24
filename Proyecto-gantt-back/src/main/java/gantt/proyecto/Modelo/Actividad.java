@@ -46,7 +46,7 @@ public class Actividad {
         return actividad_id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.actividad_id = id;
     }
 

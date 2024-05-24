@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import gantt.proyecto.DTOS.EjeDTO;
-import gantt.proyecto.Modelo.Eje;
+
 import gantt.proyecto.Servicios.Implemenaciones.*;
 
 @RestController
@@ -31,8 +31,8 @@ public class EjesController {
         return ResponseEntity.ok().body(servicioEje.buscarTodo().stream().map(x -> servicioEje.mapToDTO(x)).collect(Collectors.toList()));
     }
     @GetMapping("{Eje_id}")
-    public ResponseEntity<Eje> getEje(@PathVariable(value = "Eje_id") long id){
-        return ResponseEntity.ok().body(servicioEje.buscarPorId(id));
+    public ResponseEntity<EjeDTO> getEje(@PathVariable(value = "Eje_id") long id){
+        return ResponseEntity.ok().body(servicioEje.mapToDTO(servicioEje.buscarPorId(id)));
     }
     @DeleteMapping
     public ResponseEntity<Void> deleteEje(@RequestBody EjeDTO Eje){

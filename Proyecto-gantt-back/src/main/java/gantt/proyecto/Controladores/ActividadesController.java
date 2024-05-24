@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import gantt.proyecto.DTOS.ActividadDTO;
-import gantt.proyecto.Modelo.Actividad;
+
 import gantt.proyecto.Servicios.Implemenaciones.ServicioActividad;
 
 
@@ -33,8 +33,8 @@ public class ActividadesController {
         return ResponseEntity.ok().body(servicioActividad.buscarTodos().stream().map(x -> servicioActividad.mapToDTO(x)).collect(Collectors.toList()));
     }
     @GetMapping("{actividad_id}")
-    public ResponseEntity<Actividad> getActividad(@PathVariable(value = "actividad_id") long id){
-        return ResponseEntity.ok().body(servicioActividad.buscarPorId(id));
+    public ResponseEntity<ActividadDTO> getActividad(@PathVariable(value = "actividad_id") long id){
+        return ResponseEntity.ok().body(servicioActividad.mapToDTO(servicioActividad.buscarPorId(id)));
     }
     @DeleteMapping
     public ResponseEntity<Void> deleteActividad(@RequestBody ActividadDTO actividad){

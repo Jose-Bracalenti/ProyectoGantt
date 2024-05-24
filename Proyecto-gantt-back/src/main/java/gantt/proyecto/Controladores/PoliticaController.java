@@ -1,6 +1,5 @@
 package gantt.proyecto.Controladores;
 import gantt.proyecto.DTOS.PoliticaDTO;
-import gantt.proyecto.Modelo.Politica;
 import gantt.proyecto.Servicios.Implemenaciones.ServicioPolitica;
 
 import java.util.List;
@@ -25,8 +24,8 @@ public class PoliticaController {
         return ResponseEntity.ok().body(servicioPolitica.buscarTodo().stream().map(x -> servicioPolitica.mapToDTO(x)).collect(Collectors.toList()));
     }
     @GetMapping("{politica_id}")
-    public ResponseEntity<Politica> getPolitica(@PathVariable(value = "politica_id") long id){
-        return ResponseEntity.ok().body(servicioPolitica.buscarPorId(id));
+    public ResponseEntity<PoliticaDTO> getPolitica(@PathVariable(value = "politica_id") long id){
+        return ResponseEntity.ok().body(servicioPolitica.mapToDTO(servicioPolitica.buscarPorId(id)));
     }
     @DeleteMapping
     public ResponseEntity<Void> deletePolitica(@RequestBody PoliticaDTO politica){

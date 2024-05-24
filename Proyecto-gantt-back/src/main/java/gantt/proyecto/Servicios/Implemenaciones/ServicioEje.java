@@ -1,7 +1,6 @@
 package gantt.proyecto.Servicios.Implemenaciones;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import gantt.proyecto.Servicios.Interfaces.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +14,6 @@ import gantt.proyecto.Modelo.*;
 public class ServicioEje implements ServicioEJeInterface{
    @Autowired
     private EjeDAO EjeDAO;
-    @Autowired
-    private ServicioObjetivo ServicioObjetivo;
     public EjeDTO insertar(EjeDTO Eje) {
          return this.mapToDTO(EjeDAO.save(this.mapToEntity(Eje)));
     }
@@ -39,14 +36,14 @@ public class ServicioEje implements ServicioEJeInterface{
         EjeDTO dto = new EjeDTO();
         dto.setId(eje.getid());
         dto.setNombre(eje.getNombre());
-        dto.setObjetivos(eje.getObjetivos().stream().map(x -> ServicioObjetivo.mapToDTO(x)).collect(Collectors.toList()));
+        dto.setDescripcion(eje.getDescripcion());
         return dto;
     }
     public final Eje mapToEntity(EjeDTO dto){
         Eje eje = new Eje();
         eje.setid(dto.getId());
         eje.setNombre(dto.getNombre());
-        eje.setObjetivos(dto.getObjetivos().stream().map(x -> ServicioObjetivo.mapToEntity(x)).collect(Collectors.toList()));
+        eje.setDescripcion(dto.getDescripcion());
         return eje;
     }
 }
