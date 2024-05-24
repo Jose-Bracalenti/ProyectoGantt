@@ -1,16 +1,19 @@
-import './App.css'
-import {Button} from '@mui/material';
-
+import { Routes, Route } from "react-router-dom/dist";
+import "./App.css";
+import NavBar from "./components/NavBar";
+import { CrearPolitica, Contact, Ejemplo } from "./components/pages";
 
 function App() {
-
   return (
     <div>
-      <Button variant="contained" color="primary">
-        Hello World
-      </Button>
+      <NavBar />
+      <Routes>
+        <Route path="/crearPolitica" element={<CrearPolitica />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/ejemplo" element={<Ejemplo />} />
+      </Routes>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
