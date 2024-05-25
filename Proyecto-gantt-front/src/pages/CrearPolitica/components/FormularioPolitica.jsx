@@ -14,7 +14,6 @@ const FormularioPolitica = () => {
         secretariaServices.getAll().then((response) => {
             setDataArea(response.data);
         })},[]);
-    
 
         console.log(dataArea);
 
