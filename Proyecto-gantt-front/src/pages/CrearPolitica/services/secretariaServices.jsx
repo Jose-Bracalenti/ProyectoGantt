@@ -1,21 +1,21 @@
 import axios from "axios";
 
-const baseUrl = "http://localhost:3001/area";
+const baseUrl = "http://localhost:3001/secretaria";
 
 
 const getAll = () =>{
     return axios.get(baseUrl)
 }
 
-/*const create = newArea =>{
-    return axios.post(baseUrl, newArea)
+/*const create = newSecretaria =>{
+    return axios.post(baseUrl, newSecretaria)
 }
 
-const update = (id, newArea) =>{
-    return axios.put(`${baseUrl}/${id}`, newArea)
+const update = (id, newSecretaria) =>{
+    return axios.put(`${baseUrl}/${id}`, newSecretaria)
 }
 
-const deleteArea = id =>{
+const deleteSecretaria = id =>{
     return axios.delete(`${baseUrl}/${id}`)
 }
 
@@ -23,7 +23,7 @@ const personService = {
     getAll: getAll,
     create: create,
     update: update,
-    deleteArea: deleteArea
+    deleteSecretaria: deleteSecretaria
 }
 */
 

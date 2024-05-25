@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom";
 import logo from '../assets/SantaFeCapital_Blanco.png';
 
 const NavBar2 = () => {
-    const [value, setValue] = useState(0);
+    const [value, setValue] = useState("1");
 
     const handleChange = (event, newValue) => {
         setValue(newValue);

@@ -1,17 +1,17 @@
 import React from "react";
 import { TextField, Box, Button } from "@mui/material";
-import areaServices from "../services/areaServices";
+import secretariaServices from "../services/secretariaServices";
 import { useEffect, useState } from "react";
 import SelectList from "./SelectList";  
 
 const FormularioPolitica = () => {
     const [dataArea, setDataArea] = useState([]);
-    const [area, setArea] = useState('');
+    const [secretaria, setSecretaria] = useState('');
     const [objetivo, setObjetivo] = useState("");
     const [dataObjetivo, setDataObjetivo] = useState([]);
 
     useEffect(() => {
-        areaServices.getAll().then((response) => {
+        secretariaServices.getAll().then((response) => {
             setDataArea(response.data);
         })},[]);
     
@@ -19,10 +19,10 @@ const FormularioPolitica = () => {
         console.log(dataArea);
 
     const handleChange = (e) => {
-        setArea(e.target.value);
+        setSecretaria(e.target.value);
     };
 
-    console.log("area ", area);
+    console.log("secretaria ", secretaria);
     return (
         <div>
             <h2>Crear Politica</h2>
@@ -36,7 +36,7 @@ const FormularioPolitica = () => {
                     helperText="Ingrese el nombre de la politica"
                     sx={{marginY: 1}}
                 />
-                <SelectList list={dataArea} stateComponent={area} setState={setArea} name="area"/>
+                <SelectList list={dataArea} stateComponent={secretaria} setState={setSecretaria} name="secretaria"/>
                 <SelectList list={dataObjetivo} stateComponent={objetivo} setState={setObjetivo} name="objetivo"/>
 
                 <Box sx={{display: 'flex' ,marginY: 1}}>
