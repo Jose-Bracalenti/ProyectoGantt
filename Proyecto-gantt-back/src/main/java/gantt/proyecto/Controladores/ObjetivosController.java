@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import gantt.proyecto.DTOS.ObjetivoDTO;
-import gantt.proyecto.Modelo.Objetivo;
+
 import gantt.proyecto.Servicios.Implemenaciones.ServicioObjetivo;
 
 @RestController
@@ -30,8 +30,8 @@ public class ObjetivosController {
        return ResponseEntity.ok().body(servicioObjetivo.buscarTodo().stream().map(x -> servicioObjetivo.mapToDTO(x)).toList());
     }
     @GetMapping("{Objetivo_id}")
-    public ResponseEntity<Objetivo> getObjetivo(@PathVariable(value = "Objetivo_id") long id){
-        return ResponseEntity.ok().body(servicioObjetivo.buscarPorId(id));
+    public ResponseEntity<ObjetivoDTO> getObjetivo(@PathVariable(value = "Objetivo_id") long id){
+        return ResponseEntity.ok().body(servicioObjetivo.mapToDTO(servicioObjetivo.buscarPorId(id)));
     }
     @DeleteMapping
     public ResponseEntity<Void> deleteObjetivo(@RequestBody ObjetivoDTO Objetivo){

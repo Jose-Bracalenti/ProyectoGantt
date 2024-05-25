@@ -1,6 +1,7 @@
 package gantt.proyecto.Servicios.Implemenaciones;
 
 import java.util.List;
+
 import gantt.proyecto.Servicios.Interfaces.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,12 +36,14 @@ public class ServicioEje implements ServicioEJeInterface{
         EjeDTO dto = new EjeDTO();
         dto.setId(eje.getid());
         dto.setNombre(eje.getNombre());
+        dto.setDescripcion(eje.getDescripcion());
         return dto;
     }
     public final Eje mapToEntity(EjeDTO dto){
         Eje eje = new Eje();
         eje.setid(dto.getId());
         eje.setNombre(dto.getNombre());
+        eje.setDescripcion(dto.getDescripcion());
         return eje;
     }
 }

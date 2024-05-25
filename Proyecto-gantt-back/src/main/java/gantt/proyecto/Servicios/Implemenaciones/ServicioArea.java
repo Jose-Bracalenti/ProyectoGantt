@@ -32,17 +32,18 @@ public class ServicioArea implements ServicioAreaInterface{
     public List<Area> buscarTodo() {
         return AreaDAO.findAll();
     }
-  public final AreaDTO mapToDTO(Area area){
+  public AreaDTO mapToDTO(Area obj) {
         AreaDTO dto = new AreaDTO();
-        dto.setId(area.getid());
-        dto.setNombre(area.getNombre());
+        dto.setId(obj.getid());
+        dto.setNombre(obj.getNombre());
+        
         return dto;
     }
-    public final Area mapToEntity(AreaDTO dto){
-        Area area = new Area();
-        area.setid(dto.getId());
-        area.setNombre(dto.getNombre());
-        return area;
+    public Area mapToEntity(AreaDTO obj) {
+        Area entity = new Area();
+        entity.setid(obj.getId());
+        entity.setNombre(obj.getNombre());
+        return entity;
     }
 
 }

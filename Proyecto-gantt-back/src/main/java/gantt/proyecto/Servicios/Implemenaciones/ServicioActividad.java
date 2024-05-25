@@ -62,6 +62,7 @@ public class ServicioActividad implements ServicioActividadInterface{
     }
     public final ActividadDTO mapToDTO(Actividad actividad){
         ActividadDTO dto = new ActividadDTO();
+        dto.setId(actividad.getId());
         dto.setNombre(actividad.getNombre());
         dto.setDescripcion(actividad.getDescripcion());
         dto.setFechaInicio(actividad.getFecha_inicio());
@@ -76,6 +77,7 @@ public class ServicioActividad implements ServicioActividadInterface{
     }
     public final Actividad mapToEntity(ActividadDTO dto){
         Actividad actividad = new Actividad();
+        actividad.setId(dto.getId());
         actividad.setNombre(dto.getNombre());
         actividad.setDescripcion(dto.getDescripcion());
         actividad.setFecha_inicio(dto.getFechaInicio());

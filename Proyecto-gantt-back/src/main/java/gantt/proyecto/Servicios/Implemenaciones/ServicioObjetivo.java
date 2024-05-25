@@ -17,6 +17,8 @@ import jakarta.transaction.Transactional;
 public class ServicioObjetivo implements ServicioObjetivoInterface{
     @Autowired
     private ObjetivoDAO ObjetivoDAO;
+    
+    @Autowired
     private ServicioEje ServicioEje;
     public ObjetivoDTO insertar(ObjetivoDTO Objetivo) {
          return this.mapToDTO(ObjetivoDAO.save(this.mapToEntity(Objetivo)));

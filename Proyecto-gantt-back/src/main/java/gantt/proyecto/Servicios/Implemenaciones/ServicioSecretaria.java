@@ -1,8 +1,11 @@
 package gantt.proyecto.Servicios.Implemenaciones;
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import gantt.proyecto.DTOS.SecretariaDTO;
 import gantt.proyecto.Modelo.*;
 import gantt.proyecto.Repositorios.DAOS.SecretariaDAO;
 import gantt.proyecto.Servicios.Interfaces.ServicioSecretariaInterface;
@@ -12,14 +15,14 @@ import jakarta.transaction.Transactional;
 public class ServicioSecretaria implements ServicioSecretariaInterface{
     @Autowired
     private SecretariaDAO secretariaDAO;
-    public Secretaria insertar(Secretaria secretaria) {
-       return secretariaDAO.save(secretaria);
+    public SecretariaDTO insertar(SecretariaDTO secretaria) {
+       return this.mapToDTO(secretariaDAO.save(this.mapToEntity(secretaria)));
     }
-    public Secretaria modificar(Secretaria obj) {
-         return secretariaDAO.save(obj);
+    public SecretariaDTO modificar(SecretariaDTO obj) {
+        return this.mapToDTO(secretariaDAO.save(this.mapToEntity(obj)));
     }
-    public void eliminar(Secretaria obj) {
-        secretariaDAO.delete(obj);
+    public void eliminar(SecretariaDTO obj) {
+        secretariaDAO.delete(this.mapToEntity(obj));
     }
     public Secretaria buscarPorId(long id) {
         return secretariaDAO.findById(id).get();
@@ -30,5 +33,16 @@ public class ServicioSecretaria implements ServicioSecretariaInterface{
     public List<Secretaria> buscarTodo() {
         return secretariaDAO.findAll();
     }
-    
+    public SecretariaDTO mapToDTO(Secretaria secretaria){
+        SecretariaDTO dto = new SecretariaDTO();
+        dto.setId(secretaria.getid());
+        dto.setNombre(secretaria.getNombre());
+        return dto;
+    }
+    public Secretaria mapToEntity(SecretariaDTO obj) {
+        Secretaria entity = new Secretaria();
+        entity.setid(obj.getId());
+        entity.setNombre(obj.getNombre());
+        return entity;
+    }
 }

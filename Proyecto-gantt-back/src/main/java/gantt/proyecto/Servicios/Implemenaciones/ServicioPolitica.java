@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import gantt.proyecto.DTOS.PoliticaDTO;
 import gantt.proyecto.Modelo.*;
 import gantt.proyecto.Repositorios.DAOS.PoliticaDAO;
 import gantt.proyecto.Servicios.Interfaces.ServicioPoliticaInterface;
@@ -14,14 +15,16 @@ public class ServicioPolitica implements ServicioPoliticaInterface{
     
     @Autowired
     private PoliticaDAO PoliticaDAO;
-    public Politica insertar(Politica Politica) {
-       return PoliticaDAO.save(Politica);
+    @Autowired
+    private ServicioObjetivo ServicioObjetivo;
+    public PoliticaDTO insertar(PoliticaDTO Politica) {
+        return this.mapToDTO(PoliticaDAO.save(this.mapToEntity(Politica)));
     }
-    public Politica modificar(Politica obj) {
-         return PoliticaDAO.save(obj);
+    public PoliticaDTO modificar(PoliticaDTO obj) {
+        return this.mapToDTO(PoliticaDAO.save(this.mapToEntity(obj)));
     }
-    public void eliminar(Politica obj) {
-        PoliticaDAO.delete(obj);
+    public void eliminar(PoliticaDTO obj) {
+        PoliticaDAO.delete(this.mapToEntity(obj));
     }
     public Politica buscarPorId(long id) {
         return PoliticaDAO.findById(id).get();
@@ -45,5 +48,22 @@ public class ServicioPolitica implements ServicioPoliticaInterface{
     @Override
     public List<Politica> buscarPorSecretaria(Secretaria secretaria) {
         return secretaria.getPoliticas();
+    }
+    public PoliticaDTO mapToDTO(Politica obj) {
+        PoliticaDTO dto = new PoliticaDTO();
+        dto.setId(obj.getPolitica_id());
+        dto.setNombre(obj.getNombre());
+        dto.setDescripcion(obj.getDescripcion()); 
+        dto.setObjetivo(obj.getObjetivo().getNombre());
+        dto.setObjetivo_id(obj.getObjetivo().getId());
+        return dto;
+    }
+    public Politica mapToEntity(PoliticaDTO obj) {
+        Politica entity = new Politica();
+        entity.setPolitica_id(obj.getId());
+        entity.setNombre(obj.getNombre());
+        entity.setDescripcion(obj.getDescripcion());
+        entity.setObjetivo(ServicioObjetivo.buscarPorId(obj.getId()));
+        return entity;
     }
 }
