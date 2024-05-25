@@ -1,12 +1,12 @@
 import { Routes, Route } from "react-router-dom/dist";
-import "./App.css";
-import NavBar from "./components/NavBar";
-import { CrearPolitica, Contact, Ejemplo } from "./components/pages";
+import NavBar2 from "./components/NavBar2";
+import {CrearPolitica, Contact, Ejemplo } from "./pages";
+
 
 function App() {
   return (
     <div>
-      <NavBar />
+    <NavBar2 />
       <Routes>
         <Route path="/crearPolitica" element={<CrearPolitica />} />
         <Route path="/contact" element={<Contact />} />
