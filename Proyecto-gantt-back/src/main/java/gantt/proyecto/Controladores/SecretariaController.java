@@ -13,7 +13,7 @@ import gantt.proyecto.DTOS.SecretariaDTO;
 import gantt.proyecto.Servicios.Implemenaciones.ServicioSecretaria;
 
 @RestController
-@RequestMapping("/secretaria")
+@RequestMapping("/secretarias")
 public class SecretariaController {
     @Autowired
     private ServicioSecretaria servicioSecretaria;

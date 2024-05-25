@@ -20,7 +20,7 @@ import gantt.proyecto.Servicios.Implemenaciones.ServicioActividad;
 
 
 @RestController
-@RequestMapping("/actividad")
+@RequestMapping("/actividades")
 public class ActividadesController {
     @Autowired
     private ServicioActividad servicioActividad;
