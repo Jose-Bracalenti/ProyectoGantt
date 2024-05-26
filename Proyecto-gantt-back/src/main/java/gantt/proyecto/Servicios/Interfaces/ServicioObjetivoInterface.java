@@ -10,5 +10,5 @@ public interface ServicioObjetivoInterface {
     Objetivo buscarPorId(long id);
     List<Objetivo> buscarPorNombre(String nombre);
     List<Objetivo> buscarTodo();
-    List<Objetivo> buscarPorEje(Eje eje);
+    List<Objetivo> buscarPorEje(Long eje);
 }

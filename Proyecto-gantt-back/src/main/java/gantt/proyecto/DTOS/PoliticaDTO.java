@@ -1,5 +1,6 @@
 package gantt.proyecto.DTOS;
 
+import java.util.List;
 
 public class PoliticaDTO {
     private long id;
@@ -7,16 +8,25 @@ public class PoliticaDTO {
     private String descripcion;
     private String objetivo;
     private long objetivo_id;
+    private List<ActividadDTO> actividades;
     public PoliticaDTO() {
     }
     
     public PoliticaDTO(long id, String nombre, String descripcion, String area, long area_id, String objetivo,
-            long objetivo_id) {
+            long objetivo_id, List<ActividadDTO> actividades) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.objetivo = objetivo;
         this.objetivo_id = objetivo_id;
+        this.actividades = actividades;
+    }
+
+    public List<ActividadDTO> getActividades() {
+        return actividades;
+    }
+    public void setActividades(List<ActividadDTO> actividades) {
+        this.actividades = actividades;
     }
 
     public long getId() {

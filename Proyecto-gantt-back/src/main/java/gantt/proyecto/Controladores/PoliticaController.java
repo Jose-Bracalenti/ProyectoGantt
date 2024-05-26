@@ -1,5 +1,7 @@
 package gantt.proyecto.Controladores;
+import gantt.proyecto.DTOS.ActividadDTO;
 import gantt.proyecto.DTOS.PoliticaDTO;
+import gantt.proyecto.Servicios.Implemenaciones.ServicioActividad;
 import gantt.proyecto.Servicios.Implemenaciones.ServicioPolitica;
 
 import java.util.List;
@@ -16,9 +18,16 @@ import org.springframework.web.bind.annotation.*;
 public class PoliticaController {
     @Autowired
     private ServicioPolitica servicioPolitica;
+    @Autowired
+    private ServicioActividad servicioActividad;
     @PostMapping 
-    public ResponseEntity<PoliticaDTO> createPolitica(PoliticaDTO politica){
-        return ResponseEntity.ok().body(servicioPolitica.insertar(politica));
+    public ResponseEntity<PoliticaDTO> createPolitica(@RequestBody PoliticaDTO politica){
+        List<ActividadDTO> actividades[] = politica.getActividades();
+        ResponseEntity.ok().body(servicioPolitica.insertar(politica));
+        for (ActividadDTO actividad : actividades) {
+            servicioActividad.insertar(actividad);
+        }
+        return ResponseEntity.ok().body(politica);
     }
     @GetMapping
     public ResponseEntity<List<PoliticaDTO>> getPoliticas(){

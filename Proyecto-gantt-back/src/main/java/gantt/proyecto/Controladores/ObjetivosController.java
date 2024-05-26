@@ -40,4 +40,8 @@ public class ObjetivosController {
         servicioObjetivo.eliminar(Objetivo);
         return ResponseEntity.ok().build();
     }
+    @GetMapping("/eje/{eje_id}")
+    public ResponseEntity<List<ObjetivoDTO>> getObjetivosPorEje(@PathVariable(value = "eje_id") long id){
+        return ResponseEntity.ok().body(servicioObjetivo.buscarPorEje(id).stream().map(x -> servicioObjetivo.mapToDTO(x)).toList());
+    }
 }

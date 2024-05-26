@@ -2,7 +2,9 @@ package gantt.proyecto.Servicios.Implemenaciones;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import gantt.proyecto.DTOS.ObjetivoDTO;
@@ -17,9 +19,10 @@ import jakarta.transaction.Transactional;
 public class ServicioObjetivo implements ServicioObjetivoInterface{
     @Autowired
     private ObjetivoDAO ObjetivoDAO;
-    
     @Autowired
+    @Lazy
     private ServicioEje ServicioEje;
+    
     public ObjetivoDTO insertar(ObjetivoDTO Objetivo) {
          return this.mapToDTO(ObjetivoDAO.save(this.mapToEntity(Objetivo)));
     }
@@ -38,9 +41,8 @@ public class ServicioObjetivo implements ServicioObjetivoInterface{
     public List<Objetivo> buscarTodo() {
         return ObjetivoDAO.findAll();
     }
-    @Override
-    public List<Objetivo> buscarPorEje(Eje eje) {
-        return eje.getObjetivos();
+    public List<Objetivo> buscarPorEje(Long ejeId) {
+        return ObjetivoDAO.findByEje(ServicioEje.buscarPorId(ejeId));
     }
     public final ObjetivoDTO mapToDTO(Objetivo objetivo){
         ObjetivoDTO dto = new ObjetivoDTO();
