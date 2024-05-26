@@ -2,6 +2,7 @@ package gantt.proyecto.Servicios.Implemenaciones;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import gantt.proyecto.DTOS.ActividadDTO;
@@ -14,8 +15,10 @@ public class ServicioActividad implements ServicioActividadInterface{
     @Autowired
     private ActividadDAO ActividadDAO;
     @Autowired
+    @Lazy
     private ServicioPolitica ServicioPolitica;
     @Autowired
+    @Lazy
     private ServicioArea ServicioArea;
     public ActividadDTO insertar(ActividadDTO Actividad) {
        return this.mapToDTO(ActividadDAO.save(this.mapToEntity(Actividad)));

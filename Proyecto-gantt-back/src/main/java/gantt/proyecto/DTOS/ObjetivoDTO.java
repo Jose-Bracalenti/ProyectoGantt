@@ -1,13 +1,13 @@
 package gantt.proyecto.DTOS;
 
 
-
 public class ObjetivoDTO {
     private long id;
     private String nombre;
     private String descripcion;
     private String eje;
     private long eje_id;
+    
 
     public ObjetivoDTO() {
     }

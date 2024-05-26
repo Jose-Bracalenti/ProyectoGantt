@@ -1,8 +1,10 @@
 package gantt.proyecto.Servicios.Implemenaciones;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import gantt.proyecto.DTOS.PoliticaDTO;
@@ -16,7 +18,11 @@ public class ServicioPolitica implements ServicioPoliticaInterface{
     @Autowired
     private PoliticaDAO PoliticaDAO;
     @Autowired
+    @Lazy
     private ServicioObjetivo ServicioObjetivo;
+    @Autowired
+    @Lazy
+    private ServicioActividad ServicioActividad;
     public PoliticaDTO insertar(PoliticaDTO Politica) {
         return this.mapToDTO(PoliticaDAO.save(this.mapToEntity(Politica)));
     }
@@ -38,6 +44,7 @@ public class ServicioPolitica implements ServicioPoliticaInterface{
     public List<Politica> buscarPorObjetivo(Objetivo objetivo) {
         return objetivo.getPoliticas();
     }
+    
     @Override
     public List<Politica> buscarPorEje(Eje eje) {
         return eje.getObjetivos().stream().map(Objetivo::getPoliticas).reduce((a, b) -> {
@@ -56,6 +63,7 @@ public class ServicioPolitica implements ServicioPoliticaInterface{
         dto.setDescripcion(obj.getDescripcion()); 
         dto.setObjetivo(obj.getObjetivo().getNombre());
         dto.setObjetivo_id(obj.getObjetivo().getId());
+        dto.setActividades(obj.getActividades().stream().map(x -> ServicioActividad.mapToDTO(x)).collect(Collectors.toList()));
         return dto;
     }
     public Politica mapToEntity(PoliticaDTO obj) {
@@ -64,6 +72,7 @@ public class ServicioPolitica implements ServicioPoliticaInterface{
         entity.setNombre(obj.getNombre());
         entity.setDescripcion(obj.getDescripcion());
         entity.setObjetivo(ServicioObjetivo.buscarPorId(obj.getId()));
+        entity.setActividades(obj.getActividades().stream().map(x -> ServicioActividad.mapToEntity(x)).collect(Collectors.toList()));
         return entity;
     }
 }

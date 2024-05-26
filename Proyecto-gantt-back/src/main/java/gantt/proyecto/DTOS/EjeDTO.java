@@ -1,7 +1,6 @@
 package gantt.proyecto.DTOS;
 
 
-
 public class EjeDTO {
     private long id;
     private String nombre;

@@ -12,7 +12,7 @@ import gantt.proyecto.DTOS.EjeDTO;
 import gantt.proyecto.Modelo.*;
 @Service
 public class ServicioEje implements ServicioEJeInterface{
-   @Autowired
+    @Autowired
     private EjeDAO EjeDAO;
     public EjeDTO insertar(EjeDTO Eje) {
          return this.mapToDTO(EjeDAO.save(this.mapToEntity(Eje)));
