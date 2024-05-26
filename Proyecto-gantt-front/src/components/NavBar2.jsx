@@ -13,7 +13,7 @@ const NavBar2 = () => {
     const sx={blockSize: '100px', borderRadius: '10px', marginX: '10px', fontSize: '1rem', '&.active': { fontSize: '1.1rem' }}
     return (
         <>
-            <AppBar position="sticky">
+            <AppBar position="sticky" sx={{marginBottom:'1rem'}}>
                 <Toolbar>
                     <Box sx={{ flexGrow: 1 }}>
                         <Tabs indicatorColor="secondary" textColor="inherit" value={value} onChange={handleChange} aria-label="nav tabs" >
@@ -37,7 +37,7 @@ const NavBar2 = () => {
                             />
                         </Tabs>
                     </Box>
-                    <h2 style={{ margin: 10 }}>Proyecto Gantt</h2>
+                    <h2 style={{ margin: 10 }}>Sistemas ---algo--- de públicas</h2>
                     <img src={logo} alt="santa fe" width="200px" height="100px" />
                 </Toolbar>
             </AppBar>

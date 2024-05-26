@@ -1,4 +1,4 @@
-import ActivitiesTable from "./AvtivitiesTable";
+import ActivitiesTable from "./ActivitiesTable";
 const AgregarActividades = () => {
     return (
         <div>
