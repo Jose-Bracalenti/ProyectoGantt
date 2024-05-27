@@ -31,27 +31,17 @@ public class ServicioActividad{
     public List<Actividad> buscarTodo() {
         return ActividadDAO.findAll();
     }
-    public List<Actividad> buscarPorEje(Eje eje) {
-        return eje.getObjetivos().stream().map(Objetivo::getPoliticas).map(lista -> lista.stream().map(Politica::getActividades).reduce((a, b) -> {
-            a.addAll(b);
-            return a;
-        }).get()).reduce((a, b) -> {
-            a.addAll(b);
-            return a;
-        }).get();
-    }
     public List<Actividad> buscarPorSecretaria(Secretaria secretaria) {
-        return secretaria.getPoliticas().stream().map(Politica::getActividades).reduce((a, b) -> {
-            a.addAll(b);
-            return a;
-        }).get();
+        return null;
     }
     public List<Actividad> buscarTodos() {
         return ActividadDAO.findAll();
     }
-
-    public List<Actividad> buscarPorArea(Area area) {
-        return area.getActividades();
+    public List<Actividad> buscarPorPolitica(long politica, ServicioPolitica servicioPolitica) {
+        return ActividadDAO.findByPolitica(servicioPolitica.buscarPorId(politica).get());
+    }
+    public List<Actividad> buscarPorArea(long area, ServicioArea servicioArea) {
+        return ActividadDAO.findByArea(servicioArea.buscarPorId(area));
     }
     public final ActividadDTO mapToDTO(Actividad actividad){
         ActividadDTO dto = new ActividadDTO();

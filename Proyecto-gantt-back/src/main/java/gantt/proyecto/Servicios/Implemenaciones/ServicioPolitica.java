@@ -37,8 +37,9 @@ public class ServicioPolitica{
     public List<Politica> buscarTodo() {
         return PoliticaDAO.findAll();
     }
-    public List<Politica> buscarPorObjetivo(Objetivo objetivo) {
-        return objetivo.getPoliticas();
+    public List<Politica> buscarPorObjetivo(long objetivo, ServicioObjetivo ServicioObjetivo) {
+        return PoliticaDAO.findByObjetivo(ServicioObjetivo.buscarPorId(objetivo));
+        
     }
     
     public List<Politica> buscarPorEje(Eje eje) {
@@ -47,8 +48,8 @@ public class ServicioPolitica{
             return a;
         }).get();
     }
-    public List<Politica> buscarPorSecretaria(Secretaria secretaria) {
-        return secretaria.getPoliticas();
+    public List<Politica> buscarPorSecretaria(long secretaria, ServicioSecretaria ServicioSecretaria) {
+        return PoliticaDAO.findBySecretaria(ServicioSecretaria.buscarPorId(secretaria));
     }
     public PoliticaDTO mapToDTO(Politica obj, ServicioActividad ServicioActividad) {
         PoliticaDTO dto = new PoliticaDTO();

@@ -47,4 +47,12 @@ public class PoliticaController {
         servicioPolitica.eliminar(politica, servicioObjetivo, servicioSecretaria , servicioActividad, servicioArea);
                return ResponseEntity.ok().build();
     }
+    @GetMapping("/objetivo/{objetivo_id}")
+    public ResponseEntity<List<PoliticaDTO>> getPoliticasPorObjetivo(@PathVariable(value = "objetivo_id") long id){
+        return ResponseEntity.ok().body(servicioPolitica.buscarPorObjetivo(id, servicioObjetivo).stream().map(x -> servicioPolitica.mapToDTO(x, servicioActividad)).collect(Collectors.toList()));
+    }
+    @GetMapping("/secretaria/{secretaria_id}")
+    public ResponseEntity<List<PoliticaDTO>> getPoliticasPorSecretaria(@PathVariable(value = "secretaria_id") long id){
+        return ResponseEntity.ok().body(servicioPolitica.buscarPorSecretaria(id, servicioSecretaria).stream().map(x -> servicioPolitica.mapToDTO(x, servicioActividad)).collect(Collectors.toList()));
+    }
 }

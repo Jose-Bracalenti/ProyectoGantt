@@ -17,7 +17,7 @@ public class Politica {
     private float costo;
     @ManyToOne
     @JoinColumn(name = "secretaria_id", referencedColumnName="secretaria_id", nullable = false, foreignKey = @ForeignKey(name = "FK_POLITICA_SECRETARIA", value = ConstraintMode.CONSTRAINT))
-    private Secretaria secretaria_responsable;
+    private Secretaria secretaria;
     @ManyToOne
     @JoinColumn(name = "objetivo_id", referencedColumnName = "objetivo_id", nullable = false, foreignKey = @ForeignKey(name = "FK_POLITICA_OBJETIVO", value = ConstraintMode.CONSTRAINT))
     private Objetivo objetivo;
@@ -35,7 +35,7 @@ public class Politica {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.costo = costo;
-        this.secretaria_responsable = secretaria_responsable;
+        this.secretaria = secretaria_responsable;
         this.objetivo = objetivo;
         this.actividades = actividades;
     }
@@ -80,12 +80,12 @@ public class Politica {
 
 
     public Secretaria getSecretaria_responsable() {
-        return secretaria_responsable;
+        return secretaria;
     }
 
 
     public void setSecretaria_responsable(Secretaria secretaria_responsable) {
-        this.secretaria_responsable = secretaria_responsable;
+        this.secretaria = secretaria_responsable;
     }
 
 
