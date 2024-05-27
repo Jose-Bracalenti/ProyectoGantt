@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import gantt.proyecto.DTOS.ActividadDTO;
-
-import gantt.proyecto.Servicios.Implemenaciones.ServicioActividad;
+import gantt.proyecto.Modelo.Politica;
+import gantt.proyecto.Servicios.Implemenaciones.*;
 
 
 
@@ -26,10 +26,18 @@ import gantt.proyecto.Servicios.Implemenaciones.ServicioActividad;
 public class ActividadesController {
     @Autowired
     private ServicioActividad servicioActividad;
+    @Autowired
+    private ServicioPolitica servicioPolitica;
+    @Autowired
+    private ServicioArea servicioArea;
+
     @PostMapping
     @CrossOrigin(origins = "http://localhost:5174")
     public ResponseEntity<ActividadDTO> createActividad(@RequestBody ActividadDTO actividad){
-        return ResponseEntity.ok().body(servicioActividad.insertar(actividad));
+        Politica politica = new Politica();
+        politica = servicioPolitica.buscarPorId(actividad.getPolitica_id()).get();
+        System.out.println(politica.getNombre());
+        return ResponseEntity.ok().body(servicioActividad.insertar(actividad, politica, servicioArea));
     }
     @GetMapping
     @CrossOrigin(origins = "http://localhost:5174")
@@ -44,7 +52,9 @@ public class ActividadesController {
     @DeleteMapping
     @CrossOrigin(origins = "http://localhost:5174")
     public ResponseEntity<Void> deleteActividad(@RequestBody ActividadDTO actividad){
-        servicioActividad.eliminar(actividad);
+        Politica politica = new Politica();
+        politica = servicioPolitica.buscarPorId(actividad.getPolitica_id()).get();
+        servicioActividad.eliminar(actividad, politica, servicioArea);
         return ResponseEntity.ok().build();
     }
 

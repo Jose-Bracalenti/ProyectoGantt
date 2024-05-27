@@ -14,18 +14,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import gantt.proyecto.DTOS.ObjetivoDTO;
-
-import gantt.proyecto.Servicios.Implemenaciones.ServicioObjetivo;
+import gantt.proyecto.Servicios.Implemenaciones.*;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:5174/")
 @RequestMapping("/objetivos")
 public class ObjetivosController {
     @Autowired
+    private ServicioEje servicioEje;
+    @Autowired
     private ServicioObjetivo servicioObjetivo;
     @PostMapping
     public ResponseEntity<ObjetivoDTO> createObjetivo(@RequestBody ObjetivoDTO Objetivo){
-        return ResponseEntity.ok().body(servicioObjetivo.insertar(Objetivo));
+        return ResponseEntity.ok().body(servicioObjetivo.insertar(Objetivo, servicioEje));
     }
     @GetMapping
     public ResponseEntity<List<ObjetivoDTO>> getObjetivos(){
@@ -37,11 +38,11 @@ public class ObjetivosController {
     }
     @DeleteMapping
     public ResponseEntity<Void> deleteObjetivo(@RequestBody ObjetivoDTO Objetivo){
-        servicioObjetivo.eliminar(Objetivo);
+        servicioObjetivo.eliminar(Objetivo, servicioEje);
         return ResponseEntity.ok().build();
     }
     @GetMapping("/eje/{eje_id}")
     public ResponseEntity<List<ObjetivoDTO>> getObjetivosPorEje(@PathVariable(value = "eje_id") long id){
-        return ResponseEntity.ok().body(servicioObjetivo.buscarPorEje(id).stream().map(x -> servicioObjetivo.mapToDTO(x)).toList());
+        return ResponseEntity.ok().body(servicioObjetivo.buscarPorEje(id, servicioEje).stream().map(x -> servicioObjetivo.mapToDTO(x)).toList());
     }
 }

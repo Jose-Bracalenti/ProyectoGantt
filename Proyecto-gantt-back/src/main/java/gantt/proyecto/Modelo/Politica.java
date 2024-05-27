@@ -30,16 +30,15 @@ public class Politica {
 
     
     public Politica(long politica_id, String nombre, String descripcion, float costo, Secretaria secretaria_responsable,
-            Objetivo objetivo) {
+            Objetivo objetivo, List<Actividad> actividades) {
         this.politica_id = politica_id;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.costo = costo;
         this.secretaria_responsable = secretaria_responsable;
         this.objetivo = objetivo;
+        this.actividades = actividades;
     }
-
-
     public long getPolitica_id() {
         return politica_id;
     }
@@ -109,6 +108,9 @@ public class Politica {
         this.actividades = actividades;
     }
 
-
+    public void addActividad(Actividad actividad) {
+        this.actividades.add(actividad);
+        actividad.setPolitica(this);
+    }
     
 }

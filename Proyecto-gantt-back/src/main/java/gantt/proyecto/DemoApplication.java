@@ -7,7 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 
 @SpringBootApplication
-@ComponentScan(basePackages = "gantt.proyecto")
+@ComponentScan(basePackages = {"gantt.proyecto", "gantt.proyecto.Servicios.Implemenaciones"})
 public class DemoApplication {
 
 	public static void main(String[] args) {

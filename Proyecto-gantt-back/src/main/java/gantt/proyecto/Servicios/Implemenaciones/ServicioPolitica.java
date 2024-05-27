@@ -1,39 +1,35 @@
 package gantt.proyecto.Servicios.Implemenaciones;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
+
 import org.springframework.stereotype.Service;
 
 import gantt.proyecto.DTOS.PoliticaDTO;
 import gantt.proyecto.Modelo.*;
+
 import gantt.proyecto.Repositorios.DAOS.PoliticaDAO;
-import gantt.proyecto.Servicios.Interfaces.ServicioPoliticaInterface;
 
 @Service
-public class ServicioPolitica implements ServicioPoliticaInterface{
-    
+public class ServicioPolitica{
     @Autowired
-    private PoliticaDAO PoliticaDAO;
-    @Autowired
-    @Lazy
-    private ServicioObjetivo ServicioObjetivo;
-    @Autowired
-    @Lazy
-    private ServicioActividad ServicioActividad;
-    public PoliticaDTO insertar(PoliticaDTO Politica) {
-        return this.mapToDTO(PoliticaDAO.save(this.mapToEntity(Politica)));
+    private  PoliticaDAO PoliticaDAO;
+
+    public PoliticaDTO insertar(PoliticaDTO Politica, ServicioObjetivo ServicioObjetivo, ServicioSecretaria ServicioSecretaria, ServicioActividad ServicioActividad, ServicioArea ServicioArea) {
+        return this.mapToDTO(PoliticaDAO.save(this.mapToEntity(Politica, ServicioObjetivo, ServicioSecretaria, ServicioActividad, ServicioArea)), ServicioActividad);
     }
-    public PoliticaDTO modificar(PoliticaDTO obj) {
-        return this.mapToDTO(PoliticaDAO.save(this.mapToEntity(obj)));
+    public PoliticaDTO modificar(PoliticaDTO obj, ServicioObjetivo ServicioObjetivo, ServicioSecretaria ServicioSecretaria, ServicioActividad ServicioActividad, ServicioArea ServicioArea) {
+        return this.mapToDTO(PoliticaDAO.save(this.mapToEntity(obj, ServicioObjetivo, ServicioSecretaria, ServicioActividad, ServicioArea)), ServicioActividad);
     }
-    public void eliminar(PoliticaDTO obj) {
-        PoliticaDAO.delete(this.mapToEntity(obj));
+    public void eliminar(PoliticaDTO obj, ServicioObjetivo ServicioObjetivo, ServicioSecretaria ServicioSecretaria, ServicioActividad ServicioActividad, ServicioArea ServicioArea) {
+        PoliticaDAO.delete(this.mapToEntity(obj, ServicioObjetivo, ServicioSecretaria, ServicioActividad, ServicioArea));
     }
-    public Politica buscarPorId(long id) {
-        return PoliticaDAO.findById(id).get();
+    public Optional<Politica> buscarPorId(long id) {
+        return PoliticaDAO.findById(id);
     }
     public List<Politica> buscarPorNombre(String nombre) {
         return PoliticaDAO.findByNombre(nombre);
@@ -45,34 +41,38 @@ public class ServicioPolitica implements ServicioPoliticaInterface{
         return objetivo.getPoliticas();
     }
     
-    @Override
     public List<Politica> buscarPorEje(Eje eje) {
         return eje.getObjetivos().stream().map(Objetivo::getPoliticas).reduce((a, b) -> {
             a.addAll(b);
             return a;
         }).get();
     }
-    @Override
     public List<Politica> buscarPorSecretaria(Secretaria secretaria) {
         return secretaria.getPoliticas();
     }
-    public PoliticaDTO mapToDTO(Politica obj) {
+    public PoliticaDTO mapToDTO(Politica obj, ServicioActividad ServicioActividad) {
         PoliticaDTO dto = new PoliticaDTO();
         dto.setId(obj.getPolitica_id());
         dto.setNombre(obj.getNombre());
         dto.setDescripcion(obj.getDescripcion()); 
         dto.setObjetivo(obj.getObjetivo().getNombre());
         dto.setObjetivo_id(obj.getObjetivo().getId());
+        dto.setSecretaria(obj.getSecretaria_responsable().getNombre());
+        dto.setSecretaria_id(obj.getSecretaria_responsable().getid());
         dto.setActividades(obj.getActividades().stream().map(x -> ServicioActividad.mapToDTO(x)).collect(Collectors.toList()));
         return dto;
     }
-    public Politica mapToEntity(PoliticaDTO obj) {
+    public Politica mapToEntity(PoliticaDTO obj, ServicioObjetivo ServicioObjetivo, ServicioSecretaria ServicioSecretaria, ServicioActividad ServicioActividad, ServicioArea ServicioArea) {
         Politica entity = new Politica();
         entity.setPolitica_id(obj.getId());
         entity.setNombre(obj.getNombre());
         entity.setDescripcion(obj.getDescripcion());
-        entity.setObjetivo(ServicioObjetivo.buscarPorId(obj.getId()));
-        entity.setActividades(obj.getActividades().stream().map(x -> ServicioActividad.mapToEntity(x)).collect(Collectors.toList()));
+        entity.setObjetivo(ServicioObjetivo.buscarPorId(obj.getObjetivo_id()));
+        entity.setSecretaria_responsable(ServicioSecretaria.buscarPorId(obj.getSecretaria_id()));
+        entity. setActividades(obj.getActividades().stream().map(x -> ServicioActividad.mapToEntity(x, entity, ServicioArea)).collect(Collectors.toList()));
+        System.out.println(entity.getActividades());
         return entity;
+    }
+    public ServicioPolitica() {
     }
 }

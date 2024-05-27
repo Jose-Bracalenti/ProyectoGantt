@@ -4,33 +4,28 @@ import java.util.List;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import gantt.proyecto.DTOS.ObjetivoDTO;
 import gantt.proyecto.Modelo.*;
 import gantt.proyecto.Repositorios.DAOS.ObjetivoDAO;
 
-import gantt.proyecto.Servicios.Interfaces.ServicioObjetivoInterface;
 import jakarta.transaction.Transactional;
 
 @Service
 @Transactional(rollbackOn = {Exception.class})
-public class ServicioObjetivo implements ServicioObjetivoInterface{
+public class ServicioObjetivo{
     @Autowired
     private ObjetivoDAO ObjetivoDAO;
-    @Autowired
-    @Lazy
-    private ServicioEje ServicioEje;
     
-    public ObjetivoDTO insertar(ObjetivoDTO Objetivo) {
-         return this.mapToDTO(ObjetivoDAO.save(this.mapToEntity(Objetivo)));
+    public ObjetivoDTO insertar(ObjetivoDTO Objetivo, ServicioEje ServicioEje) {
+         return this.mapToDTO(ObjetivoDAO.save(this.mapToEntity(Objetivo, ServicioEje)));
     }
-    public ObjetivoDTO modificar(ObjetivoDTO obj) {
-            return this.mapToDTO(ObjetivoDAO.save(this.mapToEntity(obj)));
+    public ObjetivoDTO modificar(ObjetivoDTO obj, ServicioEje ServicioEje) {
+            return this.mapToDTO(ObjetivoDAO.save(this.mapToEntity(obj, ServicioEje)));
     }
-    public void eliminar(ObjetivoDTO obj) {
-        ObjetivoDAO.delete(this.mapToEntity(obj));
+    public void eliminar(ObjetivoDTO obj, ServicioEje ServicioEje) {
+        ObjetivoDAO.delete(this.mapToEntity(obj, ServicioEje));
     }
     public Objetivo buscarPorId(long id) {
         return ObjetivoDAO.findById(id).get();
@@ -41,7 +36,7 @@ public class ServicioObjetivo implements ServicioObjetivoInterface{
     public List<Objetivo> buscarTodo() {
         return ObjetivoDAO.findAll();
     }
-    public List<Objetivo> buscarPorEje(Long ejeId) {
+    public List<Objetivo> buscarPorEje(Long ejeId, ServicioEje ServicioEje) {
         return ObjetivoDAO.findByEje(ServicioEje.buscarPorId(ejeId));
     }
     public final ObjetivoDTO mapToDTO(Objetivo objetivo){
@@ -53,7 +48,7 @@ public class ServicioObjetivo implements ServicioObjetivoInterface{
         dto.setEje_id(objetivo.getEje().getid());
         return dto;
     }
-    public final Objetivo mapToEntity(ObjetivoDTO dto){
+    public final Objetivo mapToEntity(ObjetivoDTO dto, ServicioEje ServicioEje){
         Objetivo objetivo = new Objetivo();
         objetivo.setId(dto.getId());
         objetivo.setNombre(dto.getNombre());
