@@ -1,5 +1,4 @@
 package gantt.proyecto.Controladores;
-import gantt.proyecto.DTOS.ActividadDTO;
 import gantt.proyecto.DTOS.PoliticaDTO;
 import gantt.proyecto.Servicios.Implemenaciones.*;
 
@@ -27,12 +26,8 @@ public class PoliticaController {
     private ServicioArea servicioArea;
     @PostMapping 
     public ResponseEntity<PoliticaDTO> createPolitica(@RequestBody PoliticaDTO politica){     
-        List<ActividadDTO> actividades = politica.getActividades();  
-        ResponseEntity.ok().body(servicioPolitica.insertar(politica, servicioObjetivo, servicioSecretaria, servicioActividad, servicioArea));
-        for (ActividadDTO actividad : actividades) {
-            servicioActividad.insertar(actividad, servicioPolitica.mapToEntity(politica, servicioObjetivo, servicioSecretaria, servicioActividad, servicioArea), servicioArea);
-        }
-        return ResponseEntity.ok().body(politica);
+        
+        return ResponseEntity.ok().body(servicioPolitica.insertar(politica, servicioObjetivo, servicioSecretaria, servicioActividad, servicioArea));
     }
     @GetMapping
     public ResponseEntity<List<PoliticaDTO>> getPoliticas(){

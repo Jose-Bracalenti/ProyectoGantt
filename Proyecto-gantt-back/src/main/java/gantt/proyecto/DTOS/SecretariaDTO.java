@@ -3,19 +3,11 @@ package gantt.proyecto.DTOS;
 
 
 public class SecretariaDTO {
-    private long id;
     private String nombre;
     public SecretariaDTO() {
     }
-    public SecretariaDTO(long id, String nombre) {
-        this.id = id;
+    public SecretariaDTO(String nombre) {
         this.nombre = nombre;
-    }
-    public long getId() {
-        return id;
-    }
-    public void setId(long id) {
-        this.id = id;
     }
     public String getNombre() {
         return nombre;

@@ -3,23 +3,15 @@ package gantt.proyecto.DTOS;
 import java.time.LocalDate;
 
 public class ActividadDTO {
-    private Long id;
     private String nombre;
     private String descripcion;
     private LocalDate fechaInicio;
     private LocalDate fechaFin;
     private String participacion_ciudadana;
-    private String Area;
     private long area_id;
-    private long politica_id;
+    private String Area;
     private String politica;
     private String resultado_esperado;
-    public Long getId() {
-        return id;
-    }
-    public void setId(Long id) {
-        this.id = id;
-    }
     public String getNombre() {
         return nombre;
     }
@@ -56,18 +48,6 @@ public class ActividadDTO {
     public void setArea(String area) {
         Area = area;
     }
-    public long getArea_id() {
-        return area_id;
-    }
-    public void setArea_id(long area_id) {
-        this.area_id = area_id;
-    }
-    public long getPolitica_id() {
-        return politica_id;
-    }
-    public void setPolitica_id(long politica_id) {
-        this.politica_id = politica_id;
-    }
     public String getPolitica() {
         return politica;
     }
@@ -80,22 +60,26 @@ public class ActividadDTO {
     public void setResultado_esperado(String resultado_esperado) {
         this.resultado_esperado = resultado_esperado;
     }
-    public ActividadDTO(Long id, String nombre, String descripcion, LocalDate fechaInicio, LocalDate fechaFin,
-            String participacion_ciudadana, String area, long area_id, long politica_id, String politica,
-            String resultado_esperado) {
-        this.id = id;
+    public ActividadDTO(String nombre, String descripcion, LocalDate fechaInicio, LocalDate fechaFin,
+            String participacion_ciudadana, String area, String politica,
+            String resultado_esperado, long area_id) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
         this.participacion_ciudadana = participacion_ciudadana;
         Area = area;
-        this.area_id = area_id;
-        this.politica_id = politica_id;
         this.politica = politica;
         this.resultado_esperado = resultado_esperado;
+        this.area_id = area_id;
     }
     public ActividadDTO() {
+    }
+    public long getArea_id() {
+        return area_id;
+    }
+    public void setArea_id(long area_id) {
+        this.area_id = area_id;
     }
         
 }

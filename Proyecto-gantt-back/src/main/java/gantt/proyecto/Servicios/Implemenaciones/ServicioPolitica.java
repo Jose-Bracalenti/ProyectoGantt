@@ -53,7 +53,6 @@ public class ServicioPolitica{
     }
     public PoliticaDTO mapToDTO(Politica obj, ServicioActividad ServicioActividad) {
         PoliticaDTO dto = new PoliticaDTO();
-        dto.setId(obj.getPolitica_id());
         dto.setNombre(obj.getNombre());
         dto.setDescripcion(obj.getDescripcion()); 
         dto.setObjetivo(obj.getObjetivo().getNombre());
@@ -65,7 +64,6 @@ public class ServicioPolitica{
     }
     public Politica mapToEntity(PoliticaDTO obj, ServicioObjetivo ServicioObjetivo, ServicioSecretaria ServicioSecretaria, ServicioActividad ServicioActividad, ServicioArea ServicioArea) {
         Politica entity = new Politica();
-        entity.setPolitica_id(obj.getId());
         entity.setNombre(obj.getNombre());
         entity.setDescripcion(obj.getDescripcion());
         entity.setObjetivo(ServicioObjetivo.buscarPorId(obj.getObjetivo_id()));

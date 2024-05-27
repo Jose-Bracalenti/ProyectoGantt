@@ -41,7 +41,6 @@ public class ServicioObjetivo{
     }
     public final ObjetivoDTO mapToDTO(Objetivo objetivo){
         ObjetivoDTO dto = new ObjetivoDTO();
-        dto.setId(objetivo.getId());
         dto.setNombre(objetivo.getNombre());
         dto.setDescripcion(objetivo.getDescripcion());
         dto.setEje(objetivo.getEje().getNombre());
@@ -50,7 +49,6 @@ public class ServicioObjetivo{
     }
     public final Objetivo mapToEntity(ObjetivoDTO dto, ServicioEje ServicioEje){
         Objetivo objetivo = new Objetivo();
-        objetivo.setId(dto.getId());
         objetivo.setNombre(dto.getNombre());
         objetivo.setDescripcion(dto.getDescripcion());
         objetivo.setEje(ServicioEje.buscarPorId(dto.getEje_id()));

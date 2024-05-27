@@ -33,14 +33,12 @@ public class ServicioEje{
     }
     public final EjeDTO mapToDTO(Eje eje){
         EjeDTO dto = new EjeDTO();
-        dto.setId(eje.getid());
         dto.setNombre(eje.getNombre());
         dto.setDescripcion(eje.getDescripcion());
         return dto;
     }
     public final Eje mapToEntity(EjeDTO dto){
         Eje eje = new Eje();
-        eje.setid(dto.getId());
         eje.setNombre(dto.getNombre());
         eje.setDescripcion(dto.getDescripcion());
         return eje;
