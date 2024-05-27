@@ -74,13 +74,13 @@ const ActivitiesTable = () => {
     setIsEditing(true);
     setOpen(true);
     setNewActivity({
-      nombre: "",
-      descripcion: "",
-      fechaInicio: "",
-      fechaFin: "",
-      area_id: "",
-      resultado_esperado: "",
-      participacion_ciudadana: "",
+      nombre: activities[index].nombre,
+      descripcion: activities[index].descripcion,
+      fechaInicio: activities[index].fechaInicio,
+      fechaFin: activities[index].fechaFin,
+      area_id: activities[index].area_id,
+      resultado_esperado: activities[index].resultado_esperado,
+      participacion_ciudadana: activities[index].participacion_ciudadana,
     });
   };
 
@@ -107,10 +107,10 @@ const ActivitiesTable = () => {
     setActivities(updatedActivities);
   };
 
-  const handleShowAtributes = (atribute) => () => {
-    setAtributeContent(atribute);
-    setAtributeOpen(true);
-  };
+const handleShowAtributes = (content) => () => {
+  setAtributeOpen(true);
+  setAtributeContent(content);
+};
 
   const handleCloseDescription = () => {
     setAtributeOpen(false);
@@ -147,13 +147,13 @@ const ActivitiesTable = () => {
                   }
                 >
                   <span>
-                    <IconButton
+                  <IconButton
                       color="primary"
                       onClick={handleShowAtributes(activity.descripcion)}
                       disabled={!activity.descripcion}
                     >
-                      <VisibilityIcon />
-                    </IconButton>
+                    <VisibilityIcon />
+                  </IconButton>
                   </span>
                 </Tooltip>
               </TableCell>
@@ -190,8 +190,8 @@ const ActivitiesTable = () => {
                   <span>
                     <IconButton
                       color="primary"
-                      onClick={handleShowAtributes(activity.Participacion_ciudadana)}
-                      disabled={!activity.Participacion_ciudadana}
+                      onClick={handleShowAtributes(activity.participacion_ciudadana)}
+                      disabled={!activity.participacion_ciudadana}
                     >
                       <VisibilityIcon />
                     </IconButton>
@@ -240,7 +240,7 @@ const ActivitiesTable = () => {
 
       <AtributesDialog
         open={atributeOpen}
-        descriptionContent={atributeContent}
+        atributesContent={atributeContent}
         onClose={handleCloseDescription}
       />
     </TableContainer>

@@ -36,11 +36,12 @@ public class ServicioObjetivo{
     public List<Objetivo> buscarTodo() {
         return ObjetivoDAO.findAll();
     }
-    public List<Objetivo> buscarPorEje(Long ejeId, ServicioEje ServicioEje) {
-        return ObjetivoDAO.findByEje(ServicioEje.buscarPorId(ejeId));
+    public List<Objetivo> buscarPorEje(Long id, ServicioEje ServicioEje) {
+        return ObjetivoDAO.findByEje(ServicioEje.buscarPorId(id));
     }
     public final ObjetivoDTO mapToDTO(Objetivo objetivo){
         ObjetivoDTO dto = new ObjetivoDTO();
+        dto.setId(objetivo.getId());
         dto.setNombre(objetivo.getNombre());
         dto.setDescripcion(objetivo.getDescripcion());
         dto.setEje(objetivo.getEje().getNombre());

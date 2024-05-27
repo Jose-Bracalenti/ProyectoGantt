@@ -34,6 +34,7 @@ public class ServicioArea{
     }
   public AreaDTO mapToDTO(Area obj) {
         AreaDTO dto = new AreaDTO();
+        dto.setId(obj.getid());
         dto.setNombre(obj.getNombre());
         
         return dto;

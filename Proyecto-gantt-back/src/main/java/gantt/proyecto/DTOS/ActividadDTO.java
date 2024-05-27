@@ -3,6 +3,7 @@ package gantt.proyecto.DTOS;
 import java.time.LocalDate;
 
 public class ActividadDTO {
+    private long id;
     private String nombre;
     private String descripcion;
     private LocalDate fechaInicio;
@@ -62,7 +63,7 @@ public class ActividadDTO {
     }
     public ActividadDTO(String nombre, String descripcion, LocalDate fechaInicio, LocalDate fechaFin,
             String participacion_ciudadana, String area, String politica,
-            String resultado_esperado, long area_id) {
+            String resultado_esperado, long area_id, long id) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.fechaInicio = fechaInicio;
@@ -72,6 +73,7 @@ public class ActividadDTO {
         this.politica = politica;
         this.resultado_esperado = resultado_esperado;
         this.area_id = area_id;
+        this.id = id;
     }
     public ActividadDTO() {
     }
@@ -80,6 +82,12 @@ public class ActividadDTO {
     }
     public void setArea_id(long area_id) {
         this.area_id = area_id;
+    }
+    public long getId() {
+        return id;
+    }
+    public void setId(long id) {
+        this.id = id;
     }
         
 }

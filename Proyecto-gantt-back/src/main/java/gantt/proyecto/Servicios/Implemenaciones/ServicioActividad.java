@@ -45,6 +45,7 @@ public class ServicioActividad{
     }
     public final ActividadDTO mapToDTO(Actividad actividad){
         ActividadDTO dto = new ActividadDTO();
+        dto.setId(actividad.getId());
         dto.setNombre(actividad.getNombre());
         dto.setDescripcion(actividad.getDescripcion());
         dto.setFechaInicio(actividad.getFecha_inicio());

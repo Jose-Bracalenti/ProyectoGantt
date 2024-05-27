@@ -34,6 +34,7 @@ public class ServicioSecretaria{
     }
     public SecretariaDTO mapToDTO(Secretaria secretaria){
         SecretariaDTO dto = new SecretariaDTO();
+        dto.setId(secretaria.getid());
         dto.setNombre(secretaria.getNombre());
         return dto;
     }

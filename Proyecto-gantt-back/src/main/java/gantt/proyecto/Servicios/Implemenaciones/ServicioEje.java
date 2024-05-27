@@ -25,7 +25,7 @@ public class ServicioEje{
     public Eje buscarPorId(long id) {
         return EjeDAO.findById(id).get();
     }
-    public List<Eje> buscarPorNombre(String nombre) {
+    public Eje buscarPorNombre(String nombre) {
         return EjeDAO.findByNombre(nombre);
     }
     public List<Eje> buscarTodo() {
@@ -33,6 +33,7 @@ public class ServicioEje{
     }
     public final EjeDTO mapToDTO(Eje eje){
         EjeDTO dto = new EjeDTO();
+        dto.setId(eje.getid());
         dto.setNombre(eje.getNombre());
         dto.setDescripcion(eje.getDescripcion());
         return dto;
