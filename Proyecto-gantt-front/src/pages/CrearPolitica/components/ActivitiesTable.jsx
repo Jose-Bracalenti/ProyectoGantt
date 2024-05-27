@@ -1,6 +1,6 @@
 // src/ActivitiesTable.js
 
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import {
   Table,
   TableBody,
@@ -29,7 +29,7 @@ const ActivitiesTable = () => {
             currentActivityIndex, setCurrentActivityIndex,
             newActivity, setNewActivity,
             atributeOpen, setAtributeOpen,
-            atributeContent, setAtributeContent
+            atributeContent, setAtributeContent, dataArea
   } = useContext(ActivitiesTableContext);
 
   const handleClick =
@@ -39,7 +39,10 @@ const ActivitiesTable = () => {
         newActivity.descripcion = "";
         newActivity.fechaInicio = "";
         newActivity.fechaFin = "";
-        newActivity.area = "";
+        newActivity.area_id = "";
+        newActivity.resultado_esperado = "";
+        newActivity.participacion_ciudadana = "";
+
       setOpen(condition);
     };
 
@@ -58,7 +61,9 @@ const ActivitiesTable = () => {
       descripcion: "",
       fechaInicio: "",
       fechaFin: "",
-      area: "",
+      area_id: "",
+      resultado_esperado: "",
+      participacion_ciudadana: "",
     });
     setOpen(false);
   };
@@ -68,6 +73,15 @@ const ActivitiesTable = () => {
     setCurrentActivityIndex(index);
     setIsEditing(true);
     setOpen(true);
+    setNewActivity({
+      nombre: "",
+      descripcion: "",
+      fechaInicio: "",
+      fechaFin: "",
+      area_id: "",
+      resultado_esperado: "",
+      participacion_ciudadana: "",
+    });
   };
 
   const handleSaveEditActivity = () => {
@@ -80,7 +94,9 @@ const ActivitiesTable = () => {
       descripcion: "",
       fechaInicio: "",
       fechaFin: "",
-      area: "",
+      area_id: "",
+      resultado_esperado: "",
+      participacion_ciudadana: "",
     });
     setIsEditing(false);
     setOpen(false);
@@ -100,6 +116,8 @@ const ActivitiesTable = () => {
     setAtributeOpen(false);
     setAtributeContent("");
   };
+
+  console.log("activities", activities);
 
   return (
     <TableContainer component={Paper}>
@@ -141,11 +159,11 @@ const ActivitiesTable = () => {
               </TableCell>
               <TableCell>{activity.fechaInicio}</TableCell>
               <TableCell>{activity.fechaFin}</TableCell>
-              <TableCell>{activity.area}</TableCell>
+              <TableCell>{(dataArea.find(item => item.id === activity.area_id)).nombre}</TableCell>
               <TableCell>
                 <Tooltip
                   title={
-                    activity.resultadoEsperado
+                    activity.resultado_esperado
                       ? "Mostrar resultado Esperado"
                       : "resultado Esperado sin completar"
                   }
@@ -153,8 +171,8 @@ const ActivitiesTable = () => {
                   <span>
                     <IconButton
                       color="primary"
-                      onClick={handleShowAtributes(activity.resultadoEsperado)}
-                      disabled={!activity.resultadoEsperado}
+                      onClick={handleShowAtributes(activity.resultado_esperado)}
+                      disabled={!activity.resultado_esperado}
                     >
                       <VisibilityIcon />
                     </IconButton>
@@ -164,7 +182,7 @@ const ActivitiesTable = () => {
               <TableCell>
                 <Tooltip
                   title={
-                    activity.participacionCiudadana
+                    activity.Participacion_ciudadana
                       ? "Mostrar Participación ciudadana"
                       : "Participación ciudadana sin completar"
                   }
@@ -172,8 +190,8 @@ const ActivitiesTable = () => {
                   <span>
                     <IconButton
                       color="primary"
-                      onClick={handleShowAtributes(activity.participacionCiudadana)}
-                      disabled={!activity.participacionCiudadana}
+                      onClick={handleShowAtributes(activity.Participacion_ciudadana)}
+                      disabled={!activity.Participacion_ciudadana}
                     >
                       <VisibilityIcon />
                     </IconButton>
@@ -214,6 +232,7 @@ const ActivitiesTable = () => {
         open={open}
         isEditing={isEditing}
         activity={newActivity}
+        setActiviy={setNewActivity}
         onChange={handleChange}
         onSave={isEditing ? handleSaveEditActivity : handleAddActivity}
         onCancel={handleClick({ condition: false })}

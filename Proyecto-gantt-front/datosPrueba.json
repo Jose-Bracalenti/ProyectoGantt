@@ -1,19 +1,21 @@
 {
-    "secretaria": [
-      {
-        "id": 1,
-        "name": "area1",
-        "important": true
-      },
-      {
-        "id": 2,
-        "name": "area2",
-        "important": false
-      },
-      {
-        "id": 3,
-        "name": " area3",
-        "important": true
-      }
-    ]
-  }
+  "areas": [
+    {
+      "id": "1",
+      "nombre": "area1",
+      "important": true
+    },
+    {
+      "id": "2",
+      "nombre": "area2",
+      "important": false
+    },
+    {
+      "id": "3",
+      "nombre": " area3",
+      "important": true
+    }
+  ],
+
+  "politicas" :[]
+}
