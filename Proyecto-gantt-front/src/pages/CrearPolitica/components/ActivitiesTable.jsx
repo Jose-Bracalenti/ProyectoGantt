@@ -1,6 +1,6 @@
 // src/ActivitiesTable.js
 
-import { useState } from "react";
+import { useContext, useState } from "react";
 import {
   Table,
   TableBody,
@@ -19,22 +19,18 @@ import EditIcon from "@mui/icons-material/Edit";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import ActivityDialog from "./ActivityDialog";
 import AtributesDialog from "./AtributesDialog";
+import { ActivitiesTableContext } from "../hooks/ActivitiesTableProvider";
 
 const ActivitiesTable = () => {
-  const [activities, setActivities] = useState([]);
-  const [open, setOpen] = useState(false);
-  const [isEditing, setIsEditing] = useState(false);
-  const [currentActivityIndex, setCurrentActivityIndex] = useState(null);
-  const [newActivity, setNewActivity] = useState({
-    nombre: "",
-    descripcion: "",
-    fechaInicio: "",
-    fechaFin: "",
-    area: "",
-  });
-
-  const [atributeOpen, setAtributeOpen] = useState(false);
-  const [atributeContent, setAtributeContent] = useState("");
+  const { 
+    activities, setActivities,
+            open, setOpen,
+            isEditing, setIsEditing,
+            currentActivityIndex, setCurrentActivityIndex,
+            newActivity, setNewActivity,
+            atributeOpen, setAtributeOpen,
+            atributeContent, setAtributeContent
+  } = useContext(ActivitiesTableContext);
 
   const handleClick =
     ({ condition }) =>

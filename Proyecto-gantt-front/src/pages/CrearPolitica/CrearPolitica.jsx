@@ -1,21 +1,17 @@
 import FormularioPolitica from "./components/FormularioPolitica";
 import AgregarActividades from "./components/AgregarActividades";
 import "./CrearPolitica.css";
-import { Button, Grid } from "@mui/material";
-import { FormularioPoliticaProvider } from "./components/FormularioPoliticaProvider";
+import { Grid } from "@mui/material";
+import { FormularioPoliticaProvider } from "./hooks/FormularioPoliticaProvider";
+import { ActivitiesTableProvider } from "./hooks/ActivitiesTableProvider";
 import CrearPoliticaButtons from "./components/CrearPoliticaButtons";
 
 export const CrearPolitica = () => {
     
 
-    const handleCrear = () => {
-        console.log("crear politica");
-
-    };
-
-
     return (
         <FormularioPoliticaProvider>
+        <ActivitiesTableProvider>
         <form>
         <div style={{ display: 'flex' , marginY:'1rem'}}>
             <Grid container spacing={10} sx={{marginX:'1rem'}}>
@@ -31,6 +27,7 @@ export const CrearPolitica = () => {
         </div>
         <CrearPoliticaButtons />
         </form>
+        </ActivitiesTableProvider>
         </FormularioPoliticaProvider>
             );
 };

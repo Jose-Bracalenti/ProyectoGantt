@@ -1,8 +1,10 @@
 import { Button, Tooltip } from "@mui/material";
 import { useContext } from "react";
-import { FormularioPoliticaContext } from "./FormularioPoliticaProvider";
+import { FormularioPoliticaContext } from "../hooks/FormularioPoliticaProvider";
+import { ActivitiesTableContext } from "../hooks/ActivitiesTableProvider";
 import axios from "axios";
 import politicasService from "../services/politicasServices";
+//import GanttActivities from "../../../components/GanttActivities";
 
 
 const CrearPoliticaButtons = () => {
@@ -13,6 +15,8 @@ const CrearPoliticaButtons = () => {
         descripcion,
         costo,
         } = useContext(FormularioPoliticaContext);
+
+        const { activities } = useContext(ActivitiesTableContext);
 
         let camposCompletos = false;
         if (nombre !== "" && secretaria !== "" && eje !== "" && objetivo !== ""  && costo !== "") {
@@ -33,12 +37,26 @@ const CrearPoliticaButtons = () => {
             console.log(response);
         });
     };
+
+
+    const handlePreVisualizar = () => {
+        console.log("previsualizar");
+  
+    }
 return (
     <div style={{ display: 'flex', justifyContent: 'right', marginRight:'5rem' }}>
         
     <Button sx={{marginRight: 5}} variant="outlined" color="secondary">
             Cancelar
             </Button>
+    <Button sx={{marginRight: 5}} 
+    variant="outlined" 
+    color="primary"
+    onClick={handlePreVisualizar}
+    >
+        
+        PreVisualizar
+        </Button>
             <Tooltip title={buttonTitle}>
         <span>
             <Button 

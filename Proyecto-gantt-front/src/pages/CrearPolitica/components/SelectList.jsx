@@ -14,7 +14,7 @@ const SelectList = ({list ,stateComponent, setState, nombre }) => {
   return (
     <div>
       <FormControl fullWidth sx={{marginY: 1, minWidth: 120 }}>
-        <InputLabel id={id1}>{nombre}</InputLabel>
+        <InputLabel required id={id1}>{nombre}</InputLabel>
         <Select
           labelId="demo-simple-select-standard-label"
           id={id1}
@@ -23,9 +23,6 @@ const SelectList = ({list ,stateComponent, setState, nombre }) => {
           label={nombre}
           
         >
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
           {list.map((item) => (
             <MenuItem key={item.id} value={item.id}>
               {item.nombre}

@@ -2,7 +2,6 @@ import { Routes, Route } from "react-router-dom/dist";
 import NavBar2 from "./about/NavBar2";
 import {CrearPolitica, Contact, Ejemplo } from "./pages";
 
-
 function App() {
   return (
     <div>

@@ -1,23 +1,29 @@
-import { TextField, Box, Button } from "@mui/material";
+import { TextField, Box, Button, Autocomplete } from "@mui/material";
 
 import SelectList from "./SelectList";
 
-import { FormularioPoliticaContext } from "./FormularioPoliticaProvider";
+import { FormularioPoliticaContext } from "../hooks/FormularioPoliticaProvider";
 import { useContext, useState } from "react";
 
 const FormularioPolitica = () => {
-    const {nombre, setNombre,
-        dataSecretaria,
-        secretaria, setSecretaria,
-        eje, setEje,
-        dataEje,
-        objetivo, setObjetivo,
-        dataObjetivo,
-        descripcion, setDescripcion,
-        costo, setCosto} = useContext(FormularioPoliticaContext);
-    const [nombreVacio, setNombreVacio] = useState(false);
-
-
+  const {
+    nombre,
+    setNombre,
+    dataSecretaria,
+    secretaria,
+    setSecretaria,
+    eje,
+    setEje,
+    dataEje,
+    objetivo,
+    setObjetivo,
+    dataObjetivo,
+    descripcion,
+    setDescripcion,
+    costo,
+    setCosto,
+  } = useContext(FormularioPoliticaContext);
+  const [nombreVacio, setNombreVacio] = useState(false);
 
   console.log("secretaria ", secretaria);
 
@@ -28,7 +34,6 @@ const FormularioPolitica = () => {
     setDescripcion("");
     setCosto("");
   };
- 
 
   return (
     <div>
@@ -42,11 +47,17 @@ const FormularioPolitica = () => {
         variant="outlined"
         fullWidth
         helperText="Ingrese el nombre de la politica"
-        sx={{ marginY: 1  }}
+        sx={{ marginY: 1 }}
         value={nombre}
-        onChange={(e) => {setNombre(e.target.value); setNombreVacio(false)}}
-        onBlur={(e) => {if(e.target.value === "")setNombreVacio(true) ; else setNombreVacio(false)}}
-        />
+        onChange={(e) => {
+          setNombre(e.target.value);
+          setNombreVacio(false);
+        }}
+        onBlur={(e) => {
+          if (e.target.value === "") setNombreVacio(true);
+          else setNombreVacio(false);
+        }}
+      />
       <SelectList
         list={dataSecretaria}
         stateComponent={secretaria}
@@ -58,12 +69,16 @@ const FormularioPolitica = () => {
         stateComponent={eje}
         setState={setEje}
         nombre="eje"
-        />
-      <SelectList
-        list={dataObjetivo}
-        stateComponent={objetivo}
-        setState={setObjetivo}
-        nombre="objetivo"
+      />
+      <Autocomplete
+        required
+        fullWidth     
+        disablePortal
+        id="combo-box-demo"
+        options={dataObjetivo}
+        getOptionLabel={(option) => option.nombre}
+        sx={{ marginY: 1 }}
+        renderInput={(params) => <TextField {...params} label="Objetivo" />}
       />
       <TextField
         id="costo"
