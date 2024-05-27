@@ -7,7 +7,7 @@ const getAll = () =>{
     return axios.get(baseUrl)
 }
 
-const personService = {
+const areaService = {
     getAll: getAll
 }
-export default personService;
+export default areaService;

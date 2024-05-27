@@ -39,6 +39,11 @@ const ActivitiesTable = () => {
   const handleClick =
     ({ condition }) =>
     () => {
+        newActivity.nombre = "";
+        newActivity.descripcion = "";
+        newActivity.fechaInicio = "";
+        newActivity.fechaFin = "";
+        newActivity.area = "";
       setOpen(condition);
     };
 

@@ -1,43 +1,22 @@
 import { TextField, Box, Button } from "@mui/material";
-import secretariaServices from "../services/secretariaServices";
-import { useEffect, useState } from "react";
+
 import SelectList from "./SelectList";
-import objetivoServices from "../services/objetivoServices";
-import ejeServices from "../services/ejeServices";
+
+import { FormularioPoliticaContext } from "./FormularioPoliticaProvider";
+import { useContext, useState } from "react";
 
 const FormularioPolitica = () => {
-  const [nombre, setNombre] = useState("");
-  const [dataSecretaria, setDataSecretaria] = useState([]);
-  const [secretaria, setSecretaria] = useState("");
-  const [eje, setEje] = useState("");
-  const [dataEje, setDataEje] = useState([]);
-  const [objetivo, setObjetivo] = useState("");
-  const [dataObjetivo, setDataObjetivo] = useState([]);
-  const [descripcion, setDescripcion] = useState("");
-  const [costo, setCosto] = useState("");
+    const {nombre, setNombre,
+        dataSecretaria,
+        secretaria, setSecretaria,
+        eje, setEje,
+        dataEje,
+        objetivo, setObjetivo,
+        dataObjetivo,
+        descripcion, setDescripcion,
+        costo, setCosto} = useContext(FormularioPoliticaContext);
+    const [nombreVacio, setNombreVacio] = useState(false);
 
-  useEffect(() => {
-    secretariaServices.getAll().then((response) => {
-      setDataSecretaria(response.data);
-    });
-  }, []);
-
-  console.log(dataSecretaria);
-
-  useEffect(() => {
-    objetivoServices.getObjetivosByEjes(eje).then((response) => {
-      setDataObjetivo(response.data);
-    });
-  }, [eje]);
-  
- 
-    console.log(dataObjetivo);
-
-    useEffect(() => {
-        ejeServices.getAll().then((response) => {
-            setDataEje(response.data);
-        }); 
-    }, []);
 
 
   console.log("secretaria ", secretaria);
@@ -49,21 +28,25 @@ const FormularioPolitica = () => {
     setDescripcion("");
     setCosto("");
   };
+ 
 
   return (
     <div>
       <h2>Crear política pública prioritaria</h2>
       <TextField
+        required
+        error={nombreVacio}
         id="nombre"
         label="nombre de política"
         type="text"
         variant="outlined"
         fullWidth
         helperText="Ingrese el nombre de la politica"
-        sx={{ marginY: 1 }}
+        sx={{ marginY: 1  }}
         value={nombre}
-        onChange={(e) => setNombre(e.target.value)}
-      />
+        onChange={(e) => {setNombre(e.target.value); setNombreVacio(false)}}
+        onBlur={(e) => {if(e.target.value === "")setNombreVacio(true) ; else setNombreVacio(false)}}
+        />
       <SelectList
         list={dataSecretaria}
         stateComponent={secretaria}
