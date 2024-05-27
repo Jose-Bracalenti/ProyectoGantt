@@ -22,24 +22,27 @@ import gantt.proyecto.Servicios.Implemenaciones.ServicioActividad;
 
 
 @RestController
-@CrossOrigin(origins = "http://localhost:5173")
 @RequestMapping("/actividades")
 public class ActividadesController {
     @Autowired
     private ServicioActividad servicioActividad;
     @PostMapping
+    @CrossOrigin(origins = "http://localhost:5174")
     public ResponseEntity<ActividadDTO> createActividad(@RequestBody ActividadDTO actividad){
         return ResponseEntity.ok().body(servicioActividad.insertar(actividad));
     }
     @GetMapping
+    @CrossOrigin(origins = "http://localhost:5174")
     public ResponseEntity<List<ActividadDTO>> getActividades(){
         return ResponseEntity.ok().body(servicioActividad.buscarTodos().stream().map(x -> servicioActividad.mapToDTO(x)).collect(Collectors.toList()));
     }
     @GetMapping("{actividad_id}")
+    @CrossOrigin(origins = "http://localhost:5174")
     public ResponseEntity<ActividadDTO> getActividad(@PathVariable(value = "actividad_id") long id){
         return ResponseEntity.ok().body(servicioActividad.mapToDTO(servicioActividad.buscarPorId(id)));
     }
     @DeleteMapping
+    @CrossOrigin(origins = "http://localhost:5174")
     public ResponseEntity<Void> deleteActividad(@RequestBody ActividadDTO actividad){
         servicioActividad.eliminar(actividad);
         return ResponseEntity.ok().build();

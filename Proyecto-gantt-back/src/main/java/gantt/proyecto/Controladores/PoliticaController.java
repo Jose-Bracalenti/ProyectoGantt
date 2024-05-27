@@ -13,7 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "http://localhost:5174")
 @RequestMapping("/politicas")
 public class PoliticaController {
     @Autowired
@@ -22,7 +22,7 @@ public class PoliticaController {
     private ServicioActividad servicioActividad;
     @PostMapping 
     public ResponseEntity<PoliticaDTO> createPolitica(@RequestBody PoliticaDTO politica){
-        List<ActividadDTO> actividades[] = politica.getActividades();
+        List<ActividadDTO> actividades = politica.getActividades();
         ResponseEntity.ok().body(servicioPolitica.insertar(politica));
         for (ActividadDTO actividad : actividades) {
             servicioActividad.insertar(actividad);

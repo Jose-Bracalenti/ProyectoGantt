@@ -20,7 +20,7 @@ import gantt.proyecto.Servicios.Implemenaciones.ServicioArea;
 
 @RestController
 @RequestMapping("/areas")
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "http://localhost:5174")
 public class AreasController {
     @Autowired
     private ServicioArea servicioArea;

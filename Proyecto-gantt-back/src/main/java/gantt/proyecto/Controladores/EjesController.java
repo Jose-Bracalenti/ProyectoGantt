@@ -20,7 +20,7 @@ import gantt.proyecto.Servicios.Implemenaciones.*;
 
 @RestController
 @RequestMapping("/ejes")
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "http://localhost:5174")
 public class EjesController {
     @Autowired
     private ServicioEje servicioEje;

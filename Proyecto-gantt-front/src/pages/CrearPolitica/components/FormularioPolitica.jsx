@@ -68,19 +68,19 @@ const FormularioPolitica = () => {
         list={dataSecretaria}
         stateComponent={secretaria}
         setState={setSecretaria}
-        name="secretaria"
+        nombre="secretaria"
       />
       <SelectList
         list={dataEje}
         stateComponent={eje}
         setState={setEje}
-        name="eje"
+        nombre="eje"
         />
       <SelectList
         list={dataObjetivo}
         stateComponent={objetivo}
         setState={setObjetivo}
-        name="objetivo"
+        nombre="objetivo"
       />
       <TextField
         id="costo"

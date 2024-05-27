@@ -13,7 +13,7 @@ import gantt.proyecto.DTOS.SecretariaDTO;
 import gantt.proyecto.Servicios.Implemenaciones.ServicioSecretaria;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "http://localhost:5174")
 
 @RequestMapping("/secretarias")
 public class SecretariaController {

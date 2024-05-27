@@ -18,7 +18,7 @@ import gantt.proyecto.DTOS.ObjetivoDTO;
 import gantt.proyecto.Servicios.Implemenaciones.ServicioObjetivo;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "http://localhost:5174/")
 @RequestMapping("/objetivos")
 public class ObjetivosController {
     @Autowired
