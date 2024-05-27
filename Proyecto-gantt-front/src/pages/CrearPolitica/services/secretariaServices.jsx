@@ -27,7 +27,7 @@ const personService = {
 }
 */
 
-const personService = {
+const secretariaService = {
     getAll: getAll
 }
-export default personService;
+export default secretariaService;

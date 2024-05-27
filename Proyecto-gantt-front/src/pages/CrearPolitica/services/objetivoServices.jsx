@@ -12,8 +12,8 @@ const getAll = () =>{
     return axios.get(baseUrl)
 }
 
-const personService = {
+const objetivoService = {
     getAll: getAll,
     getObjetivosByEjes: getObjetivosByEjes
 }
-export default personService;
+export default objetivoService;

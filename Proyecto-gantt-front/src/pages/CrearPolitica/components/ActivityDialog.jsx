@@ -43,7 +43,6 @@ const ActivityDialog = ({
           {isEditing ? "modificar" : "agregar"} una actividad.
         </DialogContentText>
         <TextField
-          autoFocus
           margin="dense"
           name="nombre"
           label="Nombre"
@@ -97,7 +96,7 @@ const ActivityDialog = ({
           list={dataArea}
           stateComponent={area}
           setState={setArea}
-          name="area"
+          nombre="area"
         />
         <TextField
           margin="dense"
