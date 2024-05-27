@@ -1,6 +1,6 @@
 // src/ActivityDialog.js
 
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   Dialog,
   DialogActions,
@@ -9,11 +9,15 @@ import {
   DialogTitle,
   Button,
   TextField,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
 } from "@mui/material";
 
 import PropTypes from "prop-types";
-import SelectList from "./SelectList";
 import servicesArea from "../services/areaServices";
+import { ActivitiesTableContext } from "../hooks/ActivitiesTableProvider";
 
 const ActivityDialog = ({
   open,
@@ -23,14 +27,8 @@ const ActivityDialog = ({
   onSave,
   onCancel,
 }) => {
-  const [area, setArea] = useState("");
-  const [dataArea, setDataArea] = useState([]);
-
-  useEffect(() => {
-    servicesArea.getAll().then((response) => {
-      setDataArea(response.data);
-    });
-  }, []);
+  const{newActivity, setNewActivity, dataArea} = useContext(ActivitiesTableContext);
+  
 
   return (
     <Dialog open={open} onClose={onCancel}>
@@ -59,12 +57,12 @@ const ActivityDialog = ({
           type="text"
           fullWidth
           multiline
-          rows={3} 
+          rows={3}
           InputProps={{
             style: {
-              width: "100%", 
-              height: "auto", 
-              overflowY: "auto", 
+              width: "100%",
+              height: "auto",
+              overflowY: "auto",
             },
           }}
           value={activity.descripcion}
@@ -81,6 +79,7 @@ const ActivityDialog = ({
           value={activity.fechaInicio}
           onChange={onChange}
         />
+
         <TextField
           margin="dense"
           name="fechaFin"
@@ -92,44 +91,65 @@ const ActivityDialog = ({
           value={activity.fechaFin}
           onChange={onChange}
         />
-        <SelectList
-          list={dataArea}
-          stateComponent={area}
-          setState={setArea}
-          nombre="area"
-        />
+
+        <FormControl fullWidth sx={{ marginY: 1, minWidth: 120 }}>
+          <InputLabel required id={"demo-simple-select-standard-label-area"}>
+            área
+          </InputLabel>
+          <Select
+            labelId="demo-simple-select-standard-label-area"
+            id={"demo-simple-select-standard-label-area"}
+            value={activity.area_id}
+            name="area"
+            label='area'
+            onChange={(e) => {
+              onChange(e);
+              setNewActivity({
+                ...newActivity,
+                  area_id: e.target.value,
+                });
+            } }
+          >
+            {dataArea.map((item) => (
+              <MenuItem key={item.id} value={item.id}>
+                {item.nombre}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+
         <TextField
           margin="dense"
-          name="resultadoEsperado"
+          name="resultado_esperado"
           label="Resultado Esperado"
           type="text"
           fullWidth
-          value={activity.resultadoEsperado}
+          value={activity.resultado_esperado}
           multiline
-          rows={3} 
+          rows={3}
           InputProps={{
             style: {
-              width: "100%", 
-              height: "auto", 
-              overflowY: "auto", 
+              width: "100%",
+              height: "auto",
+              overflowY: "auto",
             },
           }}
           onChange={onChange}
         />
         <TextField
           margin="dense"
-          name="participacionCiudadana"
+          name="participacion_ciudadana"
           label="Participación Ciudadana"
           type="text"
           fullWidth
-          value={activity.participacionCiudadana}
+          value={activity.participacion_ciudadana}
           multiline
-          rows={3} 
+          rows={3}
           InputProps={{
             style: {
-              width: "100%", 
-              height: "auto", 
-              overflowY: "auto", 
+              width: "100%",
+              height: "auto",
+              overflowY: "auto",
             },
           }}
           onChange={onChange}

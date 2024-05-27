@@ -1,4 +1,4 @@
-import  { createContext, useState, useEffect, useContext } from 'react';
+import  { createContext, useState, useEffect } from 'react';
 import secretariaServices from "../services/secretariaServices";
 import objetivoServices from "../services/objetivoServices";
 import ejeServices from "../services/ejeServices";

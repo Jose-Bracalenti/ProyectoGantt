@@ -10,7 +10,6 @@ import politicasService from "../services/politicasServices";
 const CrearPoliticaButtons = () => {
     const {nombre,
         secretaria,
-        eje,
         objetivo,
         descripcion,
         costo,
@@ -19,19 +18,23 @@ const CrearPoliticaButtons = () => {
         const { activities } = useContext(ActivitiesTableContext);
 
         let camposCompletos = false;
-        if (nombre !== "" && secretaria !== "" && eje !== "" && objetivo !== ""  && costo !== "") {
+        if (nombre !== "" && costo !== "") {
             camposCompletos = true;
         }
         const buttonTitle = camposCompletos ? "Crear ppp" : "Complete los campos con (*) para crear ppp"
-    const handleCrear = () => {
+    
+        const handleCrear = () => {
         console.log("crear politica");
+        const actividades = activities.map(({ nombre, descripcion,fechaInicio,fechaFin, area_id, resultado_esperado, participacion_ciudadana }) => 
+        ({ nombre, descripcion,fechaInicio,fechaFin, area_id, resultado_esperado, participacion_ciudadana }));
         const politica = {
             nombre: nombre,
-            secretaria: secretaria,
-            eje: eje,
-            objetivo: objetivo,
+            secretaria_id: secretaria,
+            objetivo_id: objetivo,
             descripcion: descripcion,
-            costo: costo
+            costo: costo,
+            actividades: actividades
+
         }
         politicasService.create(politica).then((response) => {
             console.log(response);
