@@ -34,13 +34,11 @@ public class ServicioSecretaria{
     }
     public SecretariaDTO mapToDTO(Secretaria secretaria){
         SecretariaDTO dto = new SecretariaDTO();
-        dto.setId(secretaria.getid());
         dto.setNombre(secretaria.getNombre());
         return dto;
     }
     public Secretaria mapToEntity(SecretariaDTO obj) {
         Secretaria entity = new Secretaria();
-        entity.setid(obj.getId());
         entity.setNombre(obj.getNombre());
         return entity;
     }

@@ -8,6 +8,7 @@ import jakarta.persistence.*;
 @Table(name = "area")
 public class Area {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long area_id;
     @Column
     private String nombre;

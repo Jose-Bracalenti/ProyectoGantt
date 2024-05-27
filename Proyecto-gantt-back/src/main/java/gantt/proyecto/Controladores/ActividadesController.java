@@ -35,8 +35,6 @@ public class ActividadesController {
     @PostMapping
     public ResponseEntity<ActividadDTO> createActividad(@RequestBody ActividadDTO actividad){
         Politica politica = new Politica();
-        politica = servicioPolitica.buscarPorId(actividad.getPolitica_id()).get();
-        System.out.println(politica.getNombre());
         return ResponseEntity.ok().body(servicioActividad.insertar(actividad, politica, servicioArea));
     }
     @GetMapping
@@ -50,7 +48,6 @@ public class ActividadesController {
     @DeleteMapping
     public ResponseEntity<Void> deleteActividad(@RequestBody ActividadDTO actividad){
         Politica politica = new Politica();
-        politica = servicioPolitica.buscarPorId(actividad.getPolitica_id()).get();
         servicioActividad.eliminar(actividad, politica, servicioArea);
         return ResponseEntity.ok().build();
     }

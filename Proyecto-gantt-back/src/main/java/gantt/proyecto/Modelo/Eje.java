@@ -11,6 +11,7 @@ import jakarta.persistence.*;
 @Table(name = "eje")
 public class Eje {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long eje_id;
     @Column
     private String nombre;

@@ -11,6 +11,7 @@ import jakarta.persistence.*;
 @Table(name = "objetivo")
 public class Objetivo {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long objetivo_id;
     @Column(name = "nombre")
     private String nombre;

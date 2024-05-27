@@ -45,7 +45,6 @@ public class ServicioActividad{
     }
     public final ActividadDTO mapToDTO(Actividad actividad){
         ActividadDTO dto = new ActividadDTO();
-        dto.setId(actividad.getId());
         dto.setNombre(actividad.getNombre());
         dto.setDescripcion(actividad.getDescripcion());
         dto.setFechaInicio(actividad.getFecha_inicio());
@@ -54,13 +53,11 @@ public class ServicioActividad{
         dto.setArea(actividad.getArea().getNombre());
         dto.setArea_id(actividad.getArea().getid());
         dto.setPolitica(actividad.getPolitica().getNombre());
-        dto.setPolitica_id(actividad.getPolitica().getPolitica_id());
         dto.setResultado_esperado(actividad.getResultado_esperado());
         return dto;
     }
     public final Actividad mapToEntity(ActividadDTO dto, Politica politica, ServicioArea ServicioArea){
         Actividad actividad = new Actividad();
-        actividad.setId(dto.getId());
         actividad.setNombre(dto.getNombre());
         actividad.setDescripcion(dto.getDescripcion());
         actividad.setFecha_inicio(dto.getFechaInicio());
