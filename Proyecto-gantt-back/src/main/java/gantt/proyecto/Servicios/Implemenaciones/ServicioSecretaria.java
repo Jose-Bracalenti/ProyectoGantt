@@ -8,11 +8,10 @@ import org.springframework.stereotype.Service;
 import gantt.proyecto.DTOS.SecretariaDTO;
 import gantt.proyecto.Modelo.*;
 import gantt.proyecto.Repositorios.DAOS.SecretariaDAO;
-import gantt.proyecto.Servicios.Interfaces.ServicioSecretariaInterface;
 import jakarta.transaction.Transactional;
 @Service
 @Transactional(rollbackOn = {Exception.class})
-public class ServicioSecretaria implements ServicioSecretariaInterface{
+public class ServicioSecretaria{
     @Autowired
     private SecretariaDAO secretariaDAO;
     public SecretariaDTO insertar(SecretariaDTO secretaria) {

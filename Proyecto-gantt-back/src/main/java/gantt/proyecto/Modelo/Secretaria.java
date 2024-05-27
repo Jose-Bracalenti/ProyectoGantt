@@ -19,7 +19,7 @@ public class Secretaria {
     private long secretaria_id;
     @Column
     private String nombre;
-    @OneToMany(mappedBy = "secretaria_responsable",fetch = FetchType.LAZY,cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "secretaria",fetch = FetchType.LAZY,cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Politica> politicas;
 
     public Secretaria() {

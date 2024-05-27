@@ -7,11 +7,11 @@ import org.springframework.stereotype.Service;
 
 import gantt.proyecto.Repositorios.DAOS.AreaDAO;
 
-import gantt.proyecto.Servicios.Interfaces.ServicioAreaInterface;
+
 import gantt.proyecto.DTOS.AreaDTO;
 import gantt.proyecto.Modelo.*;
 @Service
-public class ServicioArea implements ServicioAreaInterface{
+public class ServicioArea{
    @Autowired
     private AreaDAO AreaDAO;
     public AreaDTO insertar(AreaDTO Area) {

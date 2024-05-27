@@ -13,4 +13,6 @@ public interface PoliticaDAO extends JpaRepository<Politica, Long>{
     @SuppressWarnings("null")
     Optional<Politica> findById(Long id);
     List<Politica> findByNombre(String nombre);
+    List<Politica> findByObjetivo(Objetivo objetivo);
+    List<Politica> findBySecretaria(Secretaria secretaria);
 }

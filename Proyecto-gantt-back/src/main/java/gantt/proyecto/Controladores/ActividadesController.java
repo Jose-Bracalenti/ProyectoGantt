@@ -16,38 +16,51 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import gantt.proyecto.DTOS.ActividadDTO;
-
-import gantt.proyecto.Servicios.Implemenaciones.ServicioActividad;
+import gantt.proyecto.Modelo.Politica;
+import gantt.proyecto.Servicios.Implemenaciones.*;
 
 
 
 @RestController
+@CrossOrigin(origins = "http://localhost:5174")
 @RequestMapping("/actividades")
 public class ActividadesController {
     @Autowired
     private ServicioActividad servicioActividad;
+    @Autowired
+    private ServicioPolitica servicioPolitica;
+    @Autowired
+    private ServicioArea servicioArea;
+
     @PostMapping
-    @CrossOrigin(origins = "http://localhost:5174")
     public ResponseEntity<ActividadDTO> createActividad(@RequestBody ActividadDTO actividad){
-        return ResponseEntity.ok().body(servicioActividad.insertar(actividad));
+        Politica politica = new Politica();
+        politica = servicioPolitica.buscarPorId(actividad.getPolitica_id()).get();
+        System.out.println(politica.getNombre());
+        return ResponseEntity.ok().body(servicioActividad.insertar(actividad, politica, servicioArea));
     }
     @GetMapping
-    @CrossOrigin(origins = "http://localhost:5174")
     public ResponseEntity<List<ActividadDTO>> getActividades(){
         return ResponseEntity.ok().body(servicioActividad.buscarTodos().stream().map(x -> servicioActividad.mapToDTO(x)).collect(Collectors.toList()));
     }
     @GetMapping("{actividad_id}")
-    @CrossOrigin(origins = "http://localhost:5174")
     public ResponseEntity<ActividadDTO> getActividad(@PathVariable(value = "actividad_id") long id){
         return ResponseEntity.ok().body(servicioActividad.mapToDTO(servicioActividad.buscarPorId(id)));
     }
     @DeleteMapping
-    @CrossOrigin(origins = "http://localhost:5174")
     public ResponseEntity<Void> deleteActividad(@RequestBody ActividadDTO actividad){
-        servicioActividad.eliminar(actividad);
+        Politica politica = new Politica();
+        politica = servicioPolitica.buscarPorId(actividad.getPolitica_id()).get();
+        servicioActividad.eliminar(actividad, politica, servicioArea);
         return ResponseEntity.ok().build();
     }
-
-
+    @GetMapping("/politica/{politica_id}")
+    public ResponseEntity<List<ActividadDTO>> getActividadesPorPolitica(@PathVariable(value = "politica_id") long id){
+        return ResponseEntity.ok().body(servicioActividad.buscarPorPolitica(id, servicioPolitica).stream().map(x -> servicioActividad.mapToDTO(x)).collect(Collectors.toList()));
+    }
+    @GetMapping("/area/{area_id}")
+    public ResponseEntity<List<ActividadDTO>> getActividadesPorArea(@PathVariable(value = "area_id") long id){
+        return ResponseEntity.ok().body(servicioActividad.buscarPorArea(id, servicioArea).stream().map(x -> servicioActividad.mapToDTO(x)).collect(Collectors.toList()));
+    }
     
 }

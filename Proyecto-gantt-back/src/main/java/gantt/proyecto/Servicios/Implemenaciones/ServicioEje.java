@@ -2,7 +2,6 @@ package gantt.proyecto.Servicios.Implemenaciones;
 
 import java.util.List;
 
-import gantt.proyecto.Servicios.Interfaces.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +10,7 @@ import gantt.proyecto.Repositorios.DAOS.EjeDAO;
 import gantt.proyecto.DTOS.EjeDTO;
 import gantt.proyecto.Modelo.*;
 @Service
-public class ServicioEje implements ServicioEJeInterface{
+public class ServicioEje{
     @Autowired
     private EjeDAO EjeDAO;
     public EjeDTO insertar(EjeDTO Eje) {
