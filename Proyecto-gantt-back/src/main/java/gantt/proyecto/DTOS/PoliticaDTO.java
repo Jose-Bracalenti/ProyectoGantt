@@ -10,12 +10,13 @@ public class PoliticaDTO {
     private long objetivo_id;
     private String secretaria;
     private long secretaria_id;
+    private float costo;
     private List<ActividadDTO> actividades;
     public PoliticaDTO() {
     }
     
     public PoliticaDTO(String nombre, String descripcion, String area, long area_id, String objetivo,
-            long objetivo_id, List<ActividadDTO> actividades, String secretaria, long secretaria_id, long id) {
+            long objetivo_id, List<ActividadDTO> actividades, String secretaria, long secretaria_id, long id, float costo) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.objetivo = objetivo;
@@ -24,6 +25,7 @@ public class PoliticaDTO {
         this.secretaria = secretaria;
         this.secretaria_id = secretaria_id;
         this.id = id;
+        this.costo = costo;
     }
     
     public String getSecretaria() {
@@ -85,6 +87,14 @@ public class PoliticaDTO {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public float getCosto() {
+        return costo;
+    }
+
+    public void setCosto(float costo) {
+        this.costo = costo;
     }
     
 }

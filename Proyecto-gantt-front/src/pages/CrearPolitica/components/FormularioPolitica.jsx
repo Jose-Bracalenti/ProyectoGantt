@@ -59,7 +59,7 @@ const FormularioPolitica = () => {
         list={dataSecretaria}
         stateComponent={secretaria}
         setState={setSecretaria}
-        nombre="secretaria"
+        nombre="Secretaria"
       />
       <SelectList list={dataEje} stateComponent={eje} setState={setEje} nombre="eje" />
       <SelectList

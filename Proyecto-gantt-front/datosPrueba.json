@@ -16,6 +16,24 @@
       "important": true
     }
   ],
-
-  "politicas" :[]
+  "politicas": [
+    {
+      "id": "514e",
+      "nombre": "Politica",
+      "secretaria_id": 1,
+      "objetivo_id": 2,
+      "descripcion": "asdsadasdas",
+      "costo": "12312412321",
+      "actividades": []
+    },
+    {
+      "id": "8521",
+      "nombre": "PruebaCosto",
+      "secretaria_id": 1,
+      "objetivo_id": 2,
+      "descripcion": "deberia andar",
+      "costo": "1000000",
+      "actividades": []
+    }
+  ]
 }

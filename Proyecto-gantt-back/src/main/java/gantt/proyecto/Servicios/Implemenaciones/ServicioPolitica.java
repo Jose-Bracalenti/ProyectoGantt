@@ -70,6 +70,7 @@ public class ServicioPolitica{
         entity.setObjetivo(ServicioObjetivo.buscarPorId(obj.getObjetivo_id()));
         entity.setSecretaria_responsable(ServicioSecretaria.buscarPorId(obj.getSecretaria_id()));
         entity. setActividades(obj.getActividades().stream().map(x -> ServicioActividad.mapToEntity(x, entity, ServicioArea)).collect(Collectors.toList()));
+        entity.setCosto(obj.getCosto());
         System.out.println(entity.getActividades());
         return entity;
     }
