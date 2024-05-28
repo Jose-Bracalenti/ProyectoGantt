@@ -159,7 +159,7 @@ const handleShowAtributes = (content) => () => {
               </TableCell>
               <TableCell>{activity.fechaInicio}</TableCell>
               <TableCell>{activity.fechaFin}</TableCell>
-              <TableCell>{(dataArea.find(item => item.id === activity.area_id)).nombre}</TableCell>
+              <TableCell>{activity.area_id!==""? (dataArea.find(item => item.id === activity.area_id)).nombre : ""}</TableCell>
               <TableCell>
                 <Tooltip
                   title={

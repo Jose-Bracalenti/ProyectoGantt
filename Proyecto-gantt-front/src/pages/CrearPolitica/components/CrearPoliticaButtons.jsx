@@ -145,7 +145,7 @@ const CrearPoliticaButtons = () => {
             height: 500,
           }}
         >
-          <TimelineComponent  />
+          <TimelineComponent activities={activities} />
         </Box>
       </Modal>
     </div>
