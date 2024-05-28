@@ -1,18 +1,28 @@
 import React, { useContext, useState } from "react";
-import { Button, Tooltip, Snackbar } from "@mui/material";
+import { Button, Tooltip, Snackbar, Modal, Box } from "@mui/material";
 import { FormularioPoliticaContext } from "../hooks/FormularioPoliticaProvider";
 import { ActivitiesTableContext } from "../hooks/ActivitiesTableProvider";
 import politicasService from "../services/politicasServices";
-
+import TimelineComponent from "../../../components/TimelineComponent";
 const CrearPoliticaButtons = () => {
-  const { nombre, setNombre, secretaria, setSecretaria, objetivo, setObjetivo, descripcion, setDescripcion, costo, setCosto } = useContext(
-    FormularioPoliticaContext
-  );
+  const {
+    nombre,
+    setNombre,
+    secretaria,
+    setSecretaria,
+    objetivo,
+    setObjetivo,
+    descripcion,
+    setDescripcion,
+    costo,
+    setCosto,
+  } = useContext(FormularioPoliticaContext);
   const { activities, setActivities } = useContext(ActivitiesTableContext);
 
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [snackbarSeverity, setSnackbarSeverity] = useState("success");
+  const [openModalGantt, setOpenModalGantt] = useState(false);
 
   const handleCloseSnackbar = () => {
     setSnackbarOpen(false);
@@ -28,14 +38,22 @@ const CrearPoliticaButtons = () => {
 
   const handleCrear = () => {
     const actividades = activities.map(
-      ({ nombre, descripcion, fechaInicio, fechaFin, area_id, resultado_esperado, participacion_ciudadana }) => ({
+      ({
         nombre,
         descripcion,
         fechaInicio,
         fechaFin,
         area_id,
         resultado_esperado,
-        participacion_ciudadana
+        participacion_ciudadana,
+      }) => ({
+        nombre,
+        descripcion,
+        fechaInicio,
+        fechaFin,
+        area_id,
+        resultado_esperado,
+        participacion_ciudadana,
       })
     );
     const politica = {
@@ -47,7 +65,8 @@ const CrearPoliticaButtons = () => {
       actividades: actividades,
     };
 
-    politicasService.create(politica)
+    politicasService
+      .create(politica)
       .then((response) => {
         setSnackbarMessage("Política agregada correctamente");
         setSnackbarSeverity("success");
@@ -73,16 +92,18 @@ const CrearPoliticaButtons = () => {
   };
 
   const handlePreVisualizar = () => {
-    console.log("previsualizar");
+    setOpenModalGantt(true);
   };
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'right', marginRight:'5rem' }}>
-      <Button sx={{marginRight: 5}} variant="outlined" color="secondary">
+    <div
+      style={{ display: "flex", justifyContent: "right", marginRight: "5rem" }}
+    >
+      <Button sx={{ marginRight: 5 }} variant="outlined" color="secondary">
         Cancelar
       </Button>
       <Button
-        sx={{marginRight: 5}}
+        sx={{ marginRight: 5 }}
         variant="outlined"
         color="primary"
         onClick={handlePreVisualizar}
@@ -108,6 +129,25 @@ const CrearPoliticaButtons = () => {
         message={snackbarMessage}
         severity={snackbarSeverity}
       />
+      <Modal open={openModalGantt} onClose={() => setOpenModalGantt(false)}>
+        <Box
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: 1000,
+            bgcolor: "background.paper",
+            border: "2px solid #000",
+            boxShadow: 24,
+            alignContent: "center",
+            alignItems: 'center',
+            height: 500,
+          }}
+        >
+          <TimelineComponent  />
+        </Box>
+      </Modal>
     </div>
   );
 };
