@@ -103,6 +103,7 @@ const CrearPoliticaButtons = () => {
         Cancelar
       </Button>
       <Button
+      disabled={!activities.length}
         sx={{ marginRight: 5 }}
         variant="outlined"
         color="primary"
