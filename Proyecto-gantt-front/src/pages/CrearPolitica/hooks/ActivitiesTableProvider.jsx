@@ -23,9 +23,12 @@ export const ActivitiesTableProvider = ({ children }) => {
   const [dataArea, setDataArea] = useState([]);
  
   useEffect(() => {
-    servicesArea.getAll().then((response) => {
+    servicesArea
+     .getAll()
+    .then((response) => {
       setDataArea(response.data);
-    });
+    })
+    
   }, []);
 
   return (

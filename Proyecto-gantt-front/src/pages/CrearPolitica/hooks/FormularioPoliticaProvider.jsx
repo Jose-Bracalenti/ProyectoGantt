@@ -20,14 +20,26 @@ export const FormularioPoliticaProvider = ({ children }) => {
   const [descripcion, setDescripcion] = useState("");
   const [costo, setCosto] = useState("");
   const [camposCompletos, setCamposCompletos] = useState(false);
-
+  const [alertaServidor, setAlertaServidor] = useState("");
+  const[openAlerta, setOpenAlerta] = useState(false);
 
 
   useEffect(() => {
-    secretariaServices.getAll().then((response) => {
+    secretariaServices
+     .getAll()
+    .then((response) => {
       setDataSecretaria(response.data);
-    });
+      if(alertaServidor.mensaje !== "") {
+        setAlertaServidor("Conectado al servidor", "success");
+        
+      }
+    }).catch (() => {
+      console.log('Error al obtener los datos');
+      setAlertaServidor({mensaje: 'Error al obtener los datos del servidor', status: 'error'}); 
+      setOpenAlerta(true);
+      }) 
   }, []);
+
 
   console.log(dataSecretaria);
 
@@ -61,7 +73,9 @@ export const FormularioPoliticaProvider = ({ children }) => {
       dataObjetivo, setDataObjetivo,
       descripcion, setDescripcion,
       costo, setCosto,
-      camposCompletos, setCamposCompletos
+      camposCompletos, setCamposCompletos,
+      alertaServidor, setAlertaServidor,
+      openAlerta, setOpenAlerta
     }}>
       {children}
     </FormularioPoliticaContext.Provider>

@@ -103,7 +103,7 @@ const CrearPoliticaButtons = () => {
         Cancelar
       </Button>
       <Button
-      disabled={!activities.length}
+        disabled={!activities.length}
         sx={{ marginRight: 5 }}
         variant="outlined"
         color="primary"
@@ -137,13 +137,11 @@ const CrearPoliticaButtons = () => {
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
-            width: 1000,
             bgcolor: "background.paper",
             border: "2px solid #000",
             boxShadow: 24,
-            alignContent: "center",
-            alignItems: 'center',
-            height: 500,
+            p: 2, // Añade padding para que no quede tan justo
+            display: "inline-block",
           }}
         >
           <TimelineComponent activities={activities} />

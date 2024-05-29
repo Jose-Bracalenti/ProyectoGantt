@@ -1,6 +1,6 @@
 // src/ActivityDialog.js
 
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import {
   Dialog,
   DialogActions,
@@ -16,7 +16,6 @@ import {
 } from "@mui/material";
 
 import PropTypes from "prop-types";
-import servicesArea from "../services/areaServices";
 import { ActivitiesTableContext } from "../hooks/ActivitiesTableProvider";
 
 const ActivityDialog = ({

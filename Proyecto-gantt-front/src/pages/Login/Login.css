@@ -1,0 +1,20 @@
+.login-container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0f0;
+  }
+  .lock-icon {  
+    margin-top: 2rem;
+  }
+  
+  .login-paper {
+    padding: 20px;
+    width: 300px;
+  }
+
+  .logo {
+    width: 200px; /* Ajusta el tamaño del logo según sea necesario */
+    margin-bottom: 20px; /* Agrega un margen inferior para separar el logo del texto */
+  }

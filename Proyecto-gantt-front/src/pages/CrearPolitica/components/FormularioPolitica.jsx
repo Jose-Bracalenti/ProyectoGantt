@@ -1,7 +1,16 @@
-import { TextField, Box, Button } from "@mui/material";
+import {
+  TextField,
+  Box,
+  Button,
+  Alert,
+  Snackbar,
+  SnackbarContent,
+  IconButton,
+} from "@mui/material";
 import SelectList from "./SelectList";
 import { FormularioPoliticaContext } from "../hooks/FormularioPoliticaProvider";
 import { useContext, useState } from "react";
+import CloseIcon from "@mui/icons-material/Close";
 
 const FormularioPolitica = () => {
   const {
@@ -20,6 +29,9 @@ const FormularioPolitica = () => {
     setDescripcion,
     costo,
     setCosto,
+    alertaServidor,
+    openAlerta,
+    setOpenAlerta,
   } = useContext(FormularioPoliticaContext);
   const [nombreVacio, setNombreVacio] = useState(false);
 
@@ -31,9 +43,30 @@ const FormularioPolitica = () => {
     setDescripcion("");
     setCosto("");
   };
+  console.log("error ", alertaServidor);
 
   return (
     <div>
+      <Snackbar
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "center",
+        }}
+        open={openAlerta}
+        autoHideDuration={6000} // Duración en milisegundos para ocultar automáticamente la Snackbar
+        onClose={() => {
+          setOpenAlerta(false);
+        }}
+      >
+        <Alert
+          onClose={() => { setOpenAlerta(false); }}
+          severity={alertaServidor.status}
+          sx={{ width: "100%" }}
+        >
+          {alertaServidor.mensaje}
+        </Alert>
+      </Snackbar>
+
       <h2>Crear política pública prioritaria</h2>
       <TextField
         required
@@ -44,7 +77,7 @@ const FormularioPolitica = () => {
         variant="outlined"
         fullWidth
         helperText="Ingrese el nombre de la politica"
-        sx={{ marginY: 1 }}
+        sx={{ marginY: 0.5 }}
         value={nombre}
         onChange={(e) => {
           setNombre(e.target.value);
@@ -60,13 +93,20 @@ const FormularioPolitica = () => {
         stateComponent={secretaria}
         setState={setSecretaria}
         nombre="Secretaria"
+        sx={{ marginY: 0.5 }}
       />
-      <SelectList list={dataEje} stateComponent={eje} setState={setEje} nombre="eje" />
+      <SelectList
+        list={dataEje}
+        stateComponent={eje}
+        setState={setEje}
+        nombre="eje"
+      />
       <SelectList
         list={dataObjetivo}
         stateComponent={objetivo}
         setState={setObjetivo}
         nombre="Objetivo"
+        sx={{ marginY: 0.5 }}
       />
       <TextField
         id="costo"
@@ -75,7 +115,7 @@ const FormularioPolitica = () => {
         variant="outlined"
         fullWidth
         helperText="Ingrese el costo de la politica"
-        sx={{ marginY: 1 }}
+        sx={{ marginY: 0.5 }}
         value={costo}
         onChange={(e) => setCosto(e.target.value)}
       />
@@ -86,7 +126,7 @@ const FormularioPolitica = () => {
         variant="outlined"
         fullWidth
         helperText="Ingrese la descripción de la politica"
-        sx={{ marginY: 1 }}
+        sx={{ marginY: 0.5 }}
         multiline
         rows={4}
         value={descripcion}

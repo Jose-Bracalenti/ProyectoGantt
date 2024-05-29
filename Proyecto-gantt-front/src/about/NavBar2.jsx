@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { AppBar, Tabs, Tab, Toolbar, Menu, MenuItem } from "@mui/material";
 import Box from "@mui/material/Box";
-import { NavLink } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
 import logo from '../assets/SantaFeCapital_Blanco.png';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 const NavBar2 = () => {
     const [value, setValue] = useState("1");
@@ -26,16 +27,26 @@ const NavBar2 = () => {
         <>
             <AppBar position="sticky" sx={{ marginBottom: '1rem' }}>
                 <Toolbar>
-                    <Box sx={{ flexGrow: 1 }}>
-                        <Tabs indicatorColor="secondary" textColor="inherit" value={value} onChange={handleChange} aria-label="nav tabs" >
+                    <Box sx={{flexGrow:1}} >
+                        <Tabs indicatorColor="secondary" 
+                        textColor="inherit" value={value} 
+                        onChange={handleChange} 
+                        aria-label="nav tabs"
+                        variant="scrollable" 
+                        >
+                            
                             <Tab
                                 sx={sx}
                                 label="Políticas"
                                 aria-controls="politics-menu"
                                 aria-haspopup="true"
-                                onMouseOver={handleMenuOpen}
+                                //onMouseEnter={handleMenuOpen}
+                                onClick={handleMenuOpen}
+                                //onMouseLeave={handleMenuClose}
                                 value="1"
-                            />
+                                icon={<KeyboardArrowDownIcon />}
+                                iconPosition="end"
+                                />
                             <Tab
                                 sx={sx}
                                 label="Planificación"
@@ -56,28 +67,31 @@ const NavBar2 = () => {
                             anchorEl={anchorEl}
                             open={Boolean(anchorEl)}
                             onClose={handleMenuClose}
-                           onMouseLeave={handleMenuClose}>
+                            onMouseLeave={handleMenuClose}>
                             <MenuItem
                                 component={NavLink}
                                 to="/CrearPolitica"
                                 onClick={handleMenuClose}
                             >
-                                Crear Política
+                                Crear Política pública prioritaria
                             </MenuItem>
                             <MenuItem
                                 component={NavLink}
                                 to="/VerPoliticas"
                                 onClick={handleMenuClose}
                             >
-                                Ver Políticas
+                                Gestionar Política pública prioritaria	
                             </MenuItem>
     
                         </Menu>
                     </Box>
                     <h2 style={{ margin: 10 }}>Sistemas ---algo--- de públicas</h2>
-                    <img src={logo} alt="santa fe" width="200px" height="100px" />
+                    <img src={logo} alt="santa fe" width="160px"  />
+
+                    
                 </Toolbar>
             </AppBar>
+            <Outlet />
         </>
     );
 };
