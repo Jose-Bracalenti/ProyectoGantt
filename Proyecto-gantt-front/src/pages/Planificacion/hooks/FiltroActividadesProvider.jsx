@@ -1,9 +1,9 @@
 import React, { createContext, useState, useEffect } from 'react';
 import PropTypes from "prop-types";
-import ejeService from "../../../services/ejeServices";
-import objetivoService from "../../../services/objetivoServices";
-import secretariaService from "../../../services/secretariaServices";
-import areaService from "../../../services/areaServices";
+import ejeServices from "../../../services/ejeServices";
+import objetivoServices from "../../../services/objetivoServices";
+import secretariaServices from "../../../services/secretariaServices";
+import areaServices from "../../../services/areaServices";
 
 export const FiltroActividadesContext = createContext();
 
@@ -24,26 +24,37 @@ export const FiltroActividadesProvider = ({ children }) => {
     const [secretarias, setSecretarias] = useState([]);
 
     useEffect(() => {
-        fetchData();
+        secretariaServices.getAll()
+            .then((response) => {
+                setSecretarias(response.data);
+                if (alertaServidor.mensaje !== "") {
+                    setAlertaServidor("Conectado al servidor", "success");
+                }
+            })
+            .catch(() => {
+                console.log('Error al obtener los datos');
+                setAlertaServidor({ mensaje: 'Error al obtener los datos del servidor', status: 'error' });
+                setOpenAlerta(true);
+            });
     }, []);
 
-    const fetchData = async () => {
-        try {
-            const ejesResponse = await ejeService.getAll();
-            setEjes(ejesResponse.data);
-
-            const areasResponse = await areaService.getAll();
-            setAreas(areasResponse.data);
-
-            const objetivosResponse = await objetivoService.getAll();
-            setObjetivos(objetivosResponse.data);
-
-            const secretariasResponse = await secretariaService.getAll();
-            setSecretarias(secretariasResponse.data);
-        } catch (error) {
-            console.error("Error fetching data:", error);
+    useEffect(() => {
+        if (eje === "") {
+            setObjetivos([]);
+        } else {
+            objetivoServices.getObjetivosByEjes(eje)
+                .then((response) => {
+                    setObjetivos(response.data);
+                });
         }
-    };
+    }, [eje]);
+
+    useEffect(() => {
+        ejeServices.getAll()
+            .then((response) => {
+                setEjes(response.data);
+            });
+    }, []);
 
     const handleSubmit = () => {
         // Handle form submission
@@ -53,7 +64,7 @@ export const FiltroActividadesProvider = ({ children }) => {
         setOpenAlerta(false);
     };
 
-    const resetForm = () => {
+    const handleLimpiar = () => {
         setNombre('');
         setSecretaria('');
         setEje('');
@@ -93,7 +104,7 @@ export const FiltroActividadesProvider = ({ children }) => {
                 secretarias,
                 handleSubmit,
                 handleAlertClose,
-                resetForm
+                handleLimpiar,
             }}
         >
             {children}

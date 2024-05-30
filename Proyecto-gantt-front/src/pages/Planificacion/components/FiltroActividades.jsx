@@ -8,6 +8,10 @@ const FiltroActividades = () => {
   const {
     nombre,
     setNombre,
+    secretarias,
+    ejes,
+    objetivos,
+    areas,
     secretaria,
     setSecretaria,
     eje,
@@ -26,7 +30,11 @@ const FiltroActividades = () => {
     handleAlertClose,
     resetForm
   } = useContext(FiltroActividadesContext);
-  const handleLimpiar = () => {};
+
+  const handleLimpiar = () => {
+    resetForm();
+  };
+
   const handleSubmit = () => {
     // Handle form submission using context setters
   };
@@ -74,37 +82,32 @@ const FiltroActividades = () => {
           value={nombre}
           onChange={(e) => {
             setNombre(e.target.value);
-            setNombreVacio(false);
-          }}
-          onBlur={(e) => {
-            if (e.target.value === '') setNombreVacio(true);
-            else setNombreVacio(false);
           }}
         />
         <SelectList
           nombre="Secretaria"
-          list={[] /* Provide the list of secretarias */}
+          list={secretarias}
           stateComponent={secretaria}
           setState={setSecretaria}
           sx={{ marginBottom: 1, marginRight: 3 }}
         />
         <SelectList
           nombre="Eje"
-          list={[] /* Provide the list of ejes */}
+          list={ejes}
           stateComponent={eje}
           setState={setEje}
           sx={{ marginBottom: 1, marginRight: 1 }}
         />
         <SelectList
           nombre="Objetivo"
-          list={[] /* Provide the list of objetivos */}
+          list={objetivos}
           stateComponent={objetivo}
           setState={setObjetivo}
           sx={{ marginBottom: 1, marginRight: 1 }}
         />
         <SelectList
           nombre="Area"
-          list={[] /* Provide the list of objetivos */}
+          list={areas}
           stateComponent={area}
           setState={setArea}
           sx={{ marginBottom: 1, marginRight: 1 }}
@@ -141,7 +144,7 @@ const FiltroActividades = () => {
         <Button variant="outlined" color="secondary" onClick={handleLimpiar}>
           Limpiar
         </Button>
-        <Button variant="contained" color="primary" >
+        <Button variant="contained" color="primary" onClick={handleSubmit}>
           Filtrar
         </Button>
       </Box>
