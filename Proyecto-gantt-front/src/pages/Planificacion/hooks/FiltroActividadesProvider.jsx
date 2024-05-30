@@ -40,7 +40,7 @@ export const FiltroActividadesProvider = ({ children }) => {
 
     useEffect(() => {
         if (eje === "") {
-            setObjetivos([]);
+            objetivoServices.getAll().then((response) => setObjetivos(response.data));
         } else {
             objetivoServices.getObjetivosByEjes(eje)
                 .then((response) => {
