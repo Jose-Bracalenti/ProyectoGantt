@@ -1,6 +1,6 @@
 import { useState, createContext, useEffect } from "react";
 import PropTypes from "prop-types";
-import servicesArea from "../services/areaServices";
+import servicesArea from "../../../services/areaServices";
 export const ActivitiesTableContext = createContext();
 
 
