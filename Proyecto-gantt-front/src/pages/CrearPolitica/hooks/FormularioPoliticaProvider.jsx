@@ -1,7 +1,7 @@
 import  { createContext, useState, useEffect } from 'react';
-import secretariaServices from "../services/secretariaServices";
-import objetivoServices from "../services/objetivoServices";
-import ejeServices from "../services/ejeServices";
+import secretariaServices from "../../../services/secretariaServices";
+import objetivoServices from "../../../services/objetivoServices";
+import ejeServices from "../../../services/ejeServices";
 import PropTypes from "prop-types";
 export const FormularioPoliticaContext = createContext();
 

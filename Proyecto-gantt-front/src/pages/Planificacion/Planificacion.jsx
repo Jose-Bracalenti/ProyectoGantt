@@ -1,6 +1,7 @@
 import "./Planificacion.css"
 import { Grid } from "@mui/material";
 import FiltroActividades from "./components/FiltroActividades";
+import { FiltroActividadesProvider } from "./hooks/FiltroActividadesProvider";
 export const Planificacion = () => {
     return (
         <form>
@@ -8,7 +9,9 @@ export const Planificacion = () => {
             <Grid container spacing={10} sx={{marginX:'1rem'}}>
                 <Grid item xs={3}>
 
-                    <FiltroActividades />
+                    <FiltroActividadesProvider>
+                        <FiltroActividades />
+                    </FiltroActividadesProvider>
                 </Grid>
                 <Grid item xs={9}>
                 </Grid>

@@ -1,29 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { TextField, Box, Button, Snackbar, Alert, IconButton } from '@mui/material';
 import SelectList from './SelectList'; // Assuming SelectList is correctly implemented and imported
 import CloseIcon from '@mui/icons-material/Close';
+import { FiltroActividadesContext } from '../hooks/FiltroActividadesProvider'; // Adjust the path if needed
 
 const FiltroActividades = () => {
-  const [nombre, setNombre] = useState('');
-  const [secretaria, setSecretaria] = useState('');
-  const [eje, setEje] = useState('');
-  const [objetivo, setObjetivo] = useState('');
-  const [descripcion, setDescripcion] = useState('');
-  const [costo, setCosto] = useState('');
-  const [nombreVacio, setNombreVacio] = useState(false);
-  const [openAlerta, setOpenAlerta] = useState(false);
-  const [alertaServidor, setAlertaServidor] = useState({});
-  const [area, setArea] = useState('');
-  const [fechaInicio, setFechaInicio] = useState('');
-  const [fechaFin, setFechaFin] = useState('');
-
-  const handleLimpiar = () => {
-    setNombre('');
-    setSecretaria('');
-    setEje('');
-    setObjetivo('');
-    setDescripcion('');
-    setCosto('');
+  const {
+    nombre,
+    setNombre,
+    secretaria,
+    setSecretaria,
+    eje,
+    setEje,
+    objetivo,
+    setObjetivo,
+    area,
+    setArea,
+    fechaInicio,
+    setFechaInicio,
+    fechaFin,
+    setFechaFin,
+    openAlerta,
+    setOpenAlerta,
+    alertaServidor,
+    handleAlertClose,
+    resetForm
+  } = useContext(FiltroActividadesContext);
+  const handleLimpiar = () => {};
+  const handleSubmit = () => {
+    // Handle form submission using context setters
   };
 
   return (
@@ -35,10 +40,10 @@ const FiltroActividades = () => {
         }}
         open={openAlerta}
         autoHideDuration={6000}
-        onClose={() => setOpenAlerta(false)}
+        onClose={handleAlertClose}
       >
         <Alert
-          onClose={() => setOpenAlerta(false)}
+          onClose={handleAlertClose}
           severity={alertaServidor.status}
           sx={{ width: '100%' }}
           action={
@@ -46,7 +51,7 @@ const FiltroActividades = () => {
               size="small"
               aria-label="close"
               color="inherit"
-              onClick={() => setOpenAlerta(false)}
+              onClick={handleAlertClose}
             >
               <CloseIcon fontSize="small" />
             </IconButton>

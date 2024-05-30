@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { Button, Tooltip, Snackbar, Modal, Box } from "@mui/material";
 import { FormularioPoliticaContext } from "../hooks/FormularioPoliticaProvider";
 import { ActivitiesTableContext } from "../hooks/ActivitiesTableProvider";
-import politicasService from "../services/politicasServices";
+import politicasService from "../../../services/politicasServices";
 import TimelineComponent from "../../../components/TimelineComponent";
 const CrearPoliticaButtons = () => {
   const {
