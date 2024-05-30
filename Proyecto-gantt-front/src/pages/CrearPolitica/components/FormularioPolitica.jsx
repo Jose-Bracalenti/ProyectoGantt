@@ -77,7 +77,7 @@ const FormularioPolitica = () => {
         variant="outlined"
         fullWidth
         helperText="Ingrese el nombre de la politica"
-        sx={{ marginY: 0.5 }}
+        sx={{ marginY: 0.5}}
         value={nombre}
         onChange={(e) => {
           setNombre(e.target.value);

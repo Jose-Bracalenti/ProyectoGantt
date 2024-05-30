@@ -13,21 +13,19 @@ export const CrearPolitica = () => {
     return (
         <FormularioPoliticaProvider>
         <ActivitiesTableProvider>
-        <form>
-        <div style={{ display: 'flex' , marginY:'1rem'}}>
-            <Grid container spacing={10} sx={{marginX:'1rem'}}>
-                <Grid item xs={3}>
-
-                    <FormularioPolitica />
-                </Grid>
-                <Grid item xs={9}>
-                <AgregarActividades />
-                </Grid>
-            </Grid>  
-            
-        </div>
-        <CrearPoliticaButtons />
-        </form>
+        <form style={{ }}>
+      <div style={{ flex: 1, overflow: 'hidden' }}>
+        <Grid container spacing={2} sx={{  marginX: 0, marginY: 0 }}>
+          <Grid item xs={3} sx={{ height: '100%' }}>
+            <FormularioPolitica />
+          </Grid>
+          <Grid item xs={9} sx={{  }}>
+            <AgregarActividades />
+          </Grid>
+        </Grid>
+      </div>
+      <CrearPoliticaButtons style={{ flexShrink: 0 }} />
+    </form>
         </ActivitiesTableProvider>
         </FormularioPoliticaProvider>
             );

@@ -51,10 +51,6 @@ export const FormularioPoliticaProvider = ({ children }) => {
           });
     }
   }, [eje]);
-  
- 
-    console.log(dataObjetivo);
-
     useEffect(() => {
         ejeServices.getAll().then((response) => {
             setDataEje(response.data);
