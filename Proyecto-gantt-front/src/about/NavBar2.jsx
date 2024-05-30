@@ -51,7 +51,7 @@ const NavBar2 = () => {
                                 sx={sx}
                                 label="Planificación"
                                 component={NavLink}
-                                to="/Planificación"
+                                to="/Planificacion"
                                 value="2"
                             />
                             <Tab

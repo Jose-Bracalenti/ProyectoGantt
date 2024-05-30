@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom/dist";
 import NavBar2 from "./about/NavBar2";
-import { CrearPolitica, VerPoliticas, Contact, Ejemplo, Login } from "./pages";
+import { Planificacion, CrearPolitica, VerPoliticas, Contact, Ejemplo, Login } from "./pages";
 
 function App() {
   return (
@@ -13,6 +13,7 @@ function App() {
           <Route path="/verPoliticas" element={<VerPoliticas />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/ejemplo" element={<Ejemplo />} />
+          <Route path="/planificacion" element={<Planificacion />} />
         </Route>
       </Routes>
     </div>
