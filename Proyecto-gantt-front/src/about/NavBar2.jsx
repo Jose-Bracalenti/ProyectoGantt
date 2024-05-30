@@ -21,7 +21,7 @@ const NavBar2 = () => {
         setAnchorEl(null);
     };
 
-    const sx = { blockSize: '100px', borderRadius: '10px', marginX: '10px', fontSize: '1rem', '&.active': { fontSize: '1.1rem' } };
+    const sx = { blockSize: '100', borderRadius: '10px', marginX: '10px', fontSize: '1rem', '&.active': { fontSize: '1.1rem' } };
 
     return (
         <>

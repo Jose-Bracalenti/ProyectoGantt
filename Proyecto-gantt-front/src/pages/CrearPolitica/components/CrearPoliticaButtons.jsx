@@ -1,9 +1,11 @@
 import React, { useContext, useState } from "react";
-import { Button, Tooltip, Snackbar, Modal, Box } from "@mui/material";
+import { Button, Tooltip, Snackbar, Modal, Box, Alert } from "@mui/material";
 import { FormularioPoliticaContext } from "../hooks/FormularioPoliticaProvider";
 import { ActivitiesTableContext } from "../hooks/ActivitiesTableProvider";
 import politicasService from "../../../services/politicasServices";
 import TimelineComponent from "../../../components/TimelineComponent";
+import ConfirmDialog from "./ConfirmDialog";
+
 const CrearPoliticaButtons = () => {
   const {
     nombre,
@@ -23,20 +25,19 @@ const CrearPoliticaButtons = () => {
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [snackbarSeverity, setSnackbarSeverity] = useState("success");
   const [openModalGantt, setOpenModalGantt] = useState(false);
+  const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
 
-  const handleCloseSnackbar = () => {
-    setSnackbarOpen(false);
-  };
+  const handleCloseSnackbar = () => setSnackbarOpen(false);
 
-  let camposCompletos = false;
-  if (nombre !== "" && costo !== "") {
-    camposCompletos = true;
-  }
+  const camposCompletos = nombre !== "" && costo !== "";
   const buttonTitle = camposCompletos
     ? "Crear ppp"
     : "Complete los campos con (*) para crear ppp";
 
-  const handleCrear = () => {
+  const handleCrear = () => setConfirmDialogOpen(true);
+
+  const handleConfirmCrear = () => {
+    setConfirmDialogOpen(false);
     const actividades = activities.map(
       ({
         nombre,
@@ -56,13 +57,14 @@ const CrearPoliticaButtons = () => {
         participacion_ciudadana,
       })
     );
+
     const politica = {
-      nombre: nombre,
+      nombre,
       secretaria_id: secretaria,
       objetivo_id: objetivo,
-      descripcion: descripcion,
-      costo: costo,
-      actividades: actividades,
+      descripcion,
+      costo,
+      actividades,
     };
 
     politicasService
@@ -71,16 +73,12 @@ const CrearPoliticaButtons = () => {
         setSnackbarMessage("Política agregada correctamente");
         setSnackbarSeverity("success");
         setSnackbarOpen(true);
-
-        // Reset form values
         setNombre("");
         setSecretaria("");
         setObjetivo("");
         setDescripcion("");
         setCosto("");
-        // Clear activities
         setActivities([]);
-
         console.log(response);
       })
       .catch((error) => {
@@ -91,9 +89,7 @@ const CrearPoliticaButtons = () => {
       });
   };
 
-  const handlePreVisualizar = () => {
-    setOpenModalGantt(true);
-  };
+  const handlePreVisualizar = () => setOpenModalGantt(true);
 
   return (
     <div
@@ -127,9 +123,15 @@ const CrearPoliticaButtons = () => {
         open={snackbarOpen}
         autoHideDuration={6000}
         onClose={handleCloseSnackbar}
-        message={snackbarMessage}
-        severity={snackbarSeverity}
-      />
+      >
+        <Alert
+          onClose={handleCloseSnackbar}
+          severity={snackbarSeverity}
+          sx={{ width: "100%" }}
+        >
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
       <Modal open={openModalGantt} onClose={() => setOpenModalGantt(false)}>
         <Box
           sx={{
@@ -140,13 +142,20 @@ const CrearPoliticaButtons = () => {
             bgcolor: "background.paper",
             border: "2px solid #000",
             boxShadow: 24,
-            p: 2, // Añade padding para que no quede tan justo
+            p: 2,
             display: "inline-block",
           }}
         >
           <TimelineComponent activities={activities} />
         </Box>
       </Modal>
+      <ConfirmDialog
+        open={confirmDialogOpen}
+        onClose={() => setConfirmDialogOpen(false)}
+        onConfirm={handleConfirmCrear}
+        title="Confirmar Creación"
+        content="¿Está seguro de que desea crear esta política?"
+      />
     </div>
   );
 };
