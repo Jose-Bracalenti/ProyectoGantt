@@ -1,0 +1,12 @@
+/* TimelineComponent.css */
+
+.timeline-container {
+    width: 1000px;
+    font-family: 'arial', sans-serif;
+  }
+  
+  /* Aplica la fuente a todos los elementos del timeline */
+  .vis-timeline, .vis-item, .vis-label {
+    font-family: 'arial', sans-serif;
+  }
+  

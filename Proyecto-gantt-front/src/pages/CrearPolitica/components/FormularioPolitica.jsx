@@ -4,13 +4,10 @@ import {
   Button,
   Alert,
   Snackbar,
-  SnackbarContent,
-  IconButton,
 } from "@mui/material";
 import SelectList from "../../../components/SelectList";
 import { FormularioPoliticaContext } from "../hooks/FormularioPoliticaProvider";
 import { useContext, useState } from "react";
-import CloseIcon from "@mui/icons-material/Close";
 
 const FormularioPolitica = () => {
   const {
@@ -72,11 +69,11 @@ const FormularioPolitica = () => {
         required
         error={nombreVacio}
         id="nombre"
-        label="nombre de política"
+        label="nombre ppp"
         type="text"
         variant="outlined"
         fullWidth
-        helperText="Ingrese el nombre de la politica"
+        helperText="Ingrese el nombre de la politica pública prioritaria"
         sx={{ marginY: 0.5}}
         value={nombre}
         onChange={(e) => {
@@ -105,12 +102,12 @@ const FormularioPolitica = () => {
         list={dataObjetivo}
         stateComponent={objetivo}
         setState={setObjetivo}
-        nombre="Objetivo"
+        nombre="Objetivo Principal"
         sx={{ marginY: 0.5 }}
       />
       <TextField
         id="costo"
-        label="Costo"
+        label="Costos"
         type="number"
         variant="outlined"
         fullWidth

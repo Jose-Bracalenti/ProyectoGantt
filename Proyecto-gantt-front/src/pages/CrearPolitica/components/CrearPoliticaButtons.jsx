@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { Button, Tooltip, Snackbar, Modal, Box, Alert } from "@mui/material";
 import { FormularioPoliticaContext } from "../hooks/FormularioPoliticaProvider";
 import { ActivitiesTableContext } from "../hooks/ActivitiesTableProvider";
@@ -115,7 +115,7 @@ const CrearPoliticaButtons = () => {
             color="primary"
             onClick={handleCrear}
           >
-            Crear Política
+            Crear PPP
           </Button>
         </span>
       </Tooltip>
@@ -154,7 +154,7 @@ const CrearPoliticaButtons = () => {
         onClose={() => setConfirmDialogOpen(false)}
         onConfirm={handleConfirmCrear}
         title="Confirmar Creación"
-        content="¿Está seguro de que desea crear esta política?"
+        content="¿Está seguro de que desea crear esta política pública prioritaria?"
       />
     </div>
   );

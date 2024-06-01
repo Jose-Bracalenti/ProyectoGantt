@@ -85,7 +85,7 @@ const NavBar2 = () => {
     
                         </Menu>
                     </Box>
-                    <h2 style={{ margin: 10 }}>Sistemas ---algo--- de públicas</h2>
+                    <h2 style={{ margin: 10 }}>Gestión de Política pública prioritaria</h2>
                     <img src={logo} alt="santa fe" width="160px"  />
 
                     
