@@ -36,12 +36,14 @@ public class ServicioArea{
         AreaDTO dto = new AreaDTO();
         dto.setId(obj.getid());
         dto.setNombre(obj.getNombre());
+        dto.setColor(obj.getColor());
         
         return dto;
     }
     public Area mapToEntity(AreaDTO obj) {
         Area entity = new Area();
         entity.setNombre(obj.getNombre());
+        entity.setColor(obj.getColor());
         return entity;
     }
 
