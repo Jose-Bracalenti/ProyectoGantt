@@ -10,12 +10,15 @@ const create = newPolitica =>{
 const createwithActivities = (newPoliticaWithActivities) =>{
     return axios.post(baseUrl, newPoliticaWithActivities)
 }
+const getAll = () =>{
+    return axios.get(baseUrl)
+}
 
 
 const politicasService = {
     create: create,
-    createwithActivities: createwithActivities
-
+    createwithActivities: createwithActivities,
+    getAll: getAll
 }
 
 export default politicasService;

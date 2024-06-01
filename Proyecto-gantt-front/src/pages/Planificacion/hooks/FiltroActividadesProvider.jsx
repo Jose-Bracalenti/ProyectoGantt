@@ -4,7 +4,7 @@ import ejeServices from "../../../services/ejeServices";
 import objetivoServices from "../../../services/objetivoServices";
 import secretariaServices from "../../../services/secretariaServices";
 import areaServices from "../../../services/areaServices";
-
+import politicasServices from "../../../services/politicasServices";
 export const FiltroActividadesContext = createContext();
 
 export const FiltroActividadesProvider = ({ children }) => {
@@ -22,6 +22,8 @@ export const FiltroActividadesProvider = ({ children }) => {
     const [areas, setAreas] = useState([]);
     const [objetivos, setObjetivos] = useState([]);
     const [secretarias, setSecretarias] = useState([]);
+    const [politicas, setPoliticas] = useState([]);
+    const [filteredPoliticas, setfilteredPoliticas] = useState([]);
 
     useEffect(() => {
         secretariaServices.getAll()
@@ -55,6 +57,20 @@ export const FiltroActividadesProvider = ({ children }) => {
                 setEjes(response.data);
             });
     }, []);
+    
+    useEffect(() => {
+        areaServices.getAll()
+            .then((response) => {
+                setAreas(response.data);
+            });
+    }, []);
+
+    useEffect(() => {
+        politicasServices.getAll()
+            .then((response) => {
+                setPoliticas(response.data);
+            });
+    }, []);
 
     const handleSubmit = () => {
         // Handle form submission
@@ -74,7 +90,6 @@ export const FiltroActividadesProvider = ({ children }) => {
         setFechaFin('');
         setNombreVacio(false); // Set nombreVacio to false when resetting the form
     };
-
     return (
         <FiltroActividadesContext.Provider
             value={{
@@ -94,6 +109,8 @@ export const FiltroActividadesProvider = ({ children }) => {
                 setAlertaServidor,
                 area,
                 setArea,
+                filteredPoliticas,
+                setfilteredPoliticas,
                 fechaInicio,
                 setFechaInicio,
                 fechaFin,
@@ -102,6 +119,7 @@ export const FiltroActividadesProvider = ({ children }) => {
                 areas,
                 objetivos,
                 secretarias,
+                politicas,
                 handleSubmit,
                 handleAlertClose,
                 handleLimpiar,
