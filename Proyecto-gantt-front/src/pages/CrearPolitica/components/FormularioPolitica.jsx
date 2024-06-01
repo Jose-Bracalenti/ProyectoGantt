@@ -7,7 +7,7 @@ import {
   SnackbarContent,
   IconButton,
 } from "@mui/material";
-import SelectList from "./SelectList";
+import SelectList from "../../../components/SelectList";
 import { FormularioPoliticaContext } from "../hooks/FormularioPoliticaProvider";
 import { useContext, useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";

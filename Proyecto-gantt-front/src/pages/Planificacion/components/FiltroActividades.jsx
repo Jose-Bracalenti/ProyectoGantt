@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { TextField, Box, Button, Snackbar, Alert, IconButton } from '@mui/material';
-import SelectList from './SelectList'; // Assuming SelectList is correctly implemented and imported
+import SelectList from '../../../components/SelectList'; // Assuming SelectList is correctly implemented and imported
 import CloseIcon from '@mui/icons-material/Close';
 import { FiltroActividadesContext } from '../hooks/FiltroActividadesProvider'; // Adjust the path if needed
 
@@ -69,21 +69,9 @@ const FiltroActividades = () => {
         </Alert>
       </Snackbar>
 
-      <h2>Crear filtro de actividades</h2>
+      <h2>Filtrar Actividades</h2>
       <div style={{ display: 'flex', flexDirection: 'column'}}>
-        <TextField
-          id="nombre"
-          label="Nombre del filtro"
-          type="text"
-          variant="outlined"
-          fullWidth
-          helperText="Ingrese el nombre del filtro"
-          sx={{ marginBottom: 1, marginRight: 1 }}
-          value={nombre}
-          onChange={(e) => {
-            setNombre(e.target.value);
-          }}
-        />
+
         <SelectList
           nombre="Secretaria"
           list={secretarias}
