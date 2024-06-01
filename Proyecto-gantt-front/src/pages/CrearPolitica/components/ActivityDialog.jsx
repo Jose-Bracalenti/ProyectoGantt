@@ -42,7 +42,7 @@ const ActivityDialog = ({
         <TextField
           margin="dense"
           name="nombre"
-          label="Nombre"
+          label="Nombre" 
           type="text"
           required
           fullWidth
@@ -158,7 +158,9 @@ const ActivityDialog = ({
         <Button onClick={onCancel} color="secondary">
           Cancelar
         </Button>
-        <Button onClick={onSave} color="primary" variant="outlined">
+        <Button
+        disabled={activity.nombre === "" || activity.fechaInicio === "" || activity.fechaFin === "" || activity.area_id === ""}
+         onClick={onSave} color="primary" variant="outlined">
           {isEditing ? "Guardar" : "Agregar"}
         </Button>
       </DialogActions>

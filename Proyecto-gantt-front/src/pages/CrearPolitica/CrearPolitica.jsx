@@ -5,7 +5,6 @@ import { Grid } from "@mui/material";
 import { FormularioPoliticaProvider } from "./hooks/FormularioPoliticaProvider";
 import { ActivitiesTableProvider } from "./hooks/ActivitiesTableProvider";
 import CrearPoliticaButtons from "./components/CrearPoliticaButtons";
-import TimelineComponent from "../../components/TimelineComponent";
 
 export const CrearPolitica = () => {
     

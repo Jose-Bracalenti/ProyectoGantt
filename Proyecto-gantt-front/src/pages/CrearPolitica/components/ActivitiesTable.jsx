@@ -1,5 +1,3 @@
-// src/ActivitiesTable.js
-
 import { useContext } from "react";
 import {
   Table,
@@ -12,7 +10,6 @@ import {
   Button,
   IconButton,
   Tooltip,
-
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
@@ -107,14 +104,19 @@ const ActivitiesTable = () => {
     setActivities(updatedActivities);
   };
 
-const handleShowAtributes = (content) => () => {
-  setAtributeOpen(true);
-  setAtributeContent(content);
-};
+  const handleShowAtributes = (content) => () => {
+    setAtributeOpen(true);
+    setAtributeContent(content);
+  };
 
   const handleCloseDescription = () => {
     setAtributeOpen(false);
     setAtributeContent("");
+  };
+
+  const truncateText = (text, length) => {
+    if (text.length <= length) return text;
+    return text.substring(0, length) + "...";
   };
 
   console.log("activities", activities);
@@ -147,19 +149,24 @@ const handleShowAtributes = (content) => () => {
                   }
                 >
                   <span>
-                  <IconButton
-                      color="primary"
-                      onClick={handleShowAtributes(activity.descripcion)}
-                      disabled={!activity.descripcion}
-                    >
-                    <VisibilityIcon />
-                  </IconButton>
+                    {truncateText(activity.descripcion, 8)}
+                    {activity.descripcion && (
+                      <IconButton
+                        color="primary"
+                        onClick={handleShowAtributes(activity.descripcion)}
+                        disabled={!activity.descripcion}
+                      >
+                        <VisibilityIcon />
+                      </IconButton>
+                    )}
                   </span>
                 </Tooltip>
               </TableCell>
               <TableCell>{activity.fechaInicio}</TableCell>
               <TableCell>{activity.fechaFin}</TableCell>
-              <TableCell>{activity.area_id!==""? (dataArea.find(item => item.id === activity.area_id)).nombre : ""}</TableCell>
+              <TableCell>
+                {activity.area_id !== "" ? (dataArea.find(item => item.id === activity.area_id)).nombre : ""}
+              </TableCell>
               <TableCell>
                 <Tooltip
                   title={
@@ -169,6 +176,7 @@ const handleShowAtributes = (content) => () => {
                   }
                 >
                   <span>
+                  {truncateText(activity.resultado_esperado, 8)}
                     <IconButton
                       color="primary"
                       onClick={handleShowAtributes(activity.resultado_esperado)}
@@ -182,12 +190,14 @@ const handleShowAtributes = (content) => () => {
               <TableCell>
                 <Tooltip
                   title={
-                    activity.Participacion_ciudadana
+                    activity.participacion_ciudadana
                       ? "Mostrar Participación ciudadana"
                       : "Participación ciudadana sin completar"
                   }
                 >
                   <span>
+                  {truncateText(activity.participacion_ciudadana, 8)}
+
                     <IconButton
                       color="primary"
                       onClick={handleShowAtributes(activity.participacion_ciudadana)}
