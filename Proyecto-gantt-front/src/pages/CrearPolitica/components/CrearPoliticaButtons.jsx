@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { Button, Tooltip, Snackbar, Modal, Box, Alert } from "@mui/material";
+import { Button, Tooltip, Snackbar, Modal, Box, Alert, TextField, Typography, IconButton } from "@mui/material";
 import { FormularioPoliticaContext } from "../hooks/FormularioPoliticaProvider";
 import { ActivitiesTableContext } from "../hooks/ActivitiesTableProvider";
 import politicasService from "../../../services/politicasServices";
@@ -19,13 +19,16 @@ const CrearPoliticaButtons = () => {
     costo,
     setCosto,
   } = useContext(FormularioPoliticaContext);
-  const { activities, setActivities } = useContext(ActivitiesTableContext);
+  const { activities, setActivities, dataArea } = useContext(ActivitiesTableContext);
 
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [snackbarSeverity, setSnackbarSeverity] = useState("success");
   const [openModalGantt, setOpenModalGantt] = useState(false);
   const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
+  const [selectedColorIndex, setSelectedColorIndex] = useState(null); // Índice del color seleccionado
+
+  const [newColor, setNewColor] = useState(dataArea.map(() => ""));
 
   const handleCloseSnackbar = () => setSnackbarOpen(false);
 
@@ -91,10 +94,38 @@ const CrearPoliticaButtons = () => {
 
   const handlePreVisualizar = () => setOpenModalGantt(true);
 
+  // Función para manejar el cambio de color de área
+  const handleColorChange = (index, color) => {
+    setSelectedColorIndex(index);
+    setNewColor((prevColors) => {
+      const newColors = [...prevColors];
+      newColors[index] = color;
+      return newColors;
+    });
+  };
+
+
+  // Función para enviar el color modificado al backend
+  const handleUpdateColor = () => {
+    const updatedColor = newColor;
+    const area_id = dataArea[selectedColorIndex].id; // Supongo que hay un ID para cada área en el backend
+    politicasService.updateAreaColor(area_id, updatedColor)
+      .then((response) => {
+        setSnackbarMessage("Color actualizado correctamente");
+        setSnackbarSeverity("success");
+        setSnackbarOpen(true);
+        console.log(response);
+      })
+      .catch((error) => {
+        setSnackbarMessage("Error al actualizar el color");
+        setSnackbarSeverity("error");
+        setSnackbarOpen(true);
+        console.error(error);
+      });
+  };
+
   return (
-    <div
-      style={{ display: "flex", justifyContent: "right", marginRight: "5rem" }}
-    >
+    <div style={{ display: "flex", justifyContent: "right", marginRight: "5rem" }}>
       <Button sx={{ marginRight: 5 }} variant="outlined" color="secondary">
         Cancelar
       </Button>
@@ -146,7 +177,29 @@ const CrearPoliticaButtons = () => {
             display: "inline-block",
           }}
         >
-          <TimelineComponent activities={activities} />
+          <div style={{ display: "flex" }}>
+            {dataArea.map((area, index) => (
+              <div key={index} style={{ display: "flex", alignItems: "center", marginBottom: "1rem" }}>
+                <Typography>{area.nombre}</Typography>
+                <input
+                  type="color"
+                  value={newColor[index] || area.color}
+                  onChange={(e) => handleColorChange(index, e.target.value)}
+                  style={{marginLeft:'0.3rem' ,marginRight: "2rem", width: "30px", height: "30px" }}
+                />
+              </div>
+            ))}
+          </div>
+          <Button
+            disabled={selectedColorIndex === null}
+            variant="contained"
+            color="primary"
+            onClick={handleUpdateColor}
+          >
+            Aceptar cambios
+          </Button>
+          <h4>Previsualización de actividades</h4>
+          <TimelineComponent activities={activities} dataArea={dataArea} />
         </Box>
       </Modal>
       <ConfirmDialog
@@ -161,3 +214,4 @@ const CrearPoliticaButtons = () => {
 };
 
 export default CrearPoliticaButtons;
+  

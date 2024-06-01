@@ -4,7 +4,7 @@ import 'vis-timeline/styles/vis-timeline-graph2d.min.css';
 import PropTypes from 'prop-types';
 import './TimelineComponent.css'; // Importa el archivo CSS
 
-const TimelineComponent = ({ activities }) => {
+const TimelineComponent = ({ activities, dataArea }) => {
   const timelineRef = useRef(null);
   const timelineInstance = useRef(null);
 
@@ -14,12 +14,13 @@ const TimelineComponent = ({ activities }) => {
     // Crear y transformar los datos de las actividades en ítems y grupos para el timeline
     const grupos = [];
 
-  
+    
 
     const items = new DataSet(
       activities.map(actividad => {
+        const area = dataArea.find(area => area.id === actividad.area_id) || {};
         const politica = actividad.politica || 'PPP';
-        const color = actividad.area.color|| '#AAA';
+        const color = area.color || 'gray';
         if (!grupos.find(grupo => grupo.id === politica)) {
           grupos.push({
             id: politica,
@@ -69,14 +70,19 @@ const TimelineComponent = ({ activities }) => {
 TimelineComponent.propTypes = {
   activities: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.number.isRequired,
       nombre: PropTypes.string.isRequired,
+      descripcion: PropTypes.string,
       fechaInicio: PropTypes.string.isRequired,
       fechaFin: PropTypes.string.isRequired,
-      descripcion: PropTypes.string,
+      area_id: PropTypes.number.isRequired,
       politica: PropTypes.string,
-      area: PropTypes.string,
       tipo: PropTypes.string,
+    })
+  ).isRequired,
+  dataArea: PropTypes.arrayOf(
+    PropTypes.shape({
+      nombre: PropTypes.string.isRequired,
+      color: PropTypes.string,
     })
   ).isRequired,
 };
