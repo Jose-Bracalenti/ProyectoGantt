@@ -35,23 +35,34 @@ const FiltroActividades = () => {
   } = useContext(FiltroActividadesContext);
 
   const handleLimpiar = () => {
-    resetForm();
+    setNombre('');
+    setSecretaria('');
+    setEje('');
+    setObjetivo('');
+    setArea('');
+    setFechaInicio('');
+    setFechaFin('');
   };
 
   const handleSubmit = () => {
     console.log(fechaInicio);
-      console.log(fechaFin);
+    console.log(fechaFin);
+    
     const filtroPolitica = politicas.filter(politica => {
-      const isMatchingObjetivoOrEje = politica.objetivo_id === objetivo || (politica.eje_id === eje && objetivo === null);
-      const isMatchingSecretaria = politica.secretaria_id === secretaria;
-      const isMatchingArea = politica.actividades.some(actividad => actividad.area_id === area);
-      const isWithinDateRange = politica.actividades.some(actividad => (actividad.fechaInicio >= fechaInicio && actividad.fechaInicio<=fechaFin) 
-              || (actividad.fechaFin <= fechaFin && actividad.fechaFin >= fechaInicio));
+      const isMatchingObjetivoOrEje = politica.objetivo_id === objetivo || (!objetivo && politica.eje_id === eje) || (!objetivo && !eje);
+      const isMatchingSecretaria = politica.secretaria_id === secretaria || !secretaria;
+      const isMatchingArea = politica.actividades.some(actividad => actividad.area_id === area) || !area;
+      const isWithinDateRange = politica.actividades.some(actividad => (
+        (!fechaInicio || actividad.fechaInicio >= fechaInicio) &&   
+        (!fechaFin || actividad.fechaFin <= fechaFin) || !fechaInicio && !fechaFin
+      ));
+      
       return isMatchingObjetivoOrEje && isMatchingSecretaria && isMatchingArea && isWithinDateRange;
     });
+    
     console.log(filtroPolitica);
     setfilteredPoliticas(filtroPolitica);
-};
+  };
 
   return (
     <div>

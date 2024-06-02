@@ -33,7 +33,7 @@ const TimelineComponent = ({ activities, dataArea }) => {
           content: actividad.nombre,
           start: actividad.fechaInicio,
           end: actividad.fechaFin,
-          type: actividad.tipo || 'range', // 'range' es el valor por defecto si no se especifica tipo
+          type:'range', // 'range' es el valor por defecto si no se especifica tipo
           title: `Descripción: ${actividad.descripcion}`,
           group: politica,
           style: `background-color: ${color};`,
@@ -76,7 +76,6 @@ TimelineComponent.propTypes = {
       fechaFin: PropTypes.string.isRequired,
       area_id: PropTypes.number.isRequired,
       politica: PropTypes.string,
-      tipo: PropTypes.string,
     })
   ).isRequired,
   dataArea: PropTypes.arrayOf(

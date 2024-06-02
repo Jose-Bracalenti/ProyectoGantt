@@ -3,11 +3,15 @@ import { Grid } from "@mui/material";
 import FiltroActividades from "./components/FiltroActividades";
 import PoliticasTable from "./components/PoliticasTable";
 import { FiltroActividadesProvider } from "./hooks/FiltroActividadesProvider";
+import DiagramasGantt from "./components/DiagramasGantt";
+
 export const Planificacion = () => {
     return (
+        <>
+        <FiltroActividadesProvider>
         <form>
         <div style={{ display: 'flex' , marginY:'1rem'}}>
-        <FiltroActividadesProvider>
+
             <Grid container spacing={2} sx={{marginX:'1rem'}}>
                 <Grid item xs={3}>
 
@@ -19,9 +23,14 @@ export const Planificacion = () => {
                     <PoliticasTable />
                 </Grid>
             </Grid>  
-        </FiltroActividadesProvider>
+  
         </div>
         </form>
+        <div  style={{ display: 'flex',marginTop:"5rem" ,justifyContent:'center',}}>
+            <DiagramasGantt />
+        </div>
+        </FiltroActividadesProvider>
+        </>
     );
 }
 export default Planificacion;
