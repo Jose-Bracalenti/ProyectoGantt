@@ -1,34 +1,32 @@
 import React, { useContext } from 'react';
 import { FiltroActividadesContext } from '../hooks/FiltroActividadesProvider';
 import { Button } from '@mui/material';
-import Pdf  from 'react-pdf-html'; // Import Pdf from react-pdf-html
-import DiagramasGantt from './DiagramasGantt';
+import { PDFDownloadLink } from '@react-pdf/renderer';
+import TimelineComponent from '../../../components/TimelineComponent';
 
 const ImprimirDiagramaButton = () => {
-    const { areas } = useContext(FiltroActividadesContext);
-    const { filteredPoliticas } = useContext(FiltroActividadesContext);
+    const { filteredPoliticas, areas } = useContext(FiltroActividadesContext);
 
     const generatePdfContent = () => {
         console.log("filteredPoliticas:", filteredPoliticas);
         console.log("areas:", areas);
         return (
-            <DiagramasGantt/>
+            <div>
+                {filteredPoliticas && filteredPoliticas.map((politica, index) => (
+                    <div key={politica.id} style={{ display: 'flex', marginTop: "2rem", justifyContent: 'center' }}>
+                        <TimelineComponent activities={politica.actividades} dataArea={areas} />
+                    </div>
+                ))}
+            </div>
         );
-    };
-    
-
-    const handlePrint = () => {
-        if (filteredPoliticas && filteredPoliticas.length > 0) {
-            Pdf({ title: 'Diagramas', fileName: 'diagramas.pdf', content: generatePdfContent() });
-        } else {
-            console.error("No filtered políticas found.");
-        }
     };
 
     return (
-        <Button variant="contained" onClick={handlePrint}>
-            Imprimir Diagrama
-        </Button>
+        <PDFDownloadLink document={generatePdfContent()} fileName="diagramas.pdf">
+           <Button variant="contained" color="primary">
+                Imprimir diagramas
+            </Button>
+        </PDFDownloadLink>
     );
 }
 
