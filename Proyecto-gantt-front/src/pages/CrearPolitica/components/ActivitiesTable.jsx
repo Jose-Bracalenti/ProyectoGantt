@@ -15,7 +15,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import ActivityDialog from "./ActivityDialog";
-import AtributesDialog from "./AtributesDialog";
+import AtributesDialog from "../../../components/AtributesDialog";
 import { ActivitiesTableContext } from "../hooks/ActivitiesTableProvider";
 
 const ActivitiesTable = () => {
@@ -94,6 +94,7 @@ const ActivitiesTable = () => {
       area_id: "",
       resultado_esperado: "",
       participacion_ciudadana: "",
+      costo: "",
     });
     setIsEditing(false);
     setOpen(false);
@@ -131,6 +132,7 @@ const ActivitiesTable = () => {
             <TableCell>Fecha Inicio</TableCell>
             <TableCell>Fecha Fin</TableCell>
             <TableCell>Área</TableCell>
+            <TableCell>Costo</TableCell>
             <TableCell>Resultado Esperado</TableCell>
             <TableCell>Participación ciudadana</TableCell>
             <TableCell>Acciones</TableCell>
@@ -167,6 +169,7 @@ const ActivitiesTable = () => {
               <TableCell>
                 {activity.area_id !== "" ? (dataArea.find(item => item.id === activity.area_id)).nombre : ""}
               </TableCell>
+              <TableCell>{activity.costo}</TableCell>
               <TableCell>
                 <Tooltip
                   title={

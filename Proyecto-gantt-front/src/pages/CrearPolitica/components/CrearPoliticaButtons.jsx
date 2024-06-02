@@ -17,8 +17,6 @@
       setObjetivo,
       descripcion,
       setDescripcion,
-      costo,
-      setCosto,
     } = useContext(FormularioPoliticaContext);
     const { activities, setActivities, dataArea,setDataArea } = useContext(ActivitiesTableContext);
 
@@ -33,7 +31,7 @@
 
     const handleCloseSnackbar = () => setSnackbarOpen(false);
 
-    const camposCompletos = nombre !== "" && costo !== "";
+    const camposCompletos = nombre  !== "";
     const buttonTitle = camposCompletos
       ? "Crear ppp"
       : "Complete los campos con (*) para crear ppp";
@@ -67,7 +65,6 @@
         secretaria_id: secretaria,
         objetivo_id: objetivo,
         descripcion,
-        costo,
         actividades,
       };
 
@@ -81,7 +78,6 @@
           setSecretaria("");
           setObjetivo("");
           setDescripcion("");
-          setCosto("");
           setActivities([]);
           console.log(response);
         })

@@ -90,6 +90,10 @@ export const FiltroActividadesProvider = ({ children }) => {
         setFechaFin('');
         setNombreVacio(false); // Set nombreVacio to false when resetting the form
     };
+
+
+
+
     return (
         <FiltroActividadesContext.Provider
             value={{

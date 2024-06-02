@@ -15,9 +15,13 @@
     "@mui/icons-material": "^5.15.18",
     "@mui/material": "^5.15.18",
     "axios": "^1.7.2",
+    "file-saver": "^2.0.5",
+    "html-to-image": "^1.11.11",
     "json-server": "^1.0.0-beta.0",
+    "jspdf": "^2.5.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-pdf-html": "^2.0.4",
     "react-router-dom": "^6.23.1",
     "vis-data": "^7.1.9",
     "vis-timeline": "^7.7.3"

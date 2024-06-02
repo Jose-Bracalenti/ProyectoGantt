@@ -13,6 +13,14 @@ public class ActividadDTO {
     private String Area;
     private String politica;
     private String resultado_esperado;
+    private float costo;
+
+    public float getCosto() {
+        return costo;
+    }
+    public void setCosto(float costo) {
+        this.costo = costo;
+    }
     public String getNombre() {
         return nombre;
     }
@@ -63,7 +71,7 @@ public class ActividadDTO {
     }
     public ActividadDTO(String nombre, String descripcion, LocalDate fechaInicio, LocalDate fechaFin,
             String participacion_ciudadana, String area, String politica,
-            String resultado_esperado, long area_id, long id) {
+            String resultado_esperado, long area_id, long id, float costo) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.fechaInicio = fechaInicio;
@@ -74,6 +82,7 @@ public class ActividadDTO {
         this.resultado_esperado = resultado_esperado;
         this.area_id = area_id;
         this.id = id;
+        this.costo = costo;
     }
     public ActividadDTO() {
     }

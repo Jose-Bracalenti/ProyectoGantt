@@ -17,6 +17,7 @@ export const ActivitiesTableProvider = ({ children }) => {
     area_id: "",
     resultado_esperado: "",
     participacion_ciudadana: "",
+    costo: "",
   });
   const [atributeOpen, setAtributeOpen] = useState(false);
   const [atributeContent, setAtributeContent] = useState("");

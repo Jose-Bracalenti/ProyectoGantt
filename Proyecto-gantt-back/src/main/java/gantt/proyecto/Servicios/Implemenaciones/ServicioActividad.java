@@ -55,6 +55,7 @@ public class ServicioActividad{
         dto.setArea_id(actividad.getArea().getid());
         dto.setPolitica(actividad.getPolitica().getNombre());
         dto.setResultado_esperado(actividad.getResultado_esperado());
+        dto.setCosto(actividad.getCosto());
         return dto;
     }
     public final Actividad mapToEntity(ActividadDTO dto, Politica politica, ServicioArea ServicioArea){
@@ -67,6 +68,7 @@ public class ServicioActividad{
         actividad.setResultado_esperado(dto.getResultado_esperado());
         actividad.setPolitica(politica);
         actividad.setArea(ServicioArea.buscarPorId(dto.getArea_id()));
+        actividad.setCosto(dto.getCosto());
         return actividad;
     }
 }

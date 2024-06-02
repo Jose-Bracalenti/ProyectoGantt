@@ -106,17 +106,6 @@ const FormularioPolitica = () => {
         sx={{ marginY: 0.5 }}
       />
       <TextField
-        id="costo"
-        label="Costos"
-        type="number"
-        variant="outlined"
-        fullWidth
-        helperText="Ingrese el costo de la politica"
-        sx={{ marginY: 0.5 }}
-        value={costo}
-        onChange={(e) => setCosto(e.target.value)}
-      />
-      <TextField
         id="descripcion"
         label="Descripción"
         type="text"

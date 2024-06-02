@@ -29,11 +29,13 @@ public class Actividad {
     private Area area;
     @Column(columnDefinition = "TEXT")
     private String participacion_ciudadana;
+    @Column
+    private float costo;
 
     public Actividad() {
     }
 
-    public Actividad(long id, String nombre, String descripcion, LocalDate fecha_inicio, LocalDate fecha_fin, String resultado_esperado, Politica politica, Area area) {
+    public Actividad(long id, String nombre, String descripcion, LocalDate fecha_inicio, LocalDate fecha_fin, String resultado_esperado, Politica politica, Area area, String participacion_ciudadana, float costo) {
         this.actividad_id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -42,8 +44,11 @@ public class Actividad {
         this.resultado_esperado = resultado_esperado;
         this.politica = politica;
         this.area = area;
-    }
+        this.participacion_ciudadana = participacion_ciudadana;
+        this.costo = costo;
 
+    }
+    
     public long getId() {
         return actividad_id;
     }
@@ -114,6 +119,15 @@ public class Actividad {
 
     public void setParticipacion_ciudadana(String participacion_ciudadana) {
         this.participacion_ciudadana = participacion_ciudadana;
+    }
+
+
+    public float getCosto() {
+        return costo;
+    }
+
+    public void setCosto(float costo) {
+        this.costo = costo;
     }
     
 }

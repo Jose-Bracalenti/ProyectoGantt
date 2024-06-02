@@ -116,7 +116,16 @@ const ActivityDialog = ({
             ))}
           </Select>
         </FormControl>
-
+        <TextField
+          margin="dense"
+          name="costo"
+          label="Costo"
+          type="float"
+          fullWidth
+          InputLabelProps={{ shrink: true }}
+          value={activity.costo}
+          onChange={onChange}
+        />
         <TextField
           margin="dense"
           name="resultado_esperado"

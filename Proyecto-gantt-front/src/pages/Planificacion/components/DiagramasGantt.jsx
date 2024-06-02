@@ -10,14 +10,13 @@ const DiagramasGantt = () => {
     } = useContext(FiltroActividadesContext);
     return (
         <div>
-            
             {filteredPoliticas && filteredPoliticas.map((politica, index) => (
-                console.log(politica.actividades),
-                <div style={{ display: 'flex',marginTop:"2rem" ,justifyContent:'center',}}>
-                <TimelineComponent activities={politica.actividades} dataArea={areas} />
-                </div>))
-                }
+                <div key={politica.id} style={{ display: 'flex', marginTop: "2rem", justifyContent: 'center' }}>
+                    <TimelineComponent activities={politica.actividades} dataArea={areas} />
+                </div>
+            ))}
         </div>
     );
 }
 export default DiagramasGantt;
+
