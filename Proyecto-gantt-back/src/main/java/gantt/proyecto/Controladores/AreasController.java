@@ -42,8 +42,8 @@ public class AreasController {
         servicioArea.eliminar(Area);
         return ResponseEntity.ok().build();
     }
-    @PutMapping("/{Area_id}/color")
-    public ResponseEntity<AreaDTO> updateColor(@PathVariable(value = "Area_id") long id, @PathVariable(value = "color") String color){
+    @PutMapping("{Area_id}")
+    public ResponseEntity<AreaDTO> updateArea(@PathVariable(value = "Area_id") long id, @RequestBody String color){
         return ResponseEntity.ok().body(servicioArea.modificarColor(id, color));
     }
 }
