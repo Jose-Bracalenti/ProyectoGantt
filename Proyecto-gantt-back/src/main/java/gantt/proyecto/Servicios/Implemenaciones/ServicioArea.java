@@ -32,6 +32,11 @@ public class ServicioArea{
     public List<Area> buscarTodo() {
         return AreaDAO.findAll();
     }
+    public AreaDTO modificarColor(long id, String color) {
+        Area entity = AreaDAO.findById(id).get();
+        entity.setColor(color);
+        return this.mapToDTO(AreaDAO.save(entity));
+    }
   public AreaDTO mapToDTO(Area obj) {
         AreaDTO dto = new AreaDTO();
         dto.setId(obj.getid());
