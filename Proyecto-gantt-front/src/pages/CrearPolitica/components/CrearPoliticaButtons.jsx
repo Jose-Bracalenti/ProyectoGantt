@@ -5,9 +5,10 @@ import { ActivitiesTableContext } from "../hooks/ActivitiesTableProvider";
 import politicasService from "../../../services/politicasServices";
 import TimelineComponent from "../../../components/TimelineComponent";
 import ConfirmDialog from "./ConfirmDialog";
+import areaService from "../../../services/areaServices";
 
 const CrearPoliticaButtons = () => {
-  const {
+  const { 
     nombre,
     setNombre,
     secretaria,
@@ -109,7 +110,7 @@ const CrearPoliticaButtons = () => {
   const handleUpdateColor = () => {
     const updatedColor = newColor;
     const area_id = dataArea[selectedColorIndex].id; // Supongo que hay un ID para cada área en el backend
-    politicasService.updateAreaColor(area_id, updatedColor)
+    areaService.updateAreaColor(area_id, updatedColor)
       .then((response) => {
         setSnackbarMessage("Color actualizado correctamente");
         setSnackbarSeverity("success");

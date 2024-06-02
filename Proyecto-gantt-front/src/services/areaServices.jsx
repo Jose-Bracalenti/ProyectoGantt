@@ -10,7 +10,15 @@ const getAll = () =>{
     });
 }
 
+const updateAreaColor = (id, color) => {
+    return axios.put(baseUrl + `/${id}` + `/color`, {color})
+    .catch(error => {
+        console.log(error + " error en el servicio de areas PUT");
+    });
+}
+
 const areaService = {
-    getAll: getAll
+    getAll: getAll,
+    updateAreaColor: updateAreaColor,
 }
 export default areaService;
