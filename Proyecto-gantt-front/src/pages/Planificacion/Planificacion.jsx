@@ -8,28 +8,29 @@ import DiagramasGantt from "./components/DiagramasGantt";
 export const Planificacion = () => {
     return (
         <>
-        <FiltroActividadesProvider>
-        <form>
-        <div style={{ display: 'flex' , marginY:'1rem'}}>
+            <FiltroActividadesProvider>
+                <form>
+                    <div style={{ display: 'flex', marginY: '1rem' }}>
 
-            <Grid container spacing={2} sx={{marginX:'1rem'}}>
-                <Grid item xs={3}>
+                        <Grid container spacing={2} sx={{ marginX: '1rem' }}>
+                            <Grid item xs={3}>
 
-                    
-                        <FiltroActividades />
-                    
-                </Grid>
-                <Grid item xs={9}>
-                    <PoliticasTable />
-                </Grid>
-            </Grid>  
-  
-        </div>
-        </form>
-        <div  style={{ display: 'flex',marginTop:"5rem" ,justifyContent:'center',}}>
-            <DiagramasGantt />
-        </div>
-        </FiltroActividadesProvider>
+
+                                <FiltroActividades />
+
+                            </Grid>
+                            <Grid item xs={9}>
+                                <PoliticasTable />
+                                <div style={{ display: 'flex', marginTop: "1rem", justifyContent: 'center', }}>
+                                    <DiagramasGantt />
+                                </div>
+                            </Grid>
+                        </Grid>
+
+                    </div>
+                </form>
+
+            </FiltroActividadesProvider>
         </>
     );
 }
