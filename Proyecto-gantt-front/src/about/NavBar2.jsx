@@ -80,12 +80,12 @@ const NavBar2 = () => {
                                 to="/VerPoliticas"
                                 onClick={handleMenuClose}
                             >
-                                Gestionar Política pública prioritaria	
+                                Gestionar Políticas públicas prioritarias	
                             </MenuItem>
     
                         </Menu>
                     </Box>
-                    <h2 style={{ margin: 10 }}>Gestión de Política pública prioritaria</h2>
+                    <h2 style={{ margin: 10 }}>Gestión de Políticas públicas prioritarias</h2>
                     <img src={logo} alt="santa fe" width="160px"  />
 
                     

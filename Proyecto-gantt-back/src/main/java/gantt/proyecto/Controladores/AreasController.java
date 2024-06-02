@@ -43,7 +43,7 @@ public class AreasController {
         return ResponseEntity.ok().build();
     }
     @PutMapping("{Area_id}")
-    public ResponseEntity<AreaDTO> updateArea(@PathVariable(value = "Area_id") long id, @RequestBody String color){
-        return ResponseEntity.ok().body(servicioArea.modificarColor(id, color));
+    public ResponseEntity<AreaDTO> updateArea(@PathVariable(value = "Area_id") long id, @RequestBody AreaDTO Area){
+        return ResponseEntity.ok().body(servicioArea.modificarColor(id, Area.getColor()));
     }
 }

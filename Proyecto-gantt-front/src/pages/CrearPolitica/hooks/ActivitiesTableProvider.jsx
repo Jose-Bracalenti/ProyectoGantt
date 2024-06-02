@@ -49,6 +49,7 @@ export const ActivitiesTableProvider = ({ children }) => {
         atributeContent,
         setAtributeContent,
         dataArea,
+        setDataArea,
       }}
     >
       {children}

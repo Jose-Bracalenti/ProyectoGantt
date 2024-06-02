@@ -57,7 +57,7 @@ const TimelineComponent = ({ activities, dataArea }) => {
         timelineInstance.current.destroy();
       }
     };
-  }, [activities]);
+  }, [activities,dataArea]);
 
   return (
     <div 
