@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,5 +41,9 @@ public class AreasController {
     public ResponseEntity<Void> deleteArea(@RequestBody AreaDTO Area){
         servicioArea.eliminar(Area);
         return ResponseEntity.ok().build();
+    }
+    @PutMapping("/{Area_id}/color")
+    public ResponseEntity<AreaDTO> updateColor(@PathVariable(value = "Area_id") long id, @PathVariable(value = "color") String color){
+        return ResponseEntity.ok().body(servicioArea.modificarColor(id, color));
     }
 }
