@@ -91,7 +91,7 @@ const FiltroActividades = () => {
         </Alert>
       </Snackbar>
 
-      <h2>Filtrar Actividades</h2>
+      <h2>Filtrar polítcas públicas prioritarias</h2>
       <div style={{ display: 'flex', flexDirection: 'column'}}>
 
         <SelectList

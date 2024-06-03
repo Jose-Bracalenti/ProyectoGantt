@@ -50,6 +50,8 @@ const PoliticasTable = () => {
 
     return (
         <div>
+            <h2>Lista de PPP</h2>
+           <br /> 
             <TableContainer component={Paper}>
                 <Table>
                     <TableHead>

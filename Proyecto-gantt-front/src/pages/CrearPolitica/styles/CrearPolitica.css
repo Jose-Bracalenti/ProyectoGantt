@@ -7,8 +7,9 @@
 }
 
 .crear-politica-header{
-    flex-basis: calc(25% - 1rem);
-    margin: 1rem auto;
+    flex-basis: 25%;
+    padding: 1rem;
+    margin: 0 auto;
     margin-bottom: 1rem;
     width: 20%;
     flex-grow: 0.8;
@@ -17,8 +18,9 @@
 }
 
 .crear-politica-body{
-    flex-basis: calc(75% - 1rem);
-    margin: 0 1rem auto;
+    flex-basis: 75%;
+    padding: 1rem;
+    margin: 0 auto;
     flex-grow: 0.8;
 }
 

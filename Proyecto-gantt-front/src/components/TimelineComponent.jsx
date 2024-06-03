@@ -4,7 +4,7 @@ import 'vis-timeline/styles/vis-timeline-graph2d.min.css';
 import PropTypes from 'prop-types';
 import './TimelineComponent.css'; // Importa el archivo CSS
 
-const TimelineComponent = ({ activities, dataArea }) => {
+const TimelineComponent = ({ activities, dataArea, activarGrupos }) => {
   const timelineRef = useRef(null);
   const timelineInstance = useRef(null);
 
@@ -12,36 +12,34 @@ const TimelineComponent = ({ activities, dataArea }) => {
     const container = timelineRef.current;
 
     // Crear y transformar los datos de las actividades en ítems y grupos para el timeline
-    const grupos = [];
-
-    
-
+    const grupos =[];
     const items = new DataSet(
       activities.map(actividad => {
         const area = dataArea.find(area => area.id === actividad.area_id) || {};
-        const politica = actividad.politica || 'PPP';
         const color = area.color || 'gray';
-        if (!grupos.find(grupo => grupo.id === politica)) {
+        const areaNombre = area.nombre || 'Sin área';
+        if (!grupos.find(grupo => grupo.id === areaNombre)) {
           grupos.push({
-            id: politica,
-            content: politica,
-          });
-        }
-
+            id: areaNombre,
+            content: areaNombre,
+          });}
         return {
           id: actividad.id,
           content: actividad.nombre,
           start: actividad.fechaInicio,
           end: actividad.fechaFin,
-          type:'range', // 'range' es el valor por defecto si no se especifica tipo
+          type: 'range', // 'range' es el valor por defecto si no se especifica tipo
           title: `Descripción: ${actividad.descripcion}`,
-          group: politica,
+          ...(activarGrupos && { group: areaNombre }), // Añadir el grupo si activarGrupos es true
           style: `background-color: ${color};`,
         };
       })
     );
 
-    const groups = new DataSet(grupos);
+    // Si activarGrupos es verdadero, crear grupos basados en las áreas
+    const groups = activarGrupos
+      ? new DataSet(grupos)
+      : null;
 
     // Crear la instancia del timeline
     const options = {
@@ -57,13 +55,10 @@ const TimelineComponent = ({ activities, dataArea }) => {
         timelineInstance.current.destroy();
       }
     };
-  }, [activities,dataArea]);
+  }, [activities, dataArea, activarGrupos]);
 
   return (
-    <div 
-      ref={timelineRef} 
-      className="timeline-container" // Aplica la clase CSS
-    />
+    <div ref={timelineRef} className="timeline-container" />
   );
 };
 
@@ -84,6 +79,7 @@ TimelineComponent.propTypes = {
       color: PropTypes.string,
     })
   ).isRequired,
+  activarGrupos: PropTypes.bool,
 };
 
 export default TimelineComponent;
