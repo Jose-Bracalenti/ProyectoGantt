@@ -20,7 +20,10 @@ export const ActivitiesTableProvider = ({ children }) => {
     costo: "",
   });
   const [atributeOpen, setAtributeOpen] = useState(false);
-  const [atributeContent, setAtributeContent] = useState("");
+  const [atributeContent, setAtributeContent] = useState({
+    nombre: "",
+    contenido: "",
+  });
   const [dataArea, setDataArea] = useState([]);
  
   useEffect(() => {

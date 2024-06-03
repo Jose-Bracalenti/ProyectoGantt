@@ -1,5 +1,5 @@
-  import { useContext, useState,useEffect } from "react";
-  import { Button, Tooltip, Snackbar, Modal, Box, Alert, TextField, Typography, IconButton } from "@mui/material";
+  import { useContext, useState } from "react";
+  import { Button, Tooltip, Snackbar, Modal, Box, Alert, Typography } from "@mui/material";
   import { FormularioPoliticaContext } from "../hooks/FormularioPoliticaProvider";
   import { ActivitiesTableContext } from "../hooks/ActivitiesTableProvider";
   import politicasService from "../../../services/politicasServices";

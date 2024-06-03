@@ -10,7 +10,6 @@ import {
   Button,
   IconButton,
   Tooltip,
-  Modal,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
@@ -42,7 +41,7 @@ const ActivitiesTable = () => {
         newActivity.costo = "";
         newActivity.resultado_esperado = "";
         newActivity.participacion_ciudadana = "";
-
+        setIsEditing(false);
       setOpen(condition);
     };
 
@@ -113,14 +112,20 @@ const ActivitiesTable = () => {
     setActivities(updatedActivities);
   };
 
-  const handleShowAtributes = (content) => () => {
+  const handleShowAtributes = (contenido, nombre) => () => {
     setAtributeOpen(true);
-    setAtributeContent(content);
+    setAtributeContent({
+      contenido: contenido,
+      nombre: nombre,
+    });
   };
 
   const handleCloseDescription = () => {
     setAtributeOpen(false);
-    setAtributeContent("");
+    setAtributeContent({
+      contenido: "",
+      nombre: "",
+    });
   };
 
   const truncateText = (text, length) => {
@@ -164,7 +169,7 @@ const ActivitiesTable = () => {
                     {activity.descripcion && (
                       <IconButton
                         color="primary"
-                        onClick={handleShowAtributes(activity.descripcion)}
+                        onClick={handleShowAtributes(activity.descripcion, "Descripción")}
                         disabled={!activity.descripcion}
                       >
                         <VisibilityIcon />
@@ -191,7 +196,7 @@ const ActivitiesTable = () => {
                   {truncateText(activity.resultado_esperado, 5)}
                     <IconButton
                       color="primary"
-                      onClick={handleShowAtributes(activity.resultado_esperado)}
+                      onClick={handleShowAtributes(activity.resultado_esperado, "Resultado Esperado")}
                       disabled={!activity.resultado_esperado}
                     >
                       <VisibilityIcon />
@@ -212,7 +217,7 @@ const ActivitiesTable = () => {
 
                     <IconButton
                       color="primary"
-                      onClick={handleShowAtributes(activity.participacion_ciudadana)}
+                      onClick={handleShowAtributes(activity.participacion_ciudadana, "Participación ciudadana")}
                       disabled={!activity.participacion_ciudadana}
                     >
                       <VisibilityIcon />
@@ -260,11 +265,13 @@ const ActivitiesTable = () => {
         onChange={handleChange}
         onSave={isEditing ? handleSaveEditActivity : handleAddActivity}
         onCancel={handleClick({ condition: false })}
+        onClose={handleClick({ condition: false })}
       />
 
       <AtributesDialog
         open={atributeOpen}
-        atributesContent={atributeContent}
+        nombre={atributeContent.nombre || ""}
+        atributesContent={atributeContent.contenido || ""}
         onClose={handleCloseDescription}
       />
     </TableContainer>

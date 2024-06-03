@@ -2,11 +2,14 @@
 
 .timeline-container {
     width: 100%;
-    font-family: 'arial', sans-serif;
+    font-family: roboto;
+    
   }
   
   /* Aplica la fuente a todos los elementos del timeline */
-  .vis-timeline, .vis-item, .vis-label {
-    font-family: 'arial', sans-serif;
+  .vis-timeline, .vis-item, .vis-label, .vis-item-overflow {
+    font-family:  roboto;
+    overflow: visible !important;
   }
   
+ 

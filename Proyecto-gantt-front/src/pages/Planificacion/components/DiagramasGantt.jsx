@@ -26,7 +26,7 @@ const DiagramasGantt = () => {
                             setActivarGrupos(newActivarGrupos);
                         }}
                     >
-                        <Typography variant="body1">{activarGrupos[index] ? "Contraer"  : "Expandir"}</Typography>
+                        <Typography variant="body1">{activarGrupos[index] ? "Desagrupar"  : "Agrupar"}</Typography>
                         {activarGrupos[index] ? <RemoveIcon /> : <AddIcon />}
                     </IconButton>
                     

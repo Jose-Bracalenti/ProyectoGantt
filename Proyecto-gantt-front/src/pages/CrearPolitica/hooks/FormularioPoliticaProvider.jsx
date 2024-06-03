@@ -38,6 +38,7 @@ export const FormularioPoliticaProvider = ({ children }) => {
       setAlertaServidor({mensaje: 'Error al obtener los datos del servidor', status: 'error'}); 
       setOpenAlerta(true);
       }) 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
 

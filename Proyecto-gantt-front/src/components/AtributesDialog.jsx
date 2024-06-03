@@ -4,10 +4,10 @@ import { Dialog, DialogContent, DialogContentText, DialogTitle, DialogActions, B
 import PropTypes from 'prop-types';
 
 
-const AtributesDialog = ({ open, atributesContent, onClose }) => {
+const AtributesDialog = ({nombre, open, atributesContent, onClose }) => {
   return (
     <Dialog open={open} onClose={onClose}>
-      <DialogTitle>Descripción</DialogTitle>
+      <DialogTitle>{nombre}</DialogTitle>
       <DialogContent>
         <DialogContentText>{atributesContent}</DialogContentText>
       </DialogContent>
@@ -21,6 +21,7 @@ const AtributesDialog = ({ open, atributesContent, onClose }) => {
 };
 
 AtributesDialog.propTypes = {
+  nombre: PropTypes.string,
   open: PropTypes.bool,
   atributesContent: PropTypes.string,
   onClose: PropTypes.func
