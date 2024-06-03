@@ -1,20 +1,21 @@
 import { useState, useContext } from "react";
 import {
-    Table,
-    TableBody,
-    TableCell,
-    TableContainer,
-    TableHead,
-    TableRow,
-    Paper,
-    Tooltip,
-    IconButton,
-    Dialog,
-    DialogTitle,
-    DialogContent,
-    DialogContentText,
-    DialogActions,
-    Button
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  Tooltip,
+  IconButton,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
+  Button,
+  TableSortLabel,
 } from "@mui/material";
 import { FiltroActividadesContext } from "../hooks/FiltroActividadesProvider";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -22,105 +23,175 @@ import EditIcon from "@mui/icons-material/Edit";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 
 const PoliticasTable = () => {
-    const [showDescription, setShowDescription] = useState(false);
-    const [selectedDescription, setSelectedDescription] = useState("");
+  const [showDescription, setShowDescription] = useState(false);
+  const [selectedDescription, setSelectedDescription] = useState("");
 
-    const {
-        filteredPoliticas,
-    } = useContext(FiltroActividadesContext);
+  const { filteredPoliticas } = useContext(FiltroActividadesContext);
 
-    const handleShowAttributes = (descripcion) => {
-        setSelectedDescription(descripcion);
-        setShowDescription(true);
-    }
+  const handleShowAttributes = (descripcion) => {
+    setSelectedDescription(descripcion);
+    setShowDescription(true);
+  };
 
-    const handleEditPolitica = (politica) => {
-        // Implement your edit logic here, e.g., redirect to edit page
-        console.log("Edit politica:", politica);
-    }
+  const handleEditPolitica = (politica) => {
+    // Implement your edit logic here, e.g., redirect to edit page
+    console.log("Edit politica:", politica);
+  };
 
-    const handleDeletePolitica = (politica) => {
-        // Implement your delete logic here
-        console.log("Delete politica:", politica);
-    }
+  const handleDeletePolitica = (politica) => {
+    // Implement your delete logic here
+    console.log("Delete politica:", politica);
+  };
 
-    const handleClose = () => {
-        setShowDescription(false);
-    }
+  const handleClose = () => {
+    setShowDescription(false);
+  };
 
-    return (
-        <div>
-            <h2>Lista de PPP</h2>
-           <br /> 
-            <TableContainer component={Paper}>
-                <Table>
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>Nombre</TableCell>
-                            <TableCell>Descripción</TableCell>
-                            <TableCell>Secretaria</TableCell>
-                            <TableCell>Objetivo</TableCell>
-                            <TableCell>Costo Total</TableCell>
-                            <TableCell>Acciones</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {filteredPoliticas.map((politica) => (
-                            <TableRow key={politica.id}>
-                                <TableCell>{politica.nombre}</TableCell>
-                                <TableCell>
-                                    <Tooltip
-                                        title={
-                                            politica.descripcion
-                                                ? "Mostrar descripción"
-                                                : "Sin descripción"
-                                        }
-                                    >
-                                        <span>
-                                            {politica.descripcion && (
-                                                <IconButton 
-                                                    color="primary"
-                                                    onClick={() => handleShowAttributes(politica.descripcion)}
-                                                    disabled={!politica.descripcion}
-                                                >
-                                                    <VisibilityIcon />
-                                                </IconButton>
-                                            )}
-                                        </span>
-                                    </Tooltip>
-                                </TableCell>
-                                <TableCell>{politica.secretaria}</TableCell>
-                                <TableCell>{politica.objetivo}</TableCell>
-                                <TableCell>{politica.actividades.reduce((acc, curr) => acc + curr.costo, 0)}</TableCell>
-                                <TableCell>
-                                    <IconButton color="primary" onClick={() => handleEditPolitica(politica)}>
-                                        <EditIcon />
-                                    </IconButton>
-                                    <IconButton color="secondary" onClick={() => handleDeletePolitica(politica)}>
-                                        <DeleteIcon />
-                                    </IconButton>
-                                </TableCell>
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-            </TableContainer>
-            <Dialog open={showDescription} onClose={handleClose}>
-                <DialogTitle>Descripción</DialogTitle>
-                <DialogContent>
-                    <DialogContentText>
-                        {selectedDescription}
-                    </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleClose} color="primary">
-                        Cerrar
-                    </Button>
-                </DialogActions>
-            </Dialog>
-        </div>
-    );
+  const [orderBy, setOrderBy] = useState(null);
+  const [order, setOrder] = useState("asc");
+
+  const handleSort = (property) => {
+    const isAsc = orderBy === property && order === "asc";
+    setOrderBy(property);
+    setOrder(isAsc ? "desc" : "asc");
+  };
+
+
+  const sortedPoliticas = orderBy
+    ? filteredPoliticas.sort((a, b) => {
+        //Para ordenar alfábeticamente una string
+        if(typeof a[orderBy] === "string" && typeof b[orderBy] === "string") {
+            if (order === "asc") {
+                return a[orderBy].localeCompare(b[orderBy]);
+            } else {
+                return b[orderBy].localeCompare(a[orderBy]);
+        }}   
+
+            //para ordenar alfabeticamente por actividades (costo total)
+        if(orderBy === "actividades") {
+            if (order === "asc") {
+                return a.actividades.reduce((acc, curr) => acc + curr.costo, 0) - b.actividades.reduce((acc, curr) => acc + curr.costo, 0);
+            } else {
+                return b.actividades.reduce((acc, curr) => acc + curr.costo, 0) - a.actividades.reduce((acc, curr) => acc + curr.costo, 0);
+            }
+        }
+      })
+    : filteredPoliticas;
+  return (
+    <div>
+      <h2>Lista de PPP</h2>
+      <br />
+      <TableContainer component={Paper}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>
+                <TableSortLabel
+                  active={orderBy === "nombre"}
+                  direction={order}
+                  onClick={() => handleSort("nombre")}
+                >
+                  Nombre
+                </TableSortLabel>
+              </TableCell>
+              <TableCell>Descripción</TableCell>
+              <TableCell>
+                <TableSortLabel
+                  active={orderBy === "secretaria"}
+                  direction={order}
+                  onClick={() => handleSort("secretaria")}
+                >
+                  Secretaria
+                </TableSortLabel>
+              </TableCell>
+              <TableCell>
+                <TableSortLabel
+                  active={orderBy === "objetivo"}
+                  direction={order}
+                  onClick={() => handleSort("objetivo")}
+                >
+                  Objetivo
+                </TableSortLabel>
+              </TableCell>
+              <TableCell>
+                <TableSortLabel
+                  active={orderBy === "actividades"}
+                  direction={order}
+                  onClick={() => handleSort("actividades")}
+                >
+                  Costo Total
+                </TableSortLabel>
+              </TableCell>
+              <TableCell>Acciones</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {sortedPoliticas.map((politica) => (
+              <TableRow key={politica.id}>
+                <TableCell>{politica.nombre}</TableCell>
+                <TableCell>
+                  <Tooltip
+                    title={
+                      politica.descripcion
+                        ? "Mostrar descripción"
+                        : "Sin descripción"
+                    }
+                  >
+                    <span>
+                      {politica.descripcion && (
+                        <IconButton
+                          color="primary"
+                          onClick={() =>
+                            handleShowAttributes(politica.descripcion)
+                          }
+                          disabled={!politica.descripcion}
+                        >
+                          <VisibilityIcon />
+                        </IconButton>
+                      )}
+                    </span>
+                  </Tooltip>
+                </TableCell>
+                <TableCell>{politica.secretaria}</TableCell>
+                <TableCell>{politica.objetivo}</TableCell>
+                <TableCell>
+                  {politica.actividades.reduce(
+                    (acc, curr) => acc + curr.costo,
+                    0
+                  )}
+                </TableCell>
+                <TableCell>
+                  <IconButton
+                    color="primary"
+                    onClick={() => handleEditPolitica(politica)}
+                  >
+                    <EditIcon />
+                  </IconButton>
+                  <IconButton
+                    color="secondary"
+                    onClick={() => handleDeletePolitica(politica)}
+                  >
+                    <DeleteIcon />
+                  </IconButton>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <Dialog open={showDescription} onClose={handleClose}>
+        <DialogTitle>Descripción</DialogTitle>
+        <DialogContent>
+          <DialogContentText>{selectedDescription}</DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Cerrar
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </div>
+  );
 };
-
 
 export default PoliticasTable;

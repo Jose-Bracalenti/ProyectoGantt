@@ -1,10 +1,8 @@
 import "./styles/Planificacion.css";
-import { Grid, IconButton, Button } from "@mui/material";
 import FiltroActividades from "./components/FiltroActividades";
 import PoliticasTable from "./components/PoliticasTable";
 import { FiltroActividadesProvider } from "./hooks/FiltroActividadesProvider";
 import DiagramasGantt from "./components/DiagramasGantt";
-import ImprimirDiagramaButton from "./components/ImprimirDiagramaButton";
 
 export const Planificacion = () => {
   return (

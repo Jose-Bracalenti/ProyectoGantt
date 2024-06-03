@@ -32,6 +32,7 @@ const TimelineComponent = ({ activities, dataArea, activarGrupos }) => {
           title: `Descripción: ${actividad.descripcion}`,
           ...(activarGrupos && { group: areaNombre }), // Añadir el grupo si activarGrupos es true
           style: `background-color: ${color};`,
+          
         };
       })
     );
@@ -46,6 +47,7 @@ const TimelineComponent = ({ activities, dataArea, activarGrupos }) => {
       locale: 'es', // Establecer el idioma a español
       groupOrder: 'content', // Ordena los grupos por el contenido
       // Agrega más opciones según sea necesario
+      
     };
 
     timelineInstance.current = new Timeline(container, items, groups, options);

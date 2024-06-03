@@ -29,9 +29,6 @@ export const FiltroActividadesProvider = ({ children }) => {
         secretariaServices.getAll()
             .then((response) => {
                 setSecretarias(response.data);
-                if (alertaServidor.mensaje !== "") {
-                    setAlertaServidor("Conectado al servidor", "success");
-                }
             })
             .catch(() => {
                 console.log('Error al obtener los datos');

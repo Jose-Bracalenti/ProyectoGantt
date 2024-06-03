@@ -1,13 +1,31 @@
-import { useState } from 'react';
+import { useEffect, useState,  } from 'react';
 import { AppBar, Tabs, Tab, Toolbar, Menu, MenuItem } from "@mui/material";
 import Box from "@mui/material/Box";
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, useLocation } from "react-router-dom";
 import logo from '../assets/SantaFeCapital_Blanco.png';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 const NavBar2 = () => {
+    const location = useLocation();
     const [value, setValue] = useState("1");
     const [anchorEl, setAnchorEl] = useState(null);
+
+    useEffect(() => {
+        switch (location.pathname) {
+            case "/CrearPolitica":
+                setValue("1");
+                break;
+            case "/Planificacion":
+                setValue("2");
+                break;
+            case "/Ejemplo":
+                setValue("3");
+                break;
+            default:
+                setValue("1");
+                break;
+        }
+    }, [location]);
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
