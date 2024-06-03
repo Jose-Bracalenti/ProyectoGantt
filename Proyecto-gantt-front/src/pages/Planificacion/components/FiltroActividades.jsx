@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import { useContext } from 'react';
 import { TextField, Box, Button, Snackbar, Alert, IconButton } from '@mui/material';
 import SelectList from '../../../components/SelectList'; // Assuming SelectList is correctly implemented and imported
 import CloseIcon from '@mui/icons-material/Close';
@@ -95,6 +95,7 @@ const FiltroActividades = () => {
       <div style={{ display: 'flex', flexDirection: 'column'}}>
 
         <SelectList
+          noneOption={true}
           nombre="Secretaria"
           list={secretarias}
           stateComponent={secretaria}
@@ -102,13 +103,16 @@ const FiltroActividades = () => {
           sx={{ marginBottom: 1, marginRight: 3 }}
         />
         <SelectList
+          noneOption={true}
           nombre="Eje"
           list={ejes}
           stateComponent={eje}
           setState={setEje}
           sx={{ marginBottom: 1, marginRight: 1 }}
+          onChange={() => setObjetivo('')}
         />
         <SelectList
+          noneOption={true}
           nombre="Objetivo"
           list={objetivos}
           stateComponent={objetivo}

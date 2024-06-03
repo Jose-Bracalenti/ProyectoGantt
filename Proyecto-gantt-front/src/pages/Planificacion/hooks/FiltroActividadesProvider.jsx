@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect } from 'react';
+import { createContext, useState, useEffect } from 'react';
 import PropTypes from "prop-types";
 import ejeServices from "../../../services/ejeServices";
 import objetivoServices from "../../../services/objetivoServices";
@@ -54,21 +54,21 @@ export const FiltroActividadesProvider = ({ children }) => {
     useEffect(() => {
         ejeServices.getAll()
             .then((response) => {
-                setEjes(response.data);
+                setEjes(response.data.sort((a, b) => a.nombre.localeCompare(b.nombre)));
             });
     }, []);
     
     useEffect(() => {
         areaServices.getAll()
             .then((response) => {
-                setAreas(response.data);
+                setAreas(response.data.sort((a, b) => a.nombre.localeCompare(b.nombre)));
             });
     }, []);
 
     useEffect(() => {
         politicasServices.getAll()
             .then((response) => {
-                setPoliticas(response.data);
+                setPoliticas(response.data.sort((a, b) => a.nombre.localeCompare(b.nombre)));
             });
     }, []);
 

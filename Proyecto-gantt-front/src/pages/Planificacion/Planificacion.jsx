@@ -26,7 +26,6 @@ export const Planificacion = () => {
             </div>
             <div className="planificacion-footer"
             >
-              <ImprimirDiagramaButton />
             </div>
           </div>
         </form>

@@ -9,15 +9,15 @@ import {
   Paper,
   Button,
   IconButton,
-  Tooltip,
+  TableSortLabel,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import VisibilityIcon from "@mui/icons-material/Visibility";
 import ActivityDialog from "./ActivityDialog";
 import AtributesDialog from "../../../components/AtributesDialog";
 import { ActivitiesTableContext } from "../hooks/ActivitiesTableProvider";
 import ConfirmDialog from "./ConfirmDialog";
+import PopUpVerCampos from "../../../components/PopUpVerCampos";
 
 const ActivitiesTable = () => {
   const { 
@@ -33,6 +33,7 @@ const ActivitiesTable = () => {
   const handleClick =
     ({ condition }) =>
     () => {
+      setIsEditing(false);
         newActivity.nombre = "";
         newActivity.descripcion = "";
         newActivity.fechaInicio = "";
@@ -41,12 +42,30 @@ const ActivitiesTable = () => {
         newActivity.costo = "";
         newActivity.resultado_esperado = "";
         newActivity.participacion_ciudadana = "";
-        setIsEditing(false);
       setOpen(condition);
     };
 
     const[openModalDelete, setOpenModalDelete] = useState(false);
     const[deleteActivityIndex, setDeleteActivityIndex] = useState(0);
+    const[orderBy, setOrderBy] = useState(null);
+    const[order, setOrder] = useState("asc");
+
+    const handleSort = (property) => {
+      const isAsc = orderBy === property && order === "asc";
+      setOrderBy(property);
+      setOrder(isAsc ? "desc" : "asc");
+    };
+
+    const sortedActivities = orderBy
+      ? activities.sort((a, b) => {
+          if (order === "asc") {
+            return a[orderBy] > b[orderBy] ? 1 : -1;
+          } else {
+            return a[orderBy] < b[orderBy] ? 1 : -1;
+          }
+        })
+      : activities;
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -103,21 +122,13 @@ const ActivitiesTable = () => {
       resultado_esperado: "",
       participacion_ciudadana: "",
     });
-    setIsEditing(false);
     setOpen(false);
+    setIsEditing(false);
   };
 
   const handleDeleteActivity = (index) => {
     const updatedActivities = activities.filter((_, i) => i !== index);
     setActivities(updatedActivities);
-  };
-
-  const handleShowAtributes = (contenido, nombre) => () => {
-    setAtributeOpen(true);
-    setAtributeContent({
-      contenido: contenido,
-      nombre: nombre,
-    });
   };
 
   const handleCloseDescription = () => {
@@ -128,10 +139,7 @@ const ActivitiesTable = () => {
     });
   };
 
-  const truncateText = (text, length) => {
-    if (text.length <= length) return text;
-    return text.substring(0, length) + "...";
-  };
+
 
   console.log("activities", activities);
 
@@ -141,42 +149,68 @@ const ActivitiesTable = () => {
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell>Nombre</TableCell>
-            <TableCell>Descripción</TableCell>
-            <TableCell>Fecha Inicio</TableCell>
-            <TableCell>Fecha Fin</TableCell>
-            <TableCell>Área</TableCell>
-            <TableCell>Costo</TableCell>
+            <TableCell>
+              <TableSortLabel
+                active={orderBy === "nombre"}
+                direction={order}
+                onClick={() => handleSort("nombre")}
+              >
+              Nombre
+              </TableSortLabel>
+              </TableCell>
+            <TableCell> Descripción</TableCell>
+            <TableCell>
+              <TableSortLabel
+                active={orderBy === "fechaInicio"}
+                direction={order}
+                onClick={() => handleSort("fechaInicio")}
+              >
+              Fecha Inicio
+              </TableSortLabel>
+              </TableCell>
+            <TableCell>
+              <TableSortLabel
+                active={orderBy === "fechaFin"}
+                direction={order}
+                onClick={() => handleSort("fechaFin")}
+              >
+              Fecha Fin
+              </TableSortLabel>
+              </TableCell>
+            <TableCell>
+              <TableSortLabel
+                active={orderBy === "area_id"}
+                direction={order}
+                onClick={() => handleSort("area_id")}
+              >
+              Área
+              </TableSortLabel>
+              </TableCell>
+            <TableCell>
+              <TableSortLabel
+                active={orderBy === "costo"}
+                direction={order}
+                onClick={() => handleSort("costo")}
+              >
+              Costo
+              </TableSortLabel>
+              </TableCell>
             <TableCell>Resultado Esperado</TableCell>
             <TableCell>Participación ciudadana</TableCell>
             <TableCell>Acciones</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {activities.map((activity, index) => (
+          {sortedActivities.map((activity, index) => (
             <TableRow key={index}>
               <TableCell>{activity.nombre}</TableCell>
               <TableCell>
-                <Tooltip
-                  title={
-                    activity.descripcion
-                      ? "Mostrar descripción"
-                      : "Sin descripción"
-                  }
-                >
-                  <span>
-                    {truncateText(activity.descripcion, 5)}
-                    {activity.descripcion && (
-                      <IconButton
-                        color="primary"
-                        onClick={handleShowAtributes(activity.descripcion, "Descripción")}
-                        disabled={!activity.descripcion}
-                      >
-                        <VisibilityIcon />
-                      </IconButton>
-                    )}
-                  </span>
-                </Tooltip>
+                <PopUpVerCampos
+                  contenido={activity.descripcion}
+                  titulo="Descripción"
+                  setAtributeOpen={setAtributeOpen}
+                  setAtributeContent={setAtributeContent}
+                />
               </TableCell>
               <TableCell>{activity.fechaInicio}</TableCell>
               <TableCell>{activity.fechaFin}</TableCell>
@@ -185,45 +219,21 @@ const ActivitiesTable = () => {
               </TableCell>
               <TableCell>{activity.costo}</TableCell>
               <TableCell>
-                <Tooltip
-                  title={
-                    activity.resultado_esperado
-                      ? "Mostrar resultado Esperado"
-                      : "resultado Esperado sin completar"
-                  }
-                >
-                  <span>
-                  {truncateText(activity.resultado_esperado, 5)}
-                    <IconButton
-                      color="primary"
-                      onClick={handleShowAtributes(activity.resultado_esperado, "Resultado Esperado")}
-                      disabled={!activity.resultado_esperado}
-                    >
-                      <VisibilityIcon />
-                    </IconButton>
-                  </span>
-                </Tooltip>
+                <PopUpVerCampos
+                  contenido={activity.resultado_esperado}
+                  titulo="Resultado esperado"
+                  setAtributeContent={setAtributeContent}
+                  setAtributeOpen={setAtributeOpen}
+
+                />
               </TableCell>
               <TableCell>
-                <Tooltip
-                  title={
-                    activity.participacion_ciudadana
-                      ? "Mostrar Participación ciudadana"
-                      : "Participación ciudadana sin completar"
-                  }
-                >
-                  <span>
-                  {truncateText(activity.participacion_ciudadana, 5)}
-
-                    <IconButton
-                      color="primary"
-                      onClick={handleShowAtributes(activity.participacion_ciudadana, "Participación ciudadana")}
-                      disabled={!activity.participacion_ciudadana}
-                    >
-                      <VisibilityIcon />
-                    </IconButton>
-                  </span>
-                </Tooltip>
+                <PopUpVerCampos
+                  contenido={activity.participacion_ciudadana}
+                  titulo="Participación ciudadana"
+                  setAtributeContent={setAtributeContent}
+                  setAtributeOpen={setAtributeOpen}
+                />
               </TableCell>
               <TableCell>
                 <IconButton

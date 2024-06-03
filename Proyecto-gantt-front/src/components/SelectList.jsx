@@ -6,7 +6,7 @@ import Select from '@mui/material/Select';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 
-const SelectList = ({list ,stateComponent, setState, nombre, titleTrue}) => {
+const SelectList = ({list ,stateComponent, setState, nombre, titleTrue, noneOption, onChange}) => {
   const [stateComponentName, setStateComponentName] = useState('');
   const handleChange = (event) => {
     const selectedId = event.target.value;
@@ -15,6 +15,7 @@ const SelectList = ({list ,stateComponent, setState, nombre, titleTrue}) => {
       const selectedItem = list.find(item => item.id === selectedId);
       setStateComponentName(selectedItem.nombre);
     }
+    if (onChange) onChange();
    
   };
   const id1 = 'demo-simple-select-standard-label-' + nombre;
@@ -31,6 +32,7 @@ const SelectList = ({list ,stateComponent, setState, nombre, titleTrue}) => {
           title={stateComponentName}
           
         >
+          {noneOption && <MenuItem value="">Ninguno</MenuItem>}
           {list.map((item) => (
             <MenuItem key={item.id} value={item.id}>
               {item.nombre}
@@ -48,6 +50,8 @@ SelectList.propTypes = {
   setState: PropTypes.func,
   nombre: PropTypes.string,
   list: PropTypes.array,
-  titleTrue: PropTypes.bool
+  titleTrue: PropTypes.bool,
+  noneOption: PropTypes.bool,
+  onChange: PropTypes.func
 };
 export default SelectList;
