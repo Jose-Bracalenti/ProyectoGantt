@@ -4,11 +4,18 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
 import PropTypes from 'prop-types';
+import { useState } from 'react';
 
-const SelectList = ({list ,stateComponent, setState, nombre }) => {
-
+const SelectList = ({list ,stateComponent, setState, nombre, titleTrue}) => {
+  const [stateComponentName, setStateComponentName] = useState('');
   const handleChange = (event) => {
-    setState(event.target.value);
+    const selectedId = event.target.value;
+    setState(selectedId);
+    if (titleTrue){
+      const selectedItem = list.find(item => item.id === selectedId);
+      setStateComponentName(selectedItem.nombre);
+    }
+   
   };
   const id1 = 'demo-simple-select-standard-label-' + nombre;
   return (
@@ -21,11 +28,13 @@ const SelectList = ({list ,stateComponent, setState, nombre }) => {
           value={stateComponent}
           onChange={handleChange}
           label={nombre}
+          title={stateComponentName}
           
         >
           {list.map((item) => (
             <MenuItem key={item.id} value={item.id}>
               {item.nombre}
+
             </MenuItem>
           ))}
         </Select>
@@ -38,6 +47,7 @@ SelectList.propTypes = {
   stateComponent: PropTypes.any,
   setState: PropTypes.func,
   nombre: PropTypes.string,
-  list: PropTypes.array
+  list: PropTypes.array,
+  titleTrue: PropTypes.bool
 };
 export default SelectList;

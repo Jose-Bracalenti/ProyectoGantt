@@ -1,0 +1,35 @@
+.crear-politica-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.crear-politica-header{
+    flex-basis: calc(25% - 1rem);
+    margin: 1rem auto;
+    margin-bottom: 1rem;
+    width: 20%;
+    flex-grow: 0.8;
+    min-width: 300px;
+    max-width: 600px;
+}
+
+.crear-politica-body{
+    flex-basis: calc(75% - 1rem);
+    margin: 0 1rem auto;
+    flex-grow: 0.8;
+}
+
+.crear-politica-footer{
+    flex-basis: 100%;
+    margin: 1rem auto;
+    margin-top: 1rem;
+    margin-bottom: 5rem;
+    width: 100%;
+    flex-grow: 0.8;
+    min-width: 300px;
+    max-width: 600px;
+
+}

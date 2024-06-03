@@ -1,0 +1,29 @@
+.planificacion-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.planificacion-header{
+    flex-basis: calc(25% - 1rem);
+    margin: 1rem auto;
+    margin-bottom: 1rem;
+    width: 20%;
+    flex-grow: 0.8;
+    min-width: 300px;
+    max-width: 600px;
+}
+
+.planificacion-body{
+    flex-basis: calc(75% - 1rem);
+    margin: 0 1rem auto;
+    flex-grow: 1;
+}
+
+.planificacion-footer{
+    
+    margin: 5rem 3rem; /* Cambiado a 1rem 0 para eliminar margen superior e inferior */
+    margin-left: auto;
+}

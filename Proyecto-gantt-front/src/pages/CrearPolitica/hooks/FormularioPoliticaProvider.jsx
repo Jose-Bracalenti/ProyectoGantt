@@ -18,7 +18,6 @@ export const FormularioPoliticaProvider = ({ children }) => {
   const [objetivo, setObjetivo] = useState("");
   const [dataObjetivo, setDataObjetivo] = useState([]);
   const [descripcion, setDescripcion] = useState("");
-  const [costo, setCosto] = useState("");
   const [camposCompletos, setCamposCompletos] = useState(false);
   const [alertaServidor, setAlertaServidor] = useState("");
   const[openAlerta, setOpenAlerta] = useState(false);
@@ -28,7 +27,8 @@ export const FormularioPoliticaProvider = ({ children }) => {
     secretariaServices
      .getAll()
     .then((response) => {
-      setDataSecretaria(response.data);
+      const sortedData = response.data.sort((a, b) => a.nombre.localeCompare(b.nombre));
+      setDataSecretaria(sortedData);
       if(alertaServidor.mensaje !== "") {
         setAlertaServidor("Conectado al servidor", "success");
         
@@ -68,7 +68,6 @@ export const FormularioPoliticaProvider = ({ children }) => {
       objetivo, setObjetivo,
       dataObjetivo, setDataObjetivo,
       descripcion, setDescripcion,
-      costo, setCosto,
       camposCompletos, setCamposCompletos,
       alertaServidor, setAlertaServidor,
       openAlerta, setOpenAlerta

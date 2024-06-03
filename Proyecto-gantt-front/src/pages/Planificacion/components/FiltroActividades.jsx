@@ -6,7 +6,6 @@ import { FiltroActividadesContext } from '../hooks/FiltroActividadesProvider'; /
 
 const FiltroActividades = () => {
   const {
-    nombre,
     setNombre,
     secretarias,
     ejes,
@@ -21,17 +20,15 @@ const FiltroActividades = () => {
     area,
     setArea,
     politicas,
-    filteredPoliticas,
     setfilteredPoliticas,
     fechaInicio,
     setFechaInicio,
     fechaFin,
     setFechaFin,
     openAlerta,
-    setOpenAlerta,
     alertaServidor,
     handleAlertClose,
-    resetForm
+    
   } = useContext(FiltroActividadesContext);
 
   const handleLimpiar = () => {

@@ -1,4 +1,4 @@
-import "./Planificacion.css"
+import "./styles/Planificacion.css";
 import { Grid, IconButton, Button } from "@mui/material";
 import FiltroActividades from "./components/FiltroActividades";
 import PoliticasTable from "./components/PoliticasTable";
@@ -7,35 +7,31 @@ import DiagramasGantt from "./components/DiagramasGantt";
 import ImprimirDiagramaButton from "./components/ImprimirDiagramaButton";
 
 export const Planificacion = () => {
-    return (
-        <>
-            <FiltroActividadesProvider>
-                <form>
-                    <div style={{ display: 'flex', marginY: '1rem' }}>
+  return (
+    <>
+      <FiltroActividadesProvider>
+        <form>
+          <div
+          className="planificacion-container"
 
-                        <Grid container spacing={2} sx={{ marginX: '1rem' }}>
-                            <Grid item xs={3}>
-
-
-                                <FiltroActividades />
-
-                            </Grid>
-                            <Grid item xs={9}>
-                                <PoliticasTable />
-                                <div style={{ display: 'flex', marginTop: "1rem", justifyContent: 'center', }}>
-                                    <DiagramasGantt />
-                                </div>
-                                <div style={{ display: 'flex', marginTop: "1rem", justifyContent: 'right', }}>
-                                    <ImprimirDiagramaButton />
-                                </div>
-                            </Grid>
-                        </Grid>
-
-                    </div>
-                </form>
-
-            </FiltroActividadesProvider>
-        </>
-    );
-}
+          >
+            <div className="planificacion-header">
+              <FiltroActividades  />
+            </div>
+            <div
+            className="planificacion-body"           
+            >
+              <PoliticasTable />
+              <DiagramasGantt />
+            </div>
+            <div className="planificacion-footer"
+            >
+              <ImprimirDiagramaButton />
+            </div>
+          </div>
+        </form>
+      </FiltroActividadesProvider>
+    </>
+  );
+};
 export default Planificacion;

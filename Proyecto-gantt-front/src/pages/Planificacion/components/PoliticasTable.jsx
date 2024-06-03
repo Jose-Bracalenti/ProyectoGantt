@@ -21,10 +21,9 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 
-const PoliticasTable = ({ politicas }) => {
+const PoliticasTable = () => {
     const [showDescription, setShowDescription] = useState(false);
     const [selectedDescription, setSelectedDescription] = useState("");
-    const [selectedPolitica, setSelectedPolitica] = useState(null);
 
     const {
         filteredPoliticas,
@@ -59,7 +58,7 @@ const PoliticasTable = ({ politicas }) => {
                             <TableCell>Descripción</TableCell>
                             <TableCell>Secretaria</TableCell>
                             <TableCell>Objetivo</TableCell>
-                            <TableCell>Costo</TableCell>
+                            <TableCell>Costo Total</TableCell>
                             <TableCell>Acciones</TableCell>
                         </TableRow>
                     </TableHead>
@@ -90,7 +89,7 @@ const PoliticasTable = ({ politicas }) => {
                                 </TableCell>
                                 <TableCell>{politica.secretaria}</TableCell>
                                 <TableCell>{politica.objetivo}</TableCell>
-                                <TableCell>{politica.costo}</TableCell>
+                                <TableCell>{politica.actividades.reduce((acc, curr) => acc + curr.costo, 0)}</TableCell>
                                 <TableCell>
                                     <IconButton color="primary" onClick={() => handleEditPolitica(politica)}>
                                         <EditIcon />
@@ -120,5 +119,6 @@ const PoliticasTable = ({ politicas }) => {
         </div>
     );
 };
+
 
 export default PoliticasTable;

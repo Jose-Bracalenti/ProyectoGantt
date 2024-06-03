@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import {
   Table,
   TableBody,
@@ -10,6 +10,7 @@ import {
   Button,
   IconButton,
   Tooltip,
+  Modal,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
@@ -17,6 +18,7 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import ActivityDialog from "./ActivityDialog";
 import AtributesDialog from "../../../components/AtributesDialog";
 import { ActivitiesTableContext } from "../hooks/ActivitiesTableProvider";
+import ConfirmDialog from "./ConfirmDialog";
 
 const ActivitiesTable = () => {
   const { 
@@ -37,11 +39,15 @@ const ActivitiesTable = () => {
         newActivity.fechaInicio = "";
         newActivity.fechaFin = "";
         newActivity.area_id = "";
+        newActivity.costo = "";
         newActivity.resultado_esperado = "";
         newActivity.participacion_ciudadana = "";
 
       setOpen(condition);
     };
+
+    const[openModalDelete, setOpenModalDelete] = useState(false);
+    const[deleteActivityIndex, setDeleteActivityIndex] = useState(0);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -59,6 +65,7 @@ const ActivitiesTable = () => {
       fechaInicio: "",
       fechaFin: "",
       area_id: "",
+      costo: "",
       resultado_esperado: "",
       participacion_ciudadana: "",
     });
@@ -76,6 +83,7 @@ const ActivitiesTable = () => {
       fechaInicio: activities[index].fechaInicio,
       fechaFin: activities[index].fechaFin,
       area_id: activities[index].area_id,
+      costo: activities[index].costo,
       resultado_esperado: activities[index].resultado_esperado,
       participacion_ciudadana: activities[index].participacion_ciudadana,
     });
@@ -92,9 +100,9 @@ const ActivitiesTable = () => {
       fechaInicio: "",
       fechaFin: "",
       area_id: "",
+      costo: "",
       resultado_esperado: "",
       participacion_ciudadana: "",
-      costo: "",
     });
     setIsEditing(false);
     setOpen(false);
@@ -123,6 +131,7 @@ const ActivitiesTable = () => {
   console.log("activities", activities);
 
   return (
+    <>
     <TableContainer component={Paper}>
       <Table>
         <TableHead>
@@ -151,7 +160,7 @@ const ActivitiesTable = () => {
                   }
                 >
                   <span>
-                    {truncateText(activity.descripcion, 8)}
+                    {truncateText(activity.descripcion, 5)}
                     {activity.descripcion && (
                       <IconButton
                         color="primary"
@@ -179,7 +188,7 @@ const ActivitiesTable = () => {
                   }
                 >
                   <span>
-                  {truncateText(activity.resultado_esperado, 8)}
+                  {truncateText(activity.resultado_esperado, 5)}
                     <IconButton
                       color="primary"
                       onClick={handleShowAtributes(activity.resultado_esperado)}
@@ -199,7 +208,7 @@ const ActivitiesTable = () => {
                   }
                 >
                   <span>
-                  {truncateText(activity.participacion_ciudadana, 8)}
+                  {truncateText(activity.participacion_ciudadana, 5)}
 
                     <IconButton
                       color="primary"
@@ -220,7 +229,9 @@ const ActivitiesTable = () => {
                 </IconButton>
                 <IconButton
                   color="secondary"
-                  onClick={() => handleDeleteActivity(index)}
+                  onClick={() => (setOpenModalDelete(true),
+                    setDeleteActivityIndex(index))
+                  }
                 >
                   <DeleteIcon />
                 </IconButton>
@@ -228,7 +239,7 @@ const ActivitiesTable = () => {
             </TableRow>
           ))}
           <TableRow>
-            <TableCell colSpan={8} align="center">
+            <TableCell colSpan={9} align="center">
               <Button
                 variant="contained"
                 color="primary"
@@ -257,6 +268,17 @@ const ActivitiesTable = () => {
         onClose={handleCloseDescription}
       />
     </TableContainer>
+    <ConfirmDialog
+      open={openModalDelete}
+      onClose={() => setOpenModalDelete(false)}
+      onConfirm={() => {
+        handleDeleteActivity(deleteActivityIndex);
+        setOpenModalDelete(false);
+      }}
+      title="Eliminar Actividad"
+      content="¿Estás seguro de que deseas eliminar esta actividad?"
+    />
+    </>
   );
 };
 

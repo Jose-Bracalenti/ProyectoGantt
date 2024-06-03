@@ -27,7 +27,8 @@ export const ActivitiesTableProvider = ({ children }) => {
     servicesArea
      .getAll()
     .then((response) => {
-      setDataArea(response.data);
+      const sortedData = response.data.sort((a, b) => a.nombre.localeCompare(b.nombre));
+      setDataArea(sortedData);
     })
     
   }, []);

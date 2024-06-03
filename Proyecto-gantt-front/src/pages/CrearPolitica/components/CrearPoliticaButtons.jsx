@@ -31,7 +31,7 @@
 
     const handleCloseSnackbar = () => setSnackbarOpen(false);
 
-    const camposCompletos = nombre  !== "";
+    const camposCompletos = nombre !== "" && secretaria !== "" && objetivo !== "";
     const buttonTitle = camposCompletos
       ? "Crear ppp"
       : "Complete los campos con (*) para crear ppp";
@@ -47,6 +47,7 @@
           fechaInicio,
           fechaFin,
           area_id,
+          costo,
           resultado_esperado,
           participacion_ciudadana,
         }) => ({
@@ -55,6 +56,7 @@
           fechaInicio,
           fechaFin,
           area_id,
+          costo,
           resultado_esperado,
           participacion_ciudadana,
         })
@@ -125,9 +127,7 @@
           console.error(error);
         });
     };
-    useEffect(() => {
-      // Actualizar el componente de línea de tiempo con el nuevo dataArea
-    }, [dataArea]);
+
     return (
       <div style={{ display: "flex", justifyContent: "right", marginRight: "5rem" }}>
         <Button sx={{ marginRight: 5 }} variant="outlined" color="secondary">
@@ -179,6 +179,7 @@
               boxShadow: 24,
               p: 2,
               display: "inline-block",
+              width: "80%",
             }}
           >
             <div style={{ display: "flex" }}>

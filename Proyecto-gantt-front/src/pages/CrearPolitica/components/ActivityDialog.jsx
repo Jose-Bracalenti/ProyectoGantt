@@ -125,6 +125,15 @@ const ActivityDialog = ({
           InputLabelProps={{ shrink: true }}
           value={activity.costo}
           onChange={onChange}
+          InputProps={
+            {
+              inputProps: { 
+                min: 0,
+                type: ' number',
+              }
+
+          }
+          }
         />
         <TextField
           margin="dense"

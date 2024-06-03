@@ -24,8 +24,6 @@ const FormularioPolitica = () => {
     dataObjetivo,
     descripcion,
     setDescripcion,
-    costo,
-    setCosto,
     alertaServidor,
     openAlerta,
     setOpenAlerta,
@@ -38,7 +36,6 @@ const FormularioPolitica = () => {
     setSecretaria("");
     setObjetivo("");
     setDescripcion("");
-    setCosto("");
   };
   console.log("error ", alertaServidor);
 
@@ -90,6 +87,7 @@ const FormularioPolitica = () => {
         stateComponent={secretaria}
         setState={setSecretaria}
         nombre="Secretaria"
+        titleTrue
         sx={{ marginY: 0.5 }}
       />
       <SelectList
