@@ -1,4 +1,5 @@
 import TimelineComponent from "../../../components/TimelineComponent";
+import TimelineComponentContained from "../../../components/TimelineComponentContained";
 import { useContext, useState } from "react";
 import { FiltroActividadesContext } from "../hooks/FiltroActividadesProvider";
 import { IconButton, Typography } from "@mui/material";
@@ -15,7 +16,7 @@ const DiagramasGantt = () => {
             {filteredPoliticas && filteredPoliticas.map((politica, index) => (
                 <div key={politica.id} style={{ marginTop: "2rem", justifyContent: 'center' }}>
                     <h3>{politica.nombre}</h3>
-                    <TimelineComponent activities={politica.actividades} dataArea={areas} activarGrupos={activarGrupos[index]} />
+                    <TimelineComponentContained activities={politica.actividades} dataArea={areas} activarGrupos={activarGrupos[index]} />
                     <IconButton
                         variant="contained"
                         color="primary"

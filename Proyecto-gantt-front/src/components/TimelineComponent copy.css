@@ -1,0 +1,15 @@
+/* TimelineComponent.css */
+
+.timeline-container {
+    width: 100%;
+    font-family: roboto;
+    
+  }
+  
+  /* Aplica la fuente a todos los elementos del timeline */
+  .vis-timeline, .vis-item, .vis-label, .vis-item-overflow {
+    font-family:  roboto;
+    overflow: visible !important;
+  }
+  
+ 

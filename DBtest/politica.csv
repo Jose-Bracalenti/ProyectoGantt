@@ -1,0 +1,5 @@
+"politica_id","costo","descripcion","nombre","objetivo_id","secretaria_id"
+"1","0","Descripción de la política número 1.
+Esto es sólo un ejemplo de como se visualizaría la descripción","Ejemplo Politica 1","1","13"
+"2","0","Descripción política 2","Política 2","6","6"
+"3","0","Descripción de política nro 3","Politica 3","2","7"

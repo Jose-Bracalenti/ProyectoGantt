@@ -13,13 +13,13 @@ public class Actividad {
     private long actividad_id;
     @Column
     private String nombre;
-    @Column(columnDefinition = "TEXT")
+    @Column(columnDefinition = "text")
     private String descripcion;
     @Column
     private LocalDate fecha_inicio;
     @Column
     private LocalDate fecha_fin;
-    @Column(columnDefinition = "TEXT")
+    @Column(columnDefinition = "text")
     private String resultado_esperado;
     @ManyToOne
     @JoinColumn(name = "politica_id",nullable = true, referencedColumnName = "politica_id", foreignKey = @ForeignKey(name = "FK_ACTIVIDAD_POLITICA", value = ConstraintMode.CONSTRAINT))
@@ -27,7 +27,7 @@ public class Actividad {
     @ManyToOne
     @JoinColumn(name = "area_id",nullable = true, referencedColumnName = "area_id", foreignKey = @ForeignKey(name = "FK_ACTIVIDAD_AREA", value = ConstraintMode.CONSTRAINT))
     private Area area;
-    @Column(columnDefinition = "TEXT")
+    @Column(columnDefinition = "text")
     private String participacion_ciudadana;
     @Column
     private float costo;

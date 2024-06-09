@@ -21,9 +21,18 @@ import { FiltroActividadesContext } from "../hooks/FiltroActividadesProvider";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import VisibilityIcon from "@mui/icons-material/Visibility";
+import PopUpVerCampos from "../../../components/PopUpVerCampos";
+import AtributesDialog from "../../../components/AtributesDialog";
 
 const PoliticasTable = () => {
   const [showDescription, setShowDescription] = useState(false);
+  const [atributeOpen, setAtributeOpen] = useState(false);
+  const [atributeContent, setAtributeContent] = useState({
+    nombre: "",
+    contenido: "",
+  });
+  
+  
   const [selectedDescription, setSelectedDescription] = useState("");
 
   const { filteredPoliticas } = useContext(FiltroActividadesContext);
@@ -32,7 +41,13 @@ const PoliticasTable = () => {
     setSelectedDescription(descripcion);
     setShowDescription(true);
   };
-
+  const handleCloseDescription = () => {
+    setAtributeOpen(false);
+    setAtributeContent({
+      contenido: "",
+      nombre: "",
+    });
+  };
   const handleEditPolitica = (politica) => {
     // Implement your edit logic here, e.g., redirect to edit page
     console.log("Edit politica:", politica);
@@ -59,23 +74,24 @@ const PoliticasTable = () => {
 
   const sortedPoliticas = orderBy
     ? filteredPoliticas.sort((a, b) => {
-        //Para ordenar alfábeticamente una string
-        if(typeof a[orderBy] === "string" && typeof b[orderBy] === "string") {
-            if (order === "asc") {
-                return a[orderBy].localeCompare(b[orderBy]);
-            } else {
-                return b[orderBy].localeCompare(a[orderBy]);
-        }}   
-
-            //para ordenar alfabeticamente por actividades (costo total)
-        if(orderBy === "actividades") {
-            if (order === "asc") {
-                return a.actividades.reduce((acc, curr) => acc + curr.costo, 0) - b.actividades.reduce((acc, curr) => acc + curr.costo, 0);
-            } else {
-                return b.actividades.reduce((acc, curr) => acc + curr.costo, 0) - a.actividades.reduce((acc, curr) => acc + curr.costo, 0);
-            }
+      //Para ordenar alfábeticamente una string
+      if (typeof a[orderBy] === "string" && typeof b[orderBy] === "string") {
+        if (order === "asc") {
+          return a[orderBy].localeCompare(b[orderBy]);
+        } else {
+          return b[orderBy].localeCompare(a[orderBy]);
         }
-      })
+      }
+
+      //para ordenar alfabeticamente por actividades (costo total)
+      if (orderBy === "actividades") {
+        if (order === "asc") {
+          return a.actividades.reduce((acc, curr) => acc + curr.costo, 0) - b.actividades.reduce((acc, curr) => acc + curr.costo, 0);
+        } else {
+          return b.actividades.reduce((acc, curr) => acc + curr.costo, 0) - a.actividades.reduce((acc, curr) => acc + curr.costo, 0);
+        }
+      }
+    })
     : filteredPoliticas;
   return (
     <div>
@@ -130,32 +146,17 @@ const PoliticasTable = () => {
               <TableRow key={politica.id}>
                 <TableCell>{politica.nombre}</TableCell>
                 <TableCell>
-                  <Tooltip
-                    title={
-                      politica.descripcion
-                        ? "Mostrar descripción"
-                        : "Sin descripción"
-                    }
-                  >
-                    <span>
-                      {politica.descripcion && (
-                        <IconButton
-                          color="primary"
-                          onClick={() =>
-                            handleShowAttributes(politica.descripcion)
-                          }
-                          disabled={!politica.descripcion}
-                        >
-                          <VisibilityIcon />
-                        </IconButton>
-                      )}
-                    </span>
-                  </Tooltip>
+                <PopUpVerCampos
+                  contenido={politica.descripcion}
+                  titulo="Descripción"
+                  setAtributeOpen={setAtributeOpen}
+                  setAtributeContent={setAtributeContent}
+                />
                 </TableCell>
                 <TableCell>{politica.secretaria}</TableCell>
                 <TableCell>{politica.objetivo}</TableCell>
                 <TableCell>
-                  {politica.actividades.reduce(
+                  $ {politica.actividades.reduce(
                     (acc, curr) => acc + curr.costo,
                     0
                   )}
@@ -178,18 +179,13 @@ const PoliticasTable = () => {
             ))}
           </TableBody>
         </Table>
+        <AtributesDialog
+        open={atributeOpen}
+        nombre={atributeContent.nombre || ""}
+        atributesContent={atributeContent.contenido || ""}
+        onClose={handleCloseDescription}
+      />
       </TableContainer>
-      <Dialog open={showDescription} onClose={handleClose}>
-        <DialogTitle>Descripción</DialogTitle>
-        <DialogContent>
-          <DialogContentText>{selectedDescription}</DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            Cerrar
-          </Button>
-        </DialogActions>
-      </Dialog>
     </div>
   );
 };

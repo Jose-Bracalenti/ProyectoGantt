@@ -12,7 +12,7 @@ public class Politica {
     private long politica_id;
     @Column(name = "nombre")
     private String nombre;
-    @Column(name = "descripcion", columnDefinition = "TEXT")
+    @Column(name = "descripcion", columnDefinition = "text")
     private String descripcion;
     @Column(name = "costo")
     private float costo;

@@ -24,7 +24,11 @@ export const FiltroActividadesProvider = ({ children }) => {
     const [secretarias, setSecretarias] = useState([]);
     const [politicas, setPoliticas] = useState([]);
     const [filteredPoliticas, setfilteredPoliticas] = useState([]);
-
+    const [atributeOpen, setAtributeOpen] = useState(false);
+    const [atributeContent, setAtributeContent] = useState({
+      nombre: "",
+      contenido: "",
+    });
     useEffect(() => {
         secretariaServices.getAll()
             .then((response) => {
@@ -124,6 +128,11 @@ export const FiltroActividadesProvider = ({ children }) => {
                 handleSubmit,
                 handleAlertClose,
                 handleLimpiar,
+                atributeContent,
+                setAtributeContent,
+                atributeOpen,
+                setAtributeOpen,
+                
             }}
         >
             {children}

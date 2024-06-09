@@ -3,6 +3,7 @@ import FiltroActividades from "./components/FiltroActividades";
 import PoliticasTable from "./components/PoliticasTable";
 import { FiltroActividadesProvider } from "./hooks/FiltroActividadesProvider";
 import DiagramasGantt from "./components/DiagramasGantt";
+import DiagramaGanttContained from "./components/DiagramaGanttContained";
 
 export const Planificacion = () => {
   return (
@@ -20,7 +21,7 @@ export const Planificacion = () => {
             className="planificacion-body"           
             >
               <PoliticasTable />
-              <DiagramasGantt />
+              <DiagramaGanttContained />
             </div>
             <div className="planificacion-footer"
             >
