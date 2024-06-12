@@ -1,10 +1,19 @@
-
+import { CrearPolitica } from "../CrearPolitica/CrearPolitica";
 import "./VerPoliticas.css";
-
-export const VerPoliticas = () => {
+import propTypes from "prop-types";
+export const VerPoliticas = ({idPolitica}) => {
     return (
-        <div> VerPoliticas </div>
+        <div> VerPoliticas 
+            <CrearPolitica
+            idPolitica={idPolitica}
+            />
+        </div>
     );
+
+};
+
+VerPoliticas.propTypes = {
+    idPolitica: propTypes.string
 };
 
 export default VerPoliticas;

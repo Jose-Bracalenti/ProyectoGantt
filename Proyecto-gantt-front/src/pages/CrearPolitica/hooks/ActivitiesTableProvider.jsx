@@ -14,7 +14,7 @@ export const ActivitiesTableProvider = ({ children }) => {
     descripcion: "",
     fechaInicio: "",
     fechaFin: "",
-    area_id: "",
+    area_id: null,
     resultado_esperado: "",
     participacion_ciudadana: "",
     costo: "",

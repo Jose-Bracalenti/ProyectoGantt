@@ -12,13 +12,13 @@ const NavBar2 = () => {
 
     useEffect(() => {
         switch (location.pathname) {
-            case "/CrearPolitica":
+            case "/":
                 setValue("1");
                 break;
-            case "/Planificacion":
+            case "/CrearPolitica":
                 setValue("2");
                 break;
-            case "/Ejemplo":
+            case "/Planificacion":
                 setValue("3");
                 break;
             default:
@@ -27,9 +27,7 @@ const NavBar2 = () => {
         }
     }, [location]);
 
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
-    };
+
 
     const handleMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
@@ -48,11 +46,17 @@ const NavBar2 = () => {
                     <Box sx={{flexGrow:1}} >
                         <Tabs indicatorColor="secondary" 
                         textColor="inherit" value={value} 
-                        onChange={handleChange} 
+
                         aria-label="nav tabs"
                         variant="scrollable" 
                         >
-                            
+                            <Tab
+                                sx={sx}
+                                label="Inicio"
+                                component={NavLink}
+                                to="/"
+                                value="1"
+                            />
                             <Tab
                                 sx={sx}
                                 label="Políticas"
@@ -61,7 +65,7 @@ const NavBar2 = () => {
                                 //onMouseEnter={handleMenuOpen}
                                 onClick={handleMenuOpen}
                                 //onMouseLeave={handleMenuClose}
-                                value="1"
+                                value="2"
                                 icon={<KeyboardArrowDownIcon />}
                                 iconPosition="end"
                                 />
@@ -70,13 +74,6 @@ const NavBar2 = () => {
                                 label="Planificación"
                                 component={NavLink}
                                 to="/Planificacion"
-                                value="2"
-                            />
-                            <Tab
-                                sx={sx}
-                                label="Ejemplo"
-                                component={NavLink}
-                                to="/Ejemplo"
                                 value="3"
                             />
                         </Tabs>
@@ -91,19 +88,19 @@ const NavBar2 = () => {
                                 to="/CrearPolitica"
                                 onClick={handleMenuClose}
                             >
-                                Crear Política pública prioritaria
+                                Crear Política  Pública Prioritaria
                             </MenuItem>
                             <MenuItem
                                 component={NavLink}
                                 to="/VerPoliticas"
                                 onClick={handleMenuClose}
                             >
-                                Gestionar Políticas públicas prioritarias	
+                                Gestionar Políticas Públicas Prioritarias	
                             </MenuItem>
     
                         </Menu>
                     </Box>
-                    <h2 style={{ margin: 10 }}>Gestión de Políticas públicas prioritarias</h2>
+                    <h2 style={{ margin: 10 }}>Gestión de Políticas Públicas Prioritarias</h2>
                     <img src={logo} alt="santa fe" width="160px"  />
 
                     

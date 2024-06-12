@@ -12,10 +12,10 @@ export const FormularioPoliticaContext = createContext();
 export const FormularioPoliticaProvider = ({ children }) => {
   const [nombre, setNombre] = useState("");
   const [dataSecretaria, setDataSecretaria] = useState([]);
-  const [secretaria, setSecretaria] = useState("");
-  const [eje, setEje] = useState("");
+  const [secretaria, setSecretaria] = useState(null);
+  const [eje, setEje] = useState(null);
   const [dataEje, setDataEje] = useState([]);
-  const [objetivo, setObjetivo] = useState("");
+  const [objetivo, setObjetivo] = useState(null);
   const [dataObjetivo, setDataObjetivo] = useState([]);
   const [descripcion, setDescripcion] = useState("");
   const [camposCompletos, setCamposCompletos] = useState(false);
@@ -45,7 +45,7 @@ export const FormularioPoliticaProvider = ({ children }) => {
   console.log(dataSecretaria);
 
   useEffect(() => {
-    if (eje === "")  setDataObjetivo([]);
+    if (eje === null)  setDataObjetivo([]);
     else{
         objetivoServices.getObjetivosByEjes(eje).then((response) => {
             setDataObjetivo(response.data);

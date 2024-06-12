@@ -2,7 +2,6 @@ import "./styles/Planificacion.css";
 import FiltroActividades from "./components/FiltroActividades";
 import PoliticasTable from "./components/PoliticasTable";
 import { FiltroActividadesProvider } from "./hooks/FiltroActividadesProvider";
-import DiagramasGantt from "./components/DiagramasGantt";
 import DiagramaGanttContained from "./components/DiagramaGanttContained";
 
 export const Planificacion = () => {

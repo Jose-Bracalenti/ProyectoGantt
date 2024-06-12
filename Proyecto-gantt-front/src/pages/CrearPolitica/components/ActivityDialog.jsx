@@ -1,6 +1,6 @@
 // src/ActivityDialog.js
 
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import {
   Dialog,
   DialogActions,
@@ -10,13 +10,11 @@ import {
   Button,
   TextField,
   FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
 } from "@mui/material";
 
 import PropTypes from "prop-types";
 import { ActivitiesTableContext } from "../hooks/ActivitiesTableProvider";
+import ListaDesplegable from "../../../components/ListaDesplegable";
 
 const ActivityDialog = ({
   open,
@@ -27,6 +25,7 @@ const ActivityDialog = ({
   onCancel,
 }) => {
   const{newActivity, setNewActivity, dataArea} = useContext(ActivitiesTableContext);
+  const [areaID, setAreaID] = useState(null)
   
 
   return (
@@ -92,29 +91,20 @@ const ActivityDialog = ({
         />
 
         <FormControl fullWidth sx={{ marginY: 1, minWidth: 120 }}>
-          <InputLabel required id={"demo-simple-select-standard-label-area"}>
-            área
-          </InputLabel>
-          <Select
-            labelId="demo-simple-select-standard-label-area"
-            id={"demo-simple-select-standard-label-area"}
-            value={activity.area_id}
-            name="area"
-            label='area'
-            onChange={(e) => {
-              onChange(e);
-              setNewActivity({
-                ...newActivity,
-                  area_id: e.target.value,
-                });
-            } }
-          >
-            {dataArea.map((item) => (
-              <MenuItem key={item.id} value={item.id}>
-                {item.nombre}
-              </MenuItem>
-            ))}
-          </Select>
+          <ListaDesplegable
+            list={dataArea}
+            stateComponent={areaID}
+            setState={(newValue) => {
+              setAreaID(newValue);
+
+              setNewActivity({ ...newActivity, 
+                area_id: newValue? newValue.id : null
+              });
+              console.log("new", newActivity);
+            }}
+            nombre="Área"
+            titleTrue
+          />
         </FormControl>
         <TextField
           margin="dense"

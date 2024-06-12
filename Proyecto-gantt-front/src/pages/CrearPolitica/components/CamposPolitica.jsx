@@ -5,11 +5,11 @@ import {
   Alert,
   Snackbar,
 } from "@mui/material";
-import SelectList from "../../../components/SelectList";
+import ListaDesplegable from "../../../components/ListaDesplegable";
 import { FormularioPoliticaContext } from "../hooks/FormularioPoliticaProvider";
 import { useContext, useState } from "react";
 
-const FormularioPolitica = () => {
+const CamposPolitica = () => {
   const {
     nombre,
     setNombre,
@@ -61,16 +61,16 @@ const FormularioPolitica = () => {
         </Alert>
       </Snackbar>
 
-      <h2>Crear política pública prioritaria</h2>
+      <h2>Crear Política Pública Prioritaria</h2>
       <TextField
         required
         error={nombreVacio}
         id="nombre"
-        label="nombre ppp"
+        label="nombre PPP"
         type="text"
         variant="outlined"
         fullWidth
-        helperText="Ingrese el nombre de la politica pública prioritaria"
+        helperText="Ingrese el nombre de la Politica Pública Prioritaria"
         sx={{ marginY: 0.5}}
         value={nombre}
         onChange={(e) => {
@@ -82,7 +82,7 @@ const FormularioPolitica = () => {
           else setNombreVacio(false);
         }}
       />
-      <SelectList
+      <ListaDesplegable
         list={dataSecretaria}
         stateComponent={secretaria}
         setState={setSecretaria}
@@ -90,13 +90,13 @@ const FormularioPolitica = () => {
         titleTrue
         sx={{ marginY: 0.5 }}
       />
-      <SelectList
+      <ListaDesplegable
         list={dataEje}
         stateComponent={eje}
         setState={setEje}
         nombre="eje"
       />
-      <SelectList
+      <ListaDesplegable
         list={dataObjetivo}
         stateComponent={objetivo}
         setState={setObjetivo}
@@ -125,4 +125,4 @@ const FormularioPolitica = () => {
   );
 };
 
-export default FormularioPolitica;
+export default CamposPolitica;

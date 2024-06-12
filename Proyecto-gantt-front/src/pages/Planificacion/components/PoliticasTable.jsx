@@ -20,7 +20,6 @@ import {
 import { FiltroActividadesContext } from "../hooks/FiltroActividadesProvider";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import VisibilityIcon from "@mui/icons-material/Visibility";
 import PopUpVerCampos from "../../../components/PopUpVerCampos";
 import AtributesDialog from "../../../components/AtributesDialog";
 
@@ -58,9 +57,6 @@ const PoliticasTable = () => {
     console.log("Delete politica:", politica);
   };
 
-  const handleClose = () => {
-    setShowDescription(false);
-  };
 
   const [orderBy, setOrderBy] = useState(null);
   const [order, setOrder] = useState("asc");

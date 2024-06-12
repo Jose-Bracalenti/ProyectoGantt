@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { TextField, Box, Button, Snackbar, Alert, IconButton } from '@mui/material';
-import SelectList from '../../../components/SelectList';
+import ListaDesplegable from '../../../components/ListaDesplegable';
 import CloseIcon from '@mui/icons-material/Close';
 import { FiltroActividadesContext } from '../hooks/FiltroActividadesProvider';
 
@@ -85,7 +85,7 @@ const FiltroActividades = () => {
 
             <h2>Filtrar políticas públicas prioritarias</h2>
             <div style={{ display: 'flex', flexDirection: 'column' }}>
-                <SelectList
+                <ListaDesplegable
                     noneOption={true}
                     nombre="Secretaria"
                     list={secretarias}
@@ -93,7 +93,7 @@ const FiltroActividades = () => {
                     setState={setSecretaria}
                     sx={{ marginBottom: 1, marginRight: 3 }}
                 />
-                <SelectList
+                <ListaDesplegable
                     noneOption={true}
                     nombre="Eje"
                     list={ejes}
@@ -102,7 +102,7 @@ const FiltroActividades = () => {
                     sx={{ marginBottom: 1, marginRight: 1 }}
                     onChange={() => setObjetivo('')}
                 />
-                <SelectList
+                <ListaDesplegable
                     noneOption={true}
                     nombre="Objetivo"
                     list={objetivos}
@@ -110,7 +110,7 @@ const FiltroActividades = () => {
                     setState={setObjetivo}
                     sx={{ marginBottom: 1, marginRight: 1 }}
                 />
-                <SelectList
+                <ListaDesplegable
                     nombre="Area"
                     list={areas}
                     stateComponent={area}

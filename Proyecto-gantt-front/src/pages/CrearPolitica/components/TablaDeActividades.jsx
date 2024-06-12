@@ -19,7 +19,7 @@ import { ActivitiesTableContext } from "../hooks/ActivitiesTableProvider";
 import ConfirmDialog from "./ConfirmDialog";
 import PopUpVerCampos from "../../../components/PopUpVerCampos";
 
-const ActivitiesTable = () => {
+const TablaDeActividades = () => {
   const { 
     activities, setActivities,
             open, setOpen,
@@ -145,6 +145,7 @@ const ActivitiesTable = () => {
 
   return (
     <>
+    <h2>Actividades de PPP</h2>
     <TableContainer component={Paper}>
       <Table>
         <TableHead>
@@ -299,4 +300,4 @@ const ActivitiesTable = () => {
   );
 };
 
-export default ActivitiesTable;
+export default TablaDeActividades;

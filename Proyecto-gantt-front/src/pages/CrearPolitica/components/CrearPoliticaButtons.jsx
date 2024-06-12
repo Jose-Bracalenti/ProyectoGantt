@@ -33,8 +33,8 @@
 
     const camposCompletos = nombre !== "" && secretaria !== "" && objetivo !== "";
     const buttonTitle = camposCompletos
-      ? "Crear ppp"
-      : "Complete los campos con (*) para crear ppp";
+      ? "Crear PPP"
+      : "Complete los campos con (*) para crear PPP";
 
     const handleCrear = () => setConfirmDialogOpen(true);
 
@@ -212,7 +212,7 @@
           onClose={() => setConfirmDialogOpen(false)}
           onConfirm={handleConfirmCrear}
           title="Confirmar Creación"
-          content="¿Está seguro de que desea crear esta política pública prioritaria?"
+          content="¿Está seguro de que desea crear esta Política Pública Prioritaria?"
         />
       </div>
     );

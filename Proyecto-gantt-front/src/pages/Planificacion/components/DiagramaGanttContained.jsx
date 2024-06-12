@@ -5,7 +5,6 @@ import { Button, Box } from "@mui/material";
 import ImprimirDiagramaButton from './ImprimirDiagramaButton';
 
 const DiagramasGantt = () => {
-    const [activarGrupos, setActivarGrupos] = useState([]);
     const [mostrarDiagrama, setMostrarDiagrama] = useState(false); // Estado para controlar la visibilidad del diagrama
     const { filteredPoliticas, areas } = useContext(FiltroActividadesContext);
 
