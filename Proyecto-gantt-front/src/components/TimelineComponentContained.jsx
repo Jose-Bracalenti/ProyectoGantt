@@ -4,57 +4,67 @@ import 'vis-timeline/styles/vis-timeline-graph2d.min.css';
 import PropTypes from 'prop-types';
 import './TimelineComponent.css'; // Importa el archivo CSS
 
-const TimelineComponent = ({ activities, dataArea, activarGrupos }) => {
+const TimelineComponent = ({ items, dataArea, activarGrupos }) => {
   const timelineRef = useRef(null);
   const timelineInstance = useRef(null);
 
   useEffect(() => {
     const container = timelineRef.current;
 
-    // Crear y transformar los datos de las actividades en ítems y grupos para el timeline
+    // Crear y transformar los datos de los ítems en elementos y grupos para el timeline
     const grupos = [];
-    const items = new DataSet(
-      activities.map(actividad => {
-        const area = dataArea.find(area => area.id === actividad.area_id) || {};
+    const subgrupos = [];
+    const dataItems = new DataSet(
+      items.map(item => {
+        const area = dataArea.find(area => area.id === item.area_id) || {};
         const color = area.color || 'gray';
-        const politicaNombre = actividad.politica || 'Sin política';
-        if (!grupos.find(grupo => grupo.id === politicaNombre)) {
+        const politicaNombre = item.politica || 'Sin política';
+        if (activarGrupos && !grupos.find(grupo => grupo.id === politicaNombre)) {
           grupos.push({
             id: politicaNombre,
             content: politicaNombre,
           });
         }
+        if (activarGrupos && !subgrupos.find(subgrupo => subgrupo.id === item.nombre)) {
+          subgrupos.push({
+            id: item.nombre,
+            content: item.nombre,
+            nestedGroups: [politicaNombre]
+          });
+        }
         return {
-          id: actividad.id,
-          content: actividad.nombre,
-          start: actividad.fechaInicio,
-          end: actividad.fechaFin,
+          id: item.id,
+          content: item.nombre,
+          start: item.fechaInicio,
+          end: item.fechaFin,
           type: 'range', // 'range' es el valor por defecto si no se especifica tipo
-          title: `Descripción: ${actividad.descripcion}`,
-          group: politicaNombre,
+          title: `Descripción: ${item.descripcion}`,
+          group: activarGrupos ? politicaNombre : undefined,
+          subgroup: activarGrupos ? item.nombre : undefined,
           style: `background-color: ${color};`,
         };
       })
     );
 
-    // Crear grupos basados en las políticas
-    const groups = new DataSet(grupos);
+    // Crear grupos y subgrupos basados en las políticas y los nombres de ítems si activarGrupos es verdadero
+    const groups = activarGrupos ? new DataSet(grupos.concat(subgrupos)) : null;
 
     // Crear la instancia del timeline
     const options = {
       locale: 'es', // Establecer el idioma a español
       groupOrder: 'content', // Ordena los grupos por el contenido
+      nestedGroups: true, // Habilitar los subgrupos
       // Agrega más opciones según sea necesario
     };
 
-    timelineInstance.current = new Timeline(container, items, groups, options);
+    timelineInstance.current = new Timeline(container, dataItems, groups, options);
 
     return () => {
       if (timelineInstance.current) {
         timelineInstance.current.destroy();
       }
     };
-  }, [activities, dataArea]);
+  }, [items, dataArea, activarGrupos]);
 
   return (
     <div ref={timelineRef} className="timeline-container" />
@@ -62,7 +72,7 @@ const TimelineComponent = ({ activities, dataArea, activarGrupos }) => {
 };
 
 TimelineComponent.propTypes = {
-  activities: PropTypes.arrayOf(
+  items: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
       nombre: PropTypes.string.isRequired,

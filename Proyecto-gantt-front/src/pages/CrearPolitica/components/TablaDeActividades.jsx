@@ -18,27 +18,40 @@ import AtributesDialog from "../../../components/AtributesDialog";
 import { ActivitiesTableContext } from "../hooks/ActivitiesTableProvider";
 import ConfirmDialog from "./ConfirmDialog";
 import PopUpVerCampos from "../../../components/PopUpVerCampos";
+import propTypes from "prop-types";
 
-const TablaDeActividades = () => {
+
+
+const TablaDeActividades = ({ activities, setActivities}) => {
   const { 
-    activities, setActivities,
-            open, setOpen,
-            isEditing, setIsEditing,
-            currentActivityIndex, setCurrentActivityIndex,
-            newActivity, setNewActivity,
-            atributeOpen, setAtributeOpen,
+               atributeOpen, setAtributeOpen,
             atributeContent, setAtributeContent, dataArea
   } = useContext(ActivitiesTableContext);
+
+
+  const [isEditing, setIsEditing] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [currentActivityIndex, setCurrentActivityIndex] = useState(null);
+  const [newActivity, setNewActivity] = useState({
+    nombre: "",
+    fechaInicio: "",
+    fechaFin: "",
+    area_id: null,
+    resultado_esperado: "",
+    participacion_ciudadana: "",
+    costo: "",
+  });
+  
+
 
   const handleClick =
     ({ condition }) =>
     () => {
       setIsEditing(false);
         newActivity.nombre = "";
-        newActivity.descripcion = "";
         newActivity.fechaInicio = "";
         newActivity.fechaFin = "";
-        newActivity.area_id = "";
+        newActivity.area_id = null;
         newActivity.costo = "";
         newActivity.resultado_esperado = "";
         newActivity.participacion_ciudadana = "";
@@ -79,7 +92,6 @@ const TablaDeActividades = () => {
     setActivities([...activities, newActivity]);
     setNewActivity({
       nombre: "",
-      descripcion: "",
       fechaInicio: "",
       fechaFin: "",
       area_id: "",
@@ -97,7 +109,6 @@ const TablaDeActividades = () => {
     setOpen(true);
     setNewActivity({
       nombre: activities[index].nombre,
-      descripcion: activities[index].descripcion,
       fechaInicio: activities[index].fechaInicio,
       fechaFin: activities[index].fechaFin,
       area_id: activities[index].area_id,
@@ -114,7 +125,6 @@ const TablaDeActividades = () => {
     setActivities(updatedActivities);
     setNewActivity({
       nombre: "",
-      descripcion: "",
       fechaInicio: "",
       fechaFin: "",
       area_id: "",
@@ -141,11 +151,17 @@ const TablaDeActividades = () => {
 
 
 
-  console.log("activities", activities);
+
+
+
+
+  //----------------------------------------------------------------------------------------------------
+
+
+
 
   return (
     <>
-    <h2>Actividades de PPP</h2>
     <TableContainer component={Paper}>
       <Table>
         <TableHead>
@@ -159,7 +175,6 @@ const TablaDeActividades = () => {
               Nombre
               </TableSortLabel>
               </TableCell>
-            <TableCell> Descripción</TableCell>
             <TableCell>
               <TableSortLabel
                 active={orderBy === "fechaInicio"}
@@ -205,14 +220,6 @@ const TablaDeActividades = () => {
           {sortedActivities.map((activity, index) => (
             <TableRow key={index}>
               <TableCell>{activity.nombre}</TableCell>
-              <TableCell>
-                <PopUpVerCampos
-                  contenido={activity.descripcion}
-                  titulo="Descripción"
-                  setAtributeOpen={setAtributeOpen}
-                  setAtributeContent={setAtributeContent}
-                />
-              </TableCell>
               <TableCell>{activity.fechaInicio}</TableCell>
               <TableCell>{activity.fechaFin}</TableCell>
               <TableCell>
@@ -258,7 +265,7 @@ const TablaDeActividades = () => {
             <TableCell colSpan={9} align="center">
               <Button
                 variant="contained"
-                color="primary"
+                color="secondary"
                 onClick={handleClick({ condition: true })}
               >
                 Agregar Nueva Actividad
@@ -269,10 +276,11 @@ const TablaDeActividades = () => {
       </Table>
 
       <ActivityDialog
+        
         open={open}
         isEditing={isEditing}
-        activity={newActivity}
-        setActiviy={setNewActivity}
+        newActivity={newActivity}
+        setNewActivity={setNewActivity}
         onChange={handleChange}
         onSave={isEditing ? handleSaveEditActivity : handleAddActivity}
         onCancel={handleClick({ condition: false })}
@@ -299,5 +307,12 @@ const TablaDeActividades = () => {
     </>
   );
 };
+
+TablaDeActividades.propTypes = {
+  activities: propTypes.array,
+  setActivities: propTypes.func,
+};
+
+
 
 export default TablaDeActividades;

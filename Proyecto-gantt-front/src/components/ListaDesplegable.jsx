@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { Autocomplete, TextField, FormControl } from '@mui/material';
 
-const ListaDesplegable = ({ list, stateComponent, setState, nombre, titleTrue, noneOption, onChange }) => {
+const ListaDesplegable = ({ list, stateComponent, setState, nombre, noneOption, onChange }) => {
   
   if (noneOption) {
     list = [{ id: '', nombre: 'Ninguno' }, ...list];

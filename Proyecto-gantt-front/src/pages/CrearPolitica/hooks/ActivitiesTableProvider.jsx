@@ -9,16 +9,7 @@ export const ActivitiesTableProvider = ({ children }) => {
   const [open, setOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [currentActivityIndex, setCurrentActivityIndex] = useState(null);
-  const [newActivity, setNewActivity] = useState({
-    nombre: "",
-    descripcion: "",
-    fechaInicio: "",
-    fechaFin: "",
-    area_id: null,
-    resultado_esperado: "",
-    participacion_ciudadana: "",
-    costo: "",
-  });
+  
   const [atributeOpen, setAtributeOpen] = useState(false);
   const [atributeContent, setAtributeContent] = useState({
     nombre: "",
@@ -47,8 +38,6 @@ export const ActivitiesTableProvider = ({ children }) => {
         setIsEditing,
         currentActivityIndex,
         setCurrentActivityIndex,
-        newActivity,
-        setNewActivity,
         atributeOpen,
         setAtributeOpen,
         atributeContent,

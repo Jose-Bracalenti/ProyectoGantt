@@ -30,14 +30,13 @@ const CamposPolitica = () => {
   } = useContext(FormularioPoliticaContext);
   const [nombreVacio, setNombreVacio] = useState(false);
 
-  console.log("secretaria ", secretaria);
   const handleLimpiar = () => {
     setNombre("");
     setSecretaria("");
     setObjetivo("");
     setDescripcion("");
   };
-  console.log("error ", alertaServidor);
+  console.log("Mostrar ", alertaServidor);
 
   return (
     <div>

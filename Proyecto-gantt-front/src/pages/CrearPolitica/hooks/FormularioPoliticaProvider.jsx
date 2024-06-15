@@ -31,7 +31,8 @@ export const FormularioPoliticaProvider = ({ children }) => {
       setDataSecretaria(sortedData);
       if(alertaServidor.mensaje !== "") {
         setAlertaServidor("Conectado al servidor", "success");
-        
+        console.log(alertaServidor);
+
       }
     }).catch (() => {
       console.log('Error al obtener los datos');
@@ -42,7 +43,6 @@ export const FormularioPoliticaProvider = ({ children }) => {
   }, []);
 
 
-  console.log(dataSecretaria);
 
   useEffect(() => {
     if (eje === null)  setDataObjetivo([]);
