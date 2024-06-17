@@ -19,14 +19,31 @@ public class ServicioPolitica{
     @Autowired
     private  PoliticaDAO PoliticaDAO;
 
-    public PoliticaDTO insertar(PoliticaDTO Politica, ServicioObjetivo ServicioObjetivo, ServicioSecretaria ServicioSecretaria, ServicioActividad ServicioActividad, ServicioArea ServicioArea) {
-        return this.mapToDTO(PoliticaDAO.save(this.mapToEntity(Politica, ServicioObjetivo, ServicioSecretaria, ServicioActividad, ServicioArea)), ServicioActividad);
+    public PoliticaDTO insertar(PoliticaDTO Politica, ServicioObjetivo ServicioObjetivo, ServicioSecretaria ServicioSecretaria, ServicioItem servicioItem, ServicioArea ServicioArea, ServicioActividad ServicioActividad) {
+        return this.mapToDTO(
+            PoliticaDAO.save(
+                this.mapToEntity(
+                    Politica, 
+                    ServicioObjetivo, 
+                    ServicioSecretaria, 
+                    servicioItem, 
+                    ServicioArea, 
+                    ServicioActividad)), servicioItem);
     }
-    public PoliticaDTO modificar(PoliticaDTO obj, ServicioObjetivo ServicioObjetivo, ServicioSecretaria ServicioSecretaria, ServicioActividad ServicioActividad, ServicioArea ServicioArea) {
-        return this.mapToDTO(PoliticaDAO.save(this.mapToEntity(obj, ServicioObjetivo, ServicioSecretaria, ServicioActividad, ServicioArea)), ServicioActividad);
+    public PoliticaDTO modificar(PoliticaDTO obj, ServicioObjetivo ServicioObjetivo, ServicioSecretaria ServicioSecretaria, ServicioItem servicioItem, ServicioArea ServicioArea, ServicioActividad ServicioActividad) {
+        return this.mapToDTO(
+            PoliticaDAO.save(
+                this.mapToEntity(
+                    obj, 
+                    ServicioObjetivo, 
+                    ServicioSecretaria, 
+                    servicioItem, 
+                    ServicioArea, 
+                    ServicioActividad)), servicioItem);
+        
     }
-    public void eliminar(PoliticaDTO obj, ServicioObjetivo ServicioObjetivo, ServicioSecretaria ServicioSecretaria, ServicioActividad ServicioActividad, ServicioArea ServicioArea) {
-        PoliticaDAO.delete(this.mapToEntity(obj, ServicioObjetivo, ServicioSecretaria, ServicioActividad, ServicioArea));
+    public void eliminar(PoliticaDTO obj, ServicioObjetivo ServicioObjetivo, ServicioSecretaria ServicioSecretaria, ServicioItem servicioItem, ServicioArea ServicioArea, ServicioActividad ServicioActividad) {
+        PoliticaDAO.delete(this.mapToEntity(obj, ServicioObjetivo, ServicioSecretaria, servicioItem, ServicioArea, ServicioActividad));
     }
     public Optional<Politica> buscarPorId(long id) {
         return PoliticaDAO.findById(id);
@@ -51,27 +68,26 @@ public class ServicioPolitica{
     public List<Politica> buscarPorSecretaria(long secretaria, ServicioSecretaria ServicioSecretaria) {
         return PoliticaDAO.findBySecretaria(ServicioSecretaria.buscarPorId(secretaria));
     }
-    public PoliticaDTO mapToDTO(Politica obj, ServicioActividad ServicioActividad) {
+    public PoliticaDTO mapToDTO(Politica obj, ServicioItem servicioItem) {
         PoliticaDTO dto = new PoliticaDTO();
         dto.setId(obj.getPolitica_id());
         dto.setNombre(obj.getNombre());
         dto.setDescripcion(obj.getDescripcion()); 
         dto.setObjetivo(obj.getObjetivo().getNombre());
         dto.setObjetivo_id(obj.getObjetivo().getId());
-        dto.setSecretaria(obj.getSecretaria_responsable().getNombre());
-        dto.setSecretaria_id(obj.getSecretaria_responsable().getid());
-        dto.setActividades(obj.getActividades().stream().map(x -> ServicioActividad.mapToDTO(x)).collect(Collectors.toList()));
+        dto.setSecretaria(obj.getSecretaria().getNombre());
+        dto.setSecretaria_id(obj.getSecretaria().getid());
+        dto.setItems(obj.getItems().stream().map(x -> servicioItem.mapToDTO(x)).collect(Collectors.toList()));
         return dto;
     }
-    public Politica mapToEntity(PoliticaDTO obj, ServicioObjetivo ServicioObjetivo, ServicioSecretaria ServicioSecretaria, ServicioActividad ServicioActividad, ServicioArea ServicioArea) {
+    public Politica mapToEntity(PoliticaDTO obj, ServicioObjetivo ServicioObjetivo, ServicioSecretaria ServicioSecretaria, ServicioItem servicioItem, ServicioArea ServicioArea, ServicioActividad ServicioActividad) {
         Politica entity = new Politica();
         entity.setNombre(obj.getNombre());
         entity.setDescripcion(obj.getDescripcion());
         entity.setObjetivo(ServicioObjetivo.buscarPorId(obj.getObjetivo_id()));
-        entity.setSecretaria_responsable(ServicioSecretaria.buscarPorId(obj.getSecretaria_id()));
-        entity. setActividades(obj.getActividades().stream().map(x -> ServicioActividad.mapToEntity(x, entity, ServicioArea)).collect(Collectors.toList()));
+        entity.setSecretaria(ServicioSecretaria.buscarPorId(obj.getSecretaria_id()));
+        entity.setItems(obj.getItems().stream().map(x -> servicioItem.mapToEntity(x, entity, ServicioActividad, ServicioArea)).collect(Collectors.toList()));
         entity.setCosto(obj.getCosto());
-        System.out.println(entity.getActividades());
         return entity;
     }
     public ServicioPolitica() {

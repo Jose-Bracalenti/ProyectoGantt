@@ -22,24 +22,25 @@ public class Politica {
     @ManyToOne
     @JoinColumn(name = "objetivo_id", referencedColumnName = "objetivo_id", nullable = false, foreignKey = @ForeignKey(name = "FK_POLITICA_OBJETIVO", value = ConstraintMode.CONSTRAINT))
     private Objetivo objetivo;
-    @OneToMany(mappedBy = "politica",fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Actividad> actividades;
+    @OneToMany(mappedBy = "politica", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Item> items;
 
 
     public Politica() {
     }
 
-    
-    public Politica(long politica_id, String nombre, String descripcion, float costo, Secretaria secretaria_responsable,
-            Objetivo objetivo, List<Actividad> actividades) {
-        this.politica_id = politica_id;
+
+    public Politica(String nombre, String descripcion, float costo, Secretaria secretaria, Objetivo objetivo,
+            List<Item> items) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.costo = costo;
-        this.secretaria = secretaria_responsable;
+        this.secretaria = secretaria;
         this.objetivo = objetivo;
-        this.actividades = actividades;
+        this.items = items;
     }
+
+
     public long getPolitica_id() {
         return politica_id;
     }
@@ -80,13 +81,13 @@ public class Politica {
     }
 
 
-    public Secretaria getSecretaria_responsable() {
+    public Secretaria getSecretaria() {
         return secretaria;
     }
 
 
-    public void setSecretaria_responsable(Secretaria secretaria_responsable) {
-        this.secretaria = secretaria_responsable;
+    public void setSecretaria(Secretaria secretaria) {
+        this.secretaria = secretaria;
     }
 
 
@@ -100,18 +101,15 @@ public class Politica {
     }
 
 
-    public List<Actividad> getActividades() {
-        return actividades;
+    public List<Item> getItems() {
+        return items;
     }
 
 
-    public void setActividades(List<Actividad> actividades) {
-        this.actividades = actividades;
+    public void setItems(List<Item> items) {
+        this.items = items;
     }
 
-    public void addActividad(Actividad actividad) {
-        this.actividades.add(actividad);
-        actividad.setPolitica(this);
-    }
+    
     
 }

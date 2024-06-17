@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import gantt.proyecto.DTOS.ActividadDTO;
+import gantt.proyecto.Modelo.Item;
 import gantt.proyecto.Modelo.Politica;
 import gantt.proyecto.Servicios.Implemenaciones.*;
 
@@ -34,8 +35,8 @@ public class ActividadesController {
 
     @PostMapping
     public ResponseEntity<ActividadDTO> createActividad(@RequestBody ActividadDTO actividad){
-        Politica politica = new Politica();
-        return ResponseEntity.ok().body(servicioActividad.insertar(actividad, politica, servicioArea));
+        Item item = new Item();
+        return ResponseEntity.ok().body(servicioActividad.insertar(actividad, item, servicioArea));
     }
     @GetMapping
     public ResponseEntity<List<ActividadDTO>> getActividades(){
@@ -47,13 +48,9 @@ public class ActividadesController {
     }
     @DeleteMapping
     public ResponseEntity<Void> deleteActividad(@RequestBody ActividadDTO actividad){
-        Politica politica = new Politica();
-        servicioActividad.eliminar(actividad, politica, servicioArea);
+        Item item = new Item();
+        servicioActividad.eliminar(actividad, item, servicioArea);
         return ResponseEntity.ok().build();
-    }
-    @GetMapping("/politica/{politica_id}")
-    public ResponseEntity<List<ActividadDTO>> getActividadesPorPolitica(@PathVariable(value = "politica_id") long id){
-        return ResponseEntity.ok().body(servicioActividad.buscarPorPolitica(id, servicioPolitica).stream().map(x -> servicioActividad.mapToDTO(x)).collect(Collectors.toList()));
     }
     @GetMapping("/area/{area_id}")
     public ResponseEntity<List<ActividadDTO>> getActividadesPorArea(@PathVariable(value = "area_id") long id){

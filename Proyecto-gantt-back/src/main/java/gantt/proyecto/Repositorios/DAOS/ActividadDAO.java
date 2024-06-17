@@ -14,6 +14,6 @@ public interface ActividadDAO extends JpaRepository<Actividad, Long>{
     @SuppressWarnings("null")
     Optional<Actividad> findById(Long id);
     List<Actividad> findByNombre(String nombre);
-    List<Actividad> findByPolitica(Politica politica);
     List<Actividad> findByArea(Area area);
+    List<Actividad> findByItem(Item item);
 }

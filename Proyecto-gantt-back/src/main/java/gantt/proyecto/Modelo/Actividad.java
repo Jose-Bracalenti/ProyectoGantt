@@ -22,8 +22,11 @@ public class Actividad {
     @Column(columnDefinition = "text")
     private String resultado_esperado;
     @ManyToOne
-    @JoinColumn(name = "politica_id",nullable = true, referencedColumnName = "politica_id", foreignKey = @ForeignKey(name = "FK_ACTIVIDAD_POLITICA", value = ConstraintMode.CONSTRAINT))
-    private Politica politica;
+    @JoinColumns({
+        @JoinColumn(name = "item_id", referencedColumnName = "item_id"),
+        @JoinColumn(name = "politica_id", referencedColumnName = "politica_id")
+    })
+    private Item item;
     @ManyToOne
     @JoinColumn(name = "area_id",nullable = true, referencedColumnName = "area_id", foreignKey = @ForeignKey(name = "FK_ACTIVIDAD_AREA", value = ConstraintMode.CONSTRAINT))
     private Area area;
@@ -35,26 +38,25 @@ public class Actividad {
     public Actividad() {
     }
 
-    public Actividad(long id, String nombre, String descripcion, LocalDate fecha_inicio, LocalDate fecha_fin, String resultado_esperado, Politica politica, Area area, String participacion_ciudadana, float costo) {
-        this.actividad_id = id;
+    public Actividad(String nombre, String descripcion, LocalDate fecha_inicio, LocalDate fecha_fin,
+            String resultado_esperado, Item item, Area area, String participacion_ciudadana, float costo) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.fecha_inicio = fecha_inicio;
         this.fecha_fin = fecha_fin;
         this.resultado_esperado = resultado_esperado;
-        this.politica = politica;
+        this.item = item;
         this.area = area;
         this.participacion_ciudadana = participacion_ciudadana;
         this.costo = costo;
-
     }
-    
-    public long getId() {
+
+    public long getActividad_id() {
         return actividad_id;
     }
 
-    public void setId(long id) {
-        this.actividad_id = id;
+    public void setActividad_id(long actividad_id) {
+        this.actividad_id = actividad_id;
     }
 
     public String getNombre() {
@@ -97,12 +99,12 @@ public class Actividad {
         this.resultado_esperado = resultado_esperado;
     }
 
-    public Politica getPolitica() {
-        return politica;
+    public Item getItem() {
+        return item;
     }
 
-    public void setPolitica(Politica politica) {
-        this.politica = politica;
+    public void setItem(Item item) {
+        this.item = item;
     }
 
     public Area getArea() {
@@ -121,7 +123,6 @@ public class Actividad {
         this.participacion_ciudadana = participacion_ciudadana;
     }
 
-
     public float getCosto() {
         return costo;
     }
@@ -129,5 +130,7 @@ public class Actividad {
     public void setCosto(float costo) {
         this.costo = costo;
     }
+
+   
     
 }

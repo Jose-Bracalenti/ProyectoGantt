@@ -17,37 +17,39 @@ public class PoliticaController {
     @Autowired
     private ServicioPolitica servicioPolitica;
     @Autowired
-    private ServicioActividad servicioActividad;
+    private ServicioItem servicioItem;
     @Autowired
     private ServicioObjetivo servicioObjetivo;
     @Autowired
     private ServicioSecretaria servicioSecretaria;
     @Autowired
     private ServicioArea servicioArea;
+    @Autowired
+    private ServicioActividad servicioActividad;
     @PostMapping 
     public ResponseEntity<PoliticaDTO> createPolitica(@RequestBody PoliticaDTO politica){     
         
-        return ResponseEntity.ok().body(servicioPolitica.insertar(politica, servicioObjetivo, servicioSecretaria, servicioActividad, servicioArea));
+        return ResponseEntity.ok().body(servicioPolitica.insertar(politica, servicioObjetivo, servicioSecretaria, servicioItem, servicioArea, servicioActividad));
     }
     @GetMapping
     public ResponseEntity<List<PoliticaDTO>> getPoliticas(){
-        return ResponseEntity.ok().body(servicioPolitica.buscarTodo().stream().map(x -> servicioPolitica.mapToDTO(x, servicioActividad)).collect(Collectors.toList()));
+        return ResponseEntity.ok().body(servicioPolitica.buscarTodo().stream().map(x -> servicioPolitica.mapToDTO(x, servicioItem)).collect(Collectors.toList()));
     }
     @GetMapping("{politica_id}")
     public ResponseEntity<PoliticaDTO> getPolitica(@PathVariable(value = "politica_id") long id){
-        return ResponseEntity.ok().body(servicioPolitica.mapToDTO(servicioPolitica.buscarPorId(id).get(), servicioActividad));
+        return ResponseEntity.ok().body(servicioPolitica.mapToDTO(servicioPolitica.buscarPorId(id).get(), servicioItem));
     }
     @DeleteMapping
     public ResponseEntity<Void> deletePolitica(@RequestBody PoliticaDTO politica){
-        servicioPolitica.eliminar(politica, servicioObjetivo, servicioSecretaria , servicioActividad, servicioArea);
-               return ResponseEntity.ok().build();
+        servicioPolitica.eliminar(politica, servicioObjetivo, servicioSecretaria, servicioItem, servicioArea, servicioActividad);
+        return ResponseEntity.ok().build();
     }
     @GetMapping("/objetivo/{objetivo_id}")
     public ResponseEntity<List<PoliticaDTO>> getPoliticasPorObjetivo(@PathVariable(value = "objetivo_id") long id){
-        return ResponseEntity.ok().body(servicioPolitica.buscarPorObjetivo(id, servicioObjetivo).stream().map(x -> servicioPolitica.mapToDTO(x, servicioActividad)).collect(Collectors.toList()));
+        return ResponseEntity.ok().body(servicioPolitica.buscarPorObjetivo(id, servicioObjetivo).stream().map(x -> servicioPolitica.mapToDTO(x, servicioItem)).collect(Collectors.toList()));
     }
     @GetMapping("/secretaria/{secretaria_id}")
     public ResponseEntity<List<PoliticaDTO>> getPoliticasPorSecretaria(@PathVariable(value = "secretaria_id") long id){
-        return ResponseEntity.ok().body(servicioPolitica.buscarPorSecretaria(id, servicioSecretaria).stream().map(x -> servicioPolitica.mapToDTO(x, servicioActividad)).collect(Collectors.toList()));
+        return ResponseEntity.ok().body(servicioPolitica.buscarPorSecretaria(id, servicioSecretaria).stream().map(x -> servicioPolitica.mapToDTO(x, servicioItem)).collect(Collectors.toList()));
     }
 }
