@@ -11,7 +11,6 @@ const ListaDesplegable = ({ list, stateComponent, setState, nombre, noneOption, 
 
   const handleChange = (event, newValue) => {
     setState(newValue);
-    console.log("state", newValue);
     if (onChange) onChange(newValue);
   };
 

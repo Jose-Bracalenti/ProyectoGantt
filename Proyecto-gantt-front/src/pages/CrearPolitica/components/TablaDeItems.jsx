@@ -3,11 +3,13 @@ import TablaDeActividades from "./TablaDeActividades";
 import Button from '@mui/material/Button'
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import { useState } from "react";
+import { useContext, useState } from "react";
 import ConfirmDialog from "./ConfirmDialog";
 import ItemsDialog from "./ItemsDialog";
+import { ItemsTableContext } from "../hooks/ItemsTableProvider";
 export const TablaDeItems = () => {
-    const [items, setItems] = useState([]);
+    const { items, setItems } = useContext(ItemsTableContext);
+
     const [openItemsDialog, setopenItemsDialog] = useState(false);
     const [newItem, setNewItem] = useState({
         nombre: "",

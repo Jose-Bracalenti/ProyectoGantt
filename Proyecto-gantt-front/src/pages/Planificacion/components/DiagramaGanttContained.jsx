@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import TimelineComponentContained from "../../../components/TimelineComponentContained";
+import TimelineComponent from "../../../components/TimelineComponent";
 import { FiltroActividadesContext } from "../hooks/FiltroActividadesProvider";
 import { Button, Box } from "@mui/material";
 import ImprimirDiagramaButton from './ImprimirDiagramaButton';
@@ -31,7 +31,7 @@ const DiagramasGantt = () => {
             {mostrarDiagrama && (
                 <div>
                     <h3>Diagrama de Gantt Consolidado</h3>
-                    <TimelineComponentContained activities={combinedActivities} dataArea={areas} activarGrupos={true} />
+                    <TimelineComponent activities={combinedActivities} dataArea={areas} activarGrupos={true} />
                 </div>
             )}
         </div>

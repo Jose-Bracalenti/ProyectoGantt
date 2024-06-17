@@ -1,7 +1,7 @@
   import { useContext, useState } from "react";
   import { Button, Tooltip, Snackbar, Modal, Box, Alert, Typography } from "@mui/material";
   import { FormularioPoliticaContext } from "../hooks/FormularioPoliticaProvider";
-  import { ActivitiesTableContext } from "../hooks/ActivitiesTableProvider";
+  import { ItemsTableContext } from "../hooks/ItemsTableProvider";
   import politicasService from "../../../services/politicasServices";
   import TimelineComponent from "../../../components/TimelineComponent";
   import ConfirmDialog from "./ConfirmDialog";
@@ -18,7 +18,7 @@
       descripcion,
       setDescripcion,
     } = useContext(FormularioPoliticaContext);
-    const { activities, setActivities, dataArea,setDataArea } = useContext(ActivitiesTableContext);
+    const { items, setItems, dataArea,setDataArea } = useContext(ItemsTableContext);
 
     const [snackbarOpen, setSnackbarOpen] = useState(false);
     const [snackbarMessage, setSnackbarMessage] = useState("");
@@ -38,36 +38,16 @@
 
     const handleCrear = () => setConfirmDialogOpen(true);
 
+
+    //POST de la política
     const handleConfirmCrear = () => {
       setConfirmDialogOpen(false);
-      const actividades = activities.map(
-        ({
-          nombre,
-          descripcion,
-          fechaInicio,
-          fechaFin,
-          area_id,
-          costo,
-          resultado_esperado,
-          participacion_ciudadana,
-        }) => ({
-          nombre,
-          descripcion,
-          fechaInicio,
-          fechaFin,
-          area_id,
-          costo,
-          resultado_esperado,
-          participacion_ciudadana,
-        })
-      );
-
       const politica = {
-        nombre,
+        nombre: nombre,
         secretaria_id: secretaria,
         objetivo_id: objetivo,
-        descripcion,
-        actividades,
+        descripcion: descripcion,
+        items: items,
       };
 
       politicasService
@@ -80,7 +60,7 @@
           setSecretaria("");
           setObjetivo("");
           setDescripcion("");
-          setActivities([]);
+          setItems([]);
           console.log(response);
         })
         .catch((error) => {
@@ -90,6 +70,8 @@
           console.error(error);
         });
     };
+//------------------------------------------------
+
 
     const handlePreVisualizar = () => setOpenModalGantt(true);
 
@@ -134,7 +116,7 @@
           Cancelar
         </Button>
         <Button
-          disabled={!activities.length}
+          disabled={!items.length}
           sx={{ marginRight: 5 }}
           variant="outlined"
           color="primary"
@@ -203,8 +185,11 @@
             >
               Aceptar cambios
             </Button>
-            <h4>Previsualización de actividades</h4>
-            <TimelineComponent activities={activities} dataArea={dataArea} />
+            <h4>Previsualización del diagrama</h4>
+            <TimelineComponent
+            items={items}   
+            activarGrupos={true}
+            dataArea={dataArea} />
           </Box>
         </Modal>
         <ConfirmDialog

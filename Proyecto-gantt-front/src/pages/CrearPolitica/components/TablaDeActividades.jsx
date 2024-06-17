@@ -15,7 +15,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import ActivityDialog from "./ActivityDialog";
 import AtributesDialog from "../../../components/AtributesDialog";
-import { ActivitiesTableContext } from "../hooks/ActivitiesTableProvider";
+import { ItemsTableContext } from "../hooks/ItemsTableProvider";
 import ConfirmDialog from "./ConfirmDialog";
 import PopUpVerCampos from "../../../components/PopUpVerCampos";
 import propTypes from "prop-types";
@@ -26,7 +26,7 @@ const TablaDeActividades = ({ activities, setActivities}) => {
   const { 
                atributeOpen, setAtributeOpen,
             atributeContent, setAtributeContent, dataArea
-  } = useContext(ActivitiesTableContext);
+  } = useContext(ItemsTableContext);
 
 
   const [isEditing, setIsEditing] = useState(false);

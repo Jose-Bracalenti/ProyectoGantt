@@ -1,11 +1,11 @@
 import { useState, createContext, useEffect } from "react";
 import PropTypes from "prop-types";
 import servicesArea from "../../../services/areaServices";
-export const ActivitiesTableContext = createContext();
+export const ItemsTableContext = createContext();
 
 
-export const ActivitiesTableProvider = ({ children }) => {
-  const [activities, setActivities] = useState([]);
+export const ItemsTableProvider = ({ children }) => {
+  const [items, setItems] = useState([]);
   const [open, setOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [currentActivityIndex, setCurrentActivityIndex] = useState(null);
@@ -28,10 +28,10 @@ export const ActivitiesTableProvider = ({ children }) => {
   }, []);
 
   return (
-    <ActivitiesTableContext.Provider
+    <ItemsTableContext.Provider
       value={{
-        activities,
-        setActivities,
+        items,
+        setItems,
         open,
         setOpen,
         isEditing,
@@ -47,10 +47,10 @@ export const ActivitiesTableProvider = ({ children }) => {
       }}
     >
       {children}
-    </ActivitiesTableContext.Provider>
+    </ItemsTableContext.Provider>
   );
 };
 
-ActivitiesTableProvider.propTypes = {
+ItemsTableProvider.propTypes = {
   children: PropTypes.node,
 };

@@ -36,7 +36,6 @@ const CamposPolitica = () => {
     setObjetivo("");
     setDescripcion("");
   };
-  console.log("Mostrar ", alertaServidor);
 
   return (
     <div>

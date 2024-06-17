@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 
 import PropTypes from "prop-types";
-import { ActivitiesTableContext } from "../hooks/ActivitiesTableProvider";
+import { ItemsTableContext } from "../hooks/ItemsTableProvider";
 import ListaDesplegable from "../../../components/ListaDesplegable";
 
 const ActivityDialog = ({
@@ -24,7 +24,7 @@ const ActivityDialog = ({
   newActivity,
   setNewActivity,
 }) => {
-  const{dataArea} = useContext(ActivitiesTableContext);
+  const{dataArea} = useContext(ItemsTableContext);
   const [areaID, setAreaID] = useState(null)
   
 

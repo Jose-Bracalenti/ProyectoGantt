@@ -1,7 +1,13 @@
 import { Button, Dialog, DialogContent, DialogTitle, TextField } from "@mui/material";
 import PropTypes from "prop-types";
 
-const ItemsDialog = ({ openDialogCreateItem, newItem, isEditing, onClose, onChange, onSave }) => {
+const ItemsDialog = ({ 
+    openDialogCreateItem, 
+    newItem, 
+    isEditing, 
+    onClose, 
+    onChange, 
+    onSave }) => {
 
     return (
         <Dialog open={openDialogCreateItem} onClose={onClose}>
