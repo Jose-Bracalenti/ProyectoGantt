@@ -16,16 +16,17 @@ const TimelineComponent = ({ politicas, dataArea, activarGrupos }) => {
     const subgrupos = [];
     const dataItems = new DataSet();
 
-    politicas.forEach((politica) => 
-      politica.items.forEach((item )=> {
-      const politicaNombre = item.politica || 'Nueva Política';
-      if (activarGrupos && !grupos.find(grupo => grupo.id === politicaNombre)) {
+    politicas.forEach((politica) => {
+      const politicaNombre = politica.nombre || 'Nueva política';
+      if (activarGrupos) {
         grupos.push({
           id: politicaNombre,
           content: politicaNombre,
           nestedGroups: []
         });
       }
+
+      politica.items.forEach((item )=> {
 
       const itemID =  `${politicaNombre}-${item.nombre}`;
       if (activarGrupos && !subgrupos.find(subgrupo => subgrupo.id === item.nombre)) {
@@ -40,7 +41,7 @@ const TimelineComponent = ({ politicas, dataArea, activarGrupos }) => {
 
       const actividades = item.actividades || [];
       actividades.forEach(actividad => {
-        const color = dataArea.find(area => area.id === actividad.area_id)?.color || '#000000';
+        const color = actividad.area.color || '#000000';
         dataItems.add({
           id: actividad.id,
           content: actividad.nombre,
@@ -53,6 +54,7 @@ const TimelineComponent = ({ politicas, dataArea, activarGrupos }) => {
         });
       });
     })
+  }
   );
 
 
@@ -94,12 +96,16 @@ TimelineComponent.propTypes = {
               nombre: PropTypes.string.isRequired,
               fechaInicio: PropTypes.string.isRequired,
               fechaFin: PropTypes.string.isRequired,
-              area_id: PropTypes.number.isRequired,
+              area: PropTypes.shape({
+                id: PropTypes.number,
+                nombre: PropTypes.string,
+                color: PropTypes.string,
+              }),
               descripcion: PropTypes.string,
             })
           ),
         })
-      ).isRequired,
+      ),
     })
   ).isRequired,
 

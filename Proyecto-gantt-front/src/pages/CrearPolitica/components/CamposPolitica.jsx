@@ -38,7 +38,6 @@ const CamposPolitica = () => {
     setDescripcion("");
   };
 
-  console.log("eje",eje)
 
   return (
     <div>
@@ -100,6 +99,10 @@ const CamposPolitica = () => {
         stateComponent={eje}
         setState={setEje}
         nombre="eje"
+        onChange={() => {
+          setObjetivo(null);
+         }}
+
       />
       <ListaDesplegable
         isRequired
@@ -108,6 +111,8 @@ const CamposPolitica = () => {
         setState={setObjetivo}
         nombre="Objetivo Principal"
         sx={{ marginY: 0.5 }}
+
+
       />
       <TextField
         id="descripcion"

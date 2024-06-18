@@ -17,6 +17,7 @@
       setObjetivo,
       descripcion,
       setDescripcion,
+      setEje,
     } = useContext(FormularioPoliticaContext);
     const { items, setItems, dataArea,setDataArea } = useContext(ItemsTableContext);
 
@@ -47,12 +48,17 @@
 
 
     //POST de la política
+    console.log("items", items);
+    console.log("nombre", nombre);
+    console.log("secretaria", secretaria.id);
+    console.log("objetivo", objetivo.id);
+    console.log("descripcion", descripcion);
     const handleConfirmCrear = () => {
       setConfirmDialogOpen(false);
       const politica = {
         nombre: nombre,
-        secretaria_id: secretaria,
-        objetivo_id: objetivo,
+        secretaria_id: secretaria.id,
+        objetivo_id: objetivo.id,
         descripcion: descripcion,
         items: items,
       };
@@ -64,8 +70,9 @@
           setSnackbarSeverity("success");
           setSnackbarOpen(true);
           setNombre("");
-          setSecretaria("");
-          setObjetivo("");
+          setSecretaria(null);
+          setEje(null);
+          setObjetivo(null);
           setDescripcion("");
           setItems([]);
           console.log(response);
@@ -81,7 +88,6 @@
 
 
     const handlePreVisualizar = () => setOpenModalGantt(true);
-    console.log([newPolitica])
 
     // Función para manejar el cambio de color de área
     const handleColorChange = (index, color) => {
@@ -168,11 +174,10 @@
               border: "2px solid #000",
               boxShadow: 24,
               p: 2,
-              display: "inline-block",
               width: "80%",
             }}
           >
-            <div style={{ display: "flex" }}>
+            <div style={{ display: "flex", }}>
               {dataArea.map((area, index) => (
                 <div key={index} style={{ display: "flex", alignItems: "center", marginBottom: "1rem" }}>
                   <Typography>{area.nombre}</Typography>

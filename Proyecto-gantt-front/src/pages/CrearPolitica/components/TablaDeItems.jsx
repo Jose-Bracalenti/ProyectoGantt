@@ -40,6 +40,7 @@ export const TablaDeItems = () => {
         setEditItemIndex(-1);
     }
 
+    console.log("items",items);
 
     return (
         <div>

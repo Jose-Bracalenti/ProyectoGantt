@@ -26,7 +26,6 @@ const TablaDeActividades = ({ activities, setActivities }) => {
     setAtributeOpen,
     atributeContent,
     setAtributeContent,
-    dataArea,
   } = useContext(ItemsTableContext);
 
   const [isEditing, setIsEditing] = useState(false);
@@ -36,7 +35,7 @@ const TablaDeActividades = ({ activities, setActivities }) => {
     nombre: "",
     fechaInicio: "",
     fechaFin: "",
-    area_id: null,
+    area: null,
     resultado_esperado: "",
     participacion_ciudadana: "",
     costo: "",
@@ -49,7 +48,7 @@ const TablaDeActividades = ({ activities, setActivities }) => {
       newActivity.nombre = "";
       newActivity.fechaInicio = "";
       newActivity.fechaFin = "";
-      newActivity.area_id = null;
+      newActivity.area = null;
       newActivity.costo = "";
       newActivity.resultado_esperado = "";
       newActivity.participacion_ciudadana = "";
@@ -69,13 +68,24 @@ const TablaDeActividades = ({ activities, setActivities }) => {
 
   const sortedActivities = orderBy
     ? activities.sort((a, b) => {
-        if (order === "asc") {
+      if(typeof a[orderBy] === "string" && typeof b[orderBy] === "string") {
+    if (order === "asc") {
           return a[orderBy].localeCompare(b[orderBy]);
         }
         else {
           return b[orderBy].localeCompare(a[orderBy]);
         }
+      }
+      else {
+        if (order === "asc") {
+          return a[orderBy] < b[orderBy];
+        }
+        else {
+          return b[orderBy] > a[orderBy];
+        }
+      }
       })
+
     : activities;
 
   const handleChange = (e) => {
@@ -87,12 +97,13 @@ const TablaDeActividades = ({ activities, setActivities }) => {
   };
 
   const handleAddActivity = () => {
+
     setActivities([...activities, newActivity]);
     setNewActivity({
       nombre: "",
       fechaInicio: "",
       fechaFin: "",
-      area_id: "",
+      area: null,
       costo: "",
       resultado_esperado: "",
       participacion_ciudadana: "",
@@ -109,7 +120,7 @@ const TablaDeActividades = ({ activities, setActivities }) => {
       nombre: activities[index].nombre,
       fechaInicio: activities[index].fechaInicio,
       fechaFin: activities[index].fechaFin,
-      area_id: activities[index].area_id,
+      area: activities[index].area,
       costo: activities[index].costo,
       resultado_esperado: activities[index].resultado_esperado,
       participacion_ciudadana: activities[index].participacion_ciudadana,
@@ -125,7 +136,7 @@ const TablaDeActividades = ({ activities, setActivities }) => {
       nombre: "",
       fechaInicio: "",
       fechaFin: "",
-      area_id: "",
+      area: null,
       costo: "",
       resultado_esperado: "",
       participacion_ciudadana: "",
@@ -184,9 +195,9 @@ const TablaDeActividades = ({ activities, setActivities }) => {
               </TableCell>
               <TableCell>
                 <TableSortLabel
-                  active={orderBy === "area_id"}
+                  active={orderBy === "area"}
                   direction={order}
-                  onClick={() => handleSort("area_id")}
+                  onClick={() => handleSort("area")}
                 >
                   Área
                 </TableSortLabel>
@@ -211,12 +222,7 @@ const TablaDeActividades = ({ activities, setActivities }) => {
                 <TableCell>{activity.nombre}</TableCell>
                 <TableCell>{activity.fechaInicio}</TableCell>
                 <TableCell>{activity.fechaFin}</TableCell>
-                <TableCell>
-                  {activity.area_id !== ""
-                    ? dataArea.find((item) => item.id === activity.area_id)
-                        .nombre
-                    : ""}
-                </TableCell>
+                <TableCell>{activity.area.nombre}</TableCell>
                 <TableCell>{activity.costo}</TableCell>
                 <TableCell>
                   <PopUpVerCampos

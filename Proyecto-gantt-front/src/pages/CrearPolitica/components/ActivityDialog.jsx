@@ -25,11 +25,12 @@ const ActivityDialog = ({
   setNewActivity,
 }) => {
   const{dataArea} = useContext(ItemsTableContext);
-  const [areaID, setAreaID] = useState(null)
   const [errorNombre, setErrorNombre] = useState(false);
   const [errorComparacionFechas, setErrorComparacionFechas] = useState(false);
   const [errorFechaFin, setErrorFechaFin] = useState(false);
   const [errorFechaInicio, setErrorFechaInicio] = useState(false);
+
+
 
 
   const verificacionFechas = ({setError, fecha}) => {
@@ -41,11 +42,11 @@ const ActivityDialog = ({
     }
   }
 
-
   const verificacionCampos = () => {
-    if(newActivity.nombre === "" || newActivity.fechaInicio === "" || newActivity.fechaFin === "" || newActivity.area_id === null || errorNombre || errorFechaFin || errorFechaInicio || errorComparacionFechas) return true;
+    if(newActivity.nombre === "" || newActivity.fechaInicio === "" || newActivity.fechaFin === "" || newActivity.area === null || errorNombre || errorFechaFin || errorFechaInicio || errorComparacionFechas) return true;
     return false;
   }
+  console.log("area", newActivity.area);
 
   const comparacionFechas = () => {
     if(newActivity.fechaInicio === "" || newActivity.fechaFin === "") return;
@@ -67,7 +68,10 @@ const ActivityDialog = ({
 
   const cancel = () => {
     onCancel();
-    setAreaID(null);
+    setErrorNombre(false);
+    setErrorFechaInicio(false);
+    setErrorFechaFin(false);
+    setErrorComparacionFechas(false);
   }
 
   return (
@@ -137,14 +141,8 @@ const ActivityDialog = ({
         />
           <ListaDesplegable
             list={dataArea}
-            stateComponent={areaID}
-            setState={(newValue) => {
-              setAreaID(newValue);
-
-              setNewActivity({ ...newActivity, 
-                area_id: newValue? newValue.id : null
-              });
-            }}
+            stateComponent={newActivity.area}
+            setState={(newValue) => setNewActivity({...newActivity, area: newValue})}
             nombre="Área"
             titleTrue
           />
