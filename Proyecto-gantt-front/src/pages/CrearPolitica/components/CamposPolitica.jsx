@@ -32,10 +32,13 @@ const CamposPolitica = () => {
 
   const handleLimpiar = () => {
     setNombre("");
-    setSecretaria("");
-    setObjetivo("");
+    setSecretaria(null);
+    setEje(null);
+    setObjetivo(null);
     setDescripcion("");
   };
+
+  console.log("eje",eje)
 
   return (
     <div>
@@ -68,7 +71,9 @@ const CamposPolitica = () => {
         type="text"
         variant="outlined"
         fullWidth
-        helperText="Ingrese el nombre de la Politica Pública Prioritaria"
+        helperText={
+          nombreVacio ? "Debe ingresar el nombre de la política" : "Ingrese el nombre de la política"
+        }
         sx={{ marginY: 0.5}}
         value={nombre}
         onChange={(e) => {
@@ -81,6 +86,7 @@ const CamposPolitica = () => {
         }}
       />
       <ListaDesplegable
+        isRequired
         list={dataSecretaria}
         stateComponent={secretaria}
         setState={setSecretaria}
@@ -89,12 +95,14 @@ const CamposPolitica = () => {
         sx={{ marginY: 0.5 }}
       />
       <ListaDesplegable
+        isRequired
         list={dataEje}
         stateComponent={eje}
         setState={setEje}
         nombre="eje"
       />
       <ListaDesplegable
+        isRequired
         list={dataObjetivo}
         stateComponent={objetivo}
         setState={setObjetivo}

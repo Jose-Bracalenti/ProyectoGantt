@@ -1,4 +1,4 @@
-.planificacion-container {
+.gestion-politica-container{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -6,10 +6,10 @@
     align-items: flex-start;
 }
 
-.planificacion-header{
+.gestion-politica-header{
     flex-basis: 25%;
-    margin:0 auto;
     padding: 1rem;
+    margin: 0 auto;
     margin-bottom: 1rem;
     width: 20%;
     flex-grow: 0.8;
@@ -17,15 +17,21 @@
     max-width: 500px;
 }
 
-.planificacion-body{
+.gestion-politica-body{
     flex-basis: 75%;
     padding: 1rem;
     margin: 0 auto;
-    flex-grow: 1;
+    flex-grow: 0.8;
 }
 
-.planificacion-footer{
-    
-    margin: 5rem 3rem; /* Cambiado a 1rem 0 para eliminar margen superior e inferior */
-    margin-left: auto;
+.gestion-politica-footer{
+    flex-basis: 100%;
+    margin: 1rem auto;
+    margin-top: 1rem;
+    margin-bottom: 5rem;
+    width: 100%;
+    flex-grow: 0.8;
+    min-width: 300px;
+    max-width: 600px;
+
 }

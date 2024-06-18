@@ -4,7 +4,7 @@ import 'vis-timeline/styles/vis-timeline-graph2d.min.css';
 import PropTypes from 'prop-types';
 import './TimelineComponent.css'; // Importa el archivo CSS
 
-const TimelineComponent = ({ items, dataArea, activarGrupos }) => {
+const TimelineComponent = ({ politicas, dataArea, activarGrupos }) => {
   const timelineRef = useRef(null);
   const timelineInstance = useRef(null);
   
@@ -16,8 +16,8 @@ const TimelineComponent = ({ items, dataArea, activarGrupos }) => {
     const subgrupos = [];
     const dataItems = new DataSet();
 
-
-    items.forEach((item )=> {
+    politicas.forEach((politica) => 
+      politica.items.forEach((item )=> {
       const politicaNombre = item.politica || 'Nueva Política';
       if (activarGrupos && !grupos.find(grupo => grupo.id === politicaNombre)) {
         grupos.push({
@@ -52,7 +52,9 @@ const TimelineComponent = ({ items, dataArea, activarGrupos }) => {
           style: `background-color: ${color};`,
         });
       });
-    });
+    })
+  );
+
 
     // Crear grupos y subgrupos basados en las políticas y los nombres de ítems si activarGrupos es verdadero
     const groups = activarGrupos ? new DataSet(grupos.concat(subgrupos)) : null;
@@ -71,7 +73,7 @@ const TimelineComponent = ({ items, dataArea, activarGrupos }) => {
         timelineInstance.current.destroy();
       }
     };
-  }, [items, dataArea, activarGrupos]);
+  }, [politicas, dataArea, activarGrupos]);
 
   return (
     <div ref={timelineRef} className="timeline-container" />
@@ -79,20 +81,25 @@ const TimelineComponent = ({ items, dataArea, activarGrupos }) => {
 };
 
 TimelineComponent.propTypes = {
-  items: PropTypes.arrayOf(
+  politicas: PropTypes.arrayOf(
     PropTypes.shape({
-      politica: PropTypes.string,
-      nombre: PropTypes.string.isRequired,
-      actividades: PropTypes.arrayOf(
+      nombre: PropTypes.string,
+      items: PropTypes.arrayOf(
         PropTypes.shape({
-          id: PropTypes.number.isRequired,
+          politica: PropTypes.string,
           nombre: PropTypes.string.isRequired,
-          fechaInicio: PropTypes.string.isRequired,
-          fechaFin: PropTypes.string.isRequired,
-          area_id: PropTypes.number.isRequired,
-          descripcion: PropTypes.string,
+          actividades: PropTypes.arrayOf(
+            PropTypes.shape({
+              id: PropTypes.number,
+              nombre: PropTypes.string.isRequired,
+              fechaInicio: PropTypes.string.isRequired,
+              fechaFin: PropTypes.string.isRequired,
+              area_id: PropTypes.number.isRequired,
+              descripcion: PropTypes.string,
+            })
+          ),
         })
-      ),
+      ).isRequired,
     })
   ).isRequired,
 

@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { Autocomplete, TextField, FormControl } from '@mui/material';
 
-const ListaDesplegable = ({ list, stateComponent, setState, nombre, noneOption, onChange }) => {
+const ListaDesplegable = ({ list, stateComponent, setState, nombre, noneOption, onChange, isRequired, multiple }) => {
   
   if (noneOption) {
     list = [{ id: '', nombre: 'Ninguno' }, ...list];
@@ -16,6 +16,7 @@ const ListaDesplegable = ({ list, stateComponent, setState, nombre, noneOption, 
 
 
 
+
   const memoizedOptions = useMemo(() => list, [list]);
 
   const id1 = 'demo-simple-select-standard-label-' + nombre;
@@ -23,8 +24,9 @@ const ListaDesplegable = ({ list, stateComponent, setState, nombre, noneOption, 
 
   return (
     <div>
-      <FormControl fullWidth sx={{ marginY: 1, minWidth: 120 }}>
+      <FormControl fullWidth sx={{ marginY: 1, minWidth: 120 }} >
         <Autocomplete
+          multiple={multiple}
           disablePortal
           id={id1}
           options={memoizedOptions}
@@ -38,7 +40,9 @@ const ListaDesplegable = ({ list, stateComponent, setState, nombre, noneOption, 
           onChange={handleChange}
           isOptionEqualToValue={(option, value) => option?.id === value?.id} // handle null value gracefully
           getOptionLabel={(option) => option.nombre || ''}
-          renderInput={(params) => <TextField {...params} label={nombre} variant="outlined" />}
+          renderInput={(params) => <TextField {...params} 
+            label={ isRequired ? nombre + ' *' : nombre }
+          variant="outlined" />}
         />
       </FormControl>
     </div>
@@ -52,7 +56,9 @@ ListaDesplegable.propTypes = {
   list: PropTypes.array.isRequired,
   titleTrue: PropTypes.bool,
   noneOption: PropTypes.bool,
-  onChange: PropTypes.func
+  onChange: PropTypes.func,
+  isRequired: PropTypes.bool,
+  multiple: PropTypes.bool,
 };
 
 export default ListaDesplegable;

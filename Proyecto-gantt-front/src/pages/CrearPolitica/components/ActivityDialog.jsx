@@ -26,6 +26,43 @@ const ActivityDialog = ({
 }) => {
   const{dataArea} = useContext(ItemsTableContext);
   const [areaID, setAreaID] = useState(null)
+  const [errorNombre, setErrorNombre] = useState(false);
+  const [errorComparacionFechas, setErrorComparacionFechas] = useState(false);
+  const [errorFechaFin, setErrorFechaFin] = useState(false);
+  const [errorFechaInicio, setErrorFechaInicio] = useState(false);
+
+
+  const verificacionFechas = ({setError, fecha}) => {
+    if(fecha === "") return;
+    if (fecha < '1900 - 01 - 01' || fecha > '2100 - 01 - 01') {
+      setError(true);
+    } else {
+      setError(false);
+    }
+  }
+
+
+  const verificacionCampos = () => {
+    if(newActivity.nombre === "" || newActivity.fechaInicio === "" || newActivity.fechaFin === "" || newActivity.area_id === null || errorNombre || errorFechaFin || errorFechaInicio || errorComparacionFechas) return true;
+    return false;
+  }
+
+  const comparacionFechas = () => {
+    if(newActivity.fechaInicio === "" || newActivity.fechaFin === "") return;
+    if (newActivity.fechaInicio > newActivity.fechaFin) {
+      setErrorComparacionFechas(true);
+    } else {
+      setErrorComparacionFechas(false);
+    }
+  }
+
+  const nombreValido = () => {
+    if(newActivity.nombre === "") {
+      setErrorNombre(true);
+    } else {
+      setErrorNombre(false);
+    }
+  }
   
 
   const cancel = () => {
@@ -44,6 +81,7 @@ const ActivityDialog = ({
           {isEditing ? " modificar" : " agregar"} una actividad.
         </DialogContentText>
         <TextField
+          error={errorNombre}
           margin="dense"
           name="nombre"
           label="Nombre" 
@@ -51,7 +89,14 @@ const ActivityDialog = ({
           required
           fullWidth
           value={newActivity.nombre}
-          onChange={onChange}
+          helperText={errorNombre ? "La actividad debe tener un nombre" : ""}
+          onChange={
+            (e) => {
+              onChange (e);
+              setErrorNombre(false);
+          }
+          }
+          onBlur={nombreValido}
         />
         <TextField
           margin="dense"
@@ -63,6 +108,12 @@ const ActivityDialog = ({
           InputLabelProps={{ shrink: true }}
           value={newActivity.fechaInicio}
           onChange={onChange}
+          error={errorFechaInicio}
+          helperText={errorFechaInicio ? "La fecha debe estar entre 1900 y 2100" : ""}
+          onBlur={() => {
+            verificacionFechas({setError: setErrorFechaInicio, fecha: newActivity.fechaInicio});
+            comparacionFechas();
+          }}
         />
 
         <TextField
@@ -75,6 +126,14 @@ const ActivityDialog = ({
           InputLabelProps={{ shrink: true }}
           value={newActivity.fechaFin}
           onChange={onChange}
+          error={errorFechaFin || errorComparacionFechas}
+          helperText={
+            errorFechaFin ? "La fecha debe estar entre 1900 y 2100" : errorComparacionFechas ? "La fecha de fin debe ser mayor a la de inicio" : ""
+          }
+          onBlur={() => {
+            verificacionFechas({setError: setErrorFechaFin, fecha: newActivity.fechaFin});
+            comparacionFechas();
+          } }
         />
           <ListaDesplegable
             list={dataArea}
@@ -141,8 +200,21 @@ const ActivityDialog = ({
           Cancelar
         </Button>
         <Button
-        disabled={newActivity.nombre === "" || newActivity.fechaInicio === "" || newActivity.fechaFin === "" || newActivity.area_id === ""}
-         onClick={onSave} color="primary" variant="outlined">
+          disabled={verificacionCampos()}
+         onClick={
+          () => {
+            verificacionFechas({setError: setErrorFechaInicio, fecha: newActivity.fechaInicio});
+            verificacionFechas({setError: setErrorFechaFin, fecha: newActivity.fechaFin});
+            comparacionFechas();
+            nombreValido();
+            if (verificacionCampos()) return;
+            onSave();
+         }
+        }
+
+         
+         
+         color="primary" variant="outlined">
           {isEditing ? "Guardar" : "Agregar"}
         </Button>
       </DialogActions>

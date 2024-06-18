@@ -47,7 +47,7 @@ export const FormularioPoliticaProvider = ({ children }) => {
   useEffect(() => {
     if (eje === null)  setDataObjetivo([]);
     else{
-        objetivoServices.getObjetivosByEjes(eje).then((response) => {
+        objetivoServices.getObjetivosByEjes(eje.id).then((response) => {
             setDataObjetivo(response.data);
           });
     }

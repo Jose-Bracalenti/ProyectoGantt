@@ -1,4 +1,4 @@
-  import { useContext, useState } from "react";
+  import { useContext, useEffect, useState } from "react";
   import { Button, Tooltip, Snackbar, Modal, Box, Alert, Typography } from "@mui/material";
   import { FormularioPoliticaContext } from "../hooks/FormularioPoliticaProvider";
   import { ItemsTableContext } from "../hooks/ItemsTableProvider";
@@ -26,17 +26,24 @@
     const [openModalGantt, setOpenModalGantt] = useState(false);
     const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
     const [selectedColorIndex, setSelectedColorIndex] = useState(null); // Índice del color seleccionado
-
     const [newColor, setNewColor] = useState(dataArea.map(() => ""));
+    const [newPolitica, setNewPolitica] = useState({});
 
     const handleCloseSnackbar = () => setSnackbarOpen(false);
 
-    const camposCompletos = nombre !== "" && secretaria !== "" && objetivo !== "";
+    useEffect(() => {
+      const politica = {
+        nombre: nombre,
+        items: items,
+      };
+      setNewPolitica(politica);
+    }, [nombre, items]); 
+
+    const camposCompletos = nombre !== "" && secretaria !== null && objetivo !== null;
     const buttonTitle = camposCompletos
       ? "Crear PPP"
       : "Complete los campos con (*) para crear PPP";
 
-    const handleCrear = () => setConfirmDialogOpen(true);
 
 
     //POST de la política
@@ -74,6 +81,7 @@
 
 
     const handlePreVisualizar = () => setOpenModalGantt(true);
+    console.log([newPolitica])
 
     // Función para manejar el cambio de color de área
     const handleColorChange = (index, color) => {
@@ -130,7 +138,7 @@
               disabled={!camposCompletos}
               variant="contained"
               color="primary"
-              onClick={handleCrear}
+              onClick={() => setConfirmDialogOpen(true)}
             >
               Crear PPP
             </Button>
@@ -187,7 +195,7 @@
             </Button>
             <h4>Previsualización del diagrama</h4>
             <TimelineComponent
-            items={items}   
+            politicas = {[newPolitica]}  
             activarGrupos={true}
             dataArea={dataArea} />
           </Box>
