@@ -20,14 +20,14 @@ import ConfirmDialog from "./ConfirmDialog";
 import PopUpVerCampos from "../../../components/PopUpVerCampos";
 import propTypes from "prop-types";
 
-
-
-const TablaDeActividades = ({ activities, setActivities}) => {
-  const { 
-               atributeOpen, setAtributeOpen,
-            atributeContent, setAtributeContent, dataArea
+const TablaDeActividades = ({ activities, setActivities }) => {
+  const {
+    atributeOpen,
+    setAtributeOpen,
+    atributeContent,
+    setAtributeContent,
+    dataArea,
   } = useContext(ItemsTableContext);
-
 
   const [isEditing, setIsEditing] = useState(false);
   const [open, setOpen] = useState(false);
@@ -41,44 +41,42 @@ const TablaDeActividades = ({ activities, setActivities}) => {
     participacion_ciudadana: "",
     costo: "",
   });
-  
-
 
   const handleClick =
     ({ condition }) =>
     () => {
       setIsEditing(false);
-        newActivity.nombre = "";
-        newActivity.fechaInicio = "";
-        newActivity.fechaFin = "";
-        newActivity.area_id = null;
-        newActivity.costo = "";
-        newActivity.resultado_esperado = "";
-        newActivity.participacion_ciudadana = "";
+      newActivity.nombre = "";
+      newActivity.fechaInicio = "";
+      newActivity.fechaFin = "";
+      newActivity.area_id = null;
+      newActivity.costo = "";
+      newActivity.resultado_esperado = "";
+      newActivity.participacion_ciudadana = "";
       setOpen(condition);
     };
 
-    const[openModalDelete, setOpenModalDelete] = useState(false);
-    const[deleteActivityIndex, setDeleteActivityIndex] = useState(0);
-    const[orderBy, setOrderBy] = useState(null);
-    const[order, setOrder] = useState("asc");
+  const [openModalDelete, setOpenModalDelete] = useState(false);
+  const [deleteActivityIndex, setDeleteActivityIndex] = useState(0);
+  const [orderBy, setOrderBy] = useState(null);
+  const [order, setOrder] = useState("asc");
 
-    const handleSort = (property) => {
-      const isAsc = orderBy === property && order === "asc";
-      setOrderBy(property);
-      setOrder(isAsc ? "desc" : "asc");
-    };
+  const handleSort = (property) => {
+    const isAsc = orderBy === property && order === "asc";
+    setOrderBy(property);
+    setOrder(isAsc ? "desc" : "asc");
+  };
 
-    const sortedActivities = orderBy
-      ? activities.sort((a, b) => {
-          if (order === "asc") {
-            return a[orderBy] > b[orderBy] ? 1 : -1;
-          } else {
-            return a[orderBy] < b[orderBy] ? 1 : -1;
-          }
-        })
-      : activities;
-
+  const sortedActivities = orderBy
+    ? activities.sort((a, b) => {
+        if (order === "asc") {
+          return a[orderBy].localeCompare(b[orderBy]);
+        }
+        else {
+          return b[orderBy].localeCompare(a[orderBy]);
+        }
+      })
+    : activities;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -149,161 +147,153 @@ const TablaDeActividades = ({ activities, setActivities}) => {
     });
   };
 
-
-
-
-
-
-
   //----------------------------------------------------------------------------------------------------
-
-
-
 
   return (
     <>
-    <TableContainer component={Paper}>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell>
-              <TableSortLabel
-                active={orderBy === "nombre"}
-                direction={order}
-                onClick={() => handleSort("nombre")}
-              >
-              Nombre
-              </TableSortLabel>
-              </TableCell>
-            <TableCell>
-              <TableSortLabel
-                active={orderBy === "fechaInicio"}
-                direction={order}
-                onClick={() => handleSort("fechaInicio")}
-              >
-              Fecha Inicio
-              </TableSortLabel>
-              </TableCell>
-            <TableCell>
-              <TableSortLabel
-                active={orderBy === "fechaFin"}
-                direction={order}
-                onClick={() => handleSort("fechaFin")}
-              >
-              Fecha Fin
-              </TableSortLabel>
-              </TableCell>
-            <TableCell>
-              <TableSortLabel
-                active={orderBy === "area_id"}
-                direction={order}
-                onClick={() => handleSort("area_id")}
-              >
-              Área
-              </TableSortLabel>
-              </TableCell>
-            <TableCell>
-              <TableSortLabel
-                active={orderBy === "costo"}
-                direction={order}
-                onClick={() => handleSort("costo")}
-              >
-              Costo
-              </TableSortLabel>
-              </TableCell>
-            <TableCell>Resultado Esperado</TableCell>
-            <TableCell>Participación ciudadana</TableCell>
-            <TableCell>Acciones</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {sortedActivities.map((activity, index) => (
-            <TableRow key={index}>
-              <TableCell>{activity.nombre}</TableCell>
-              <TableCell>{activity.fechaInicio}</TableCell>
-              <TableCell>{activity.fechaFin}</TableCell>
+      <TableContainer component={Paper}>
+        <Table>
+          <TableHead>
+            <TableRow>
               <TableCell>
-                {activity.area_id !== "" ? (dataArea.find(item => item.id === activity.area_id)).nombre : ""}
-              </TableCell>
-              <TableCell>{activity.costo}</TableCell>
-              <TableCell>
-                <PopUpVerCampos
-                  contenido={activity.resultado_esperado}
-                  titulo="Resultado esperado"
-                  setAtributeContent={setAtributeContent}
-                  setAtributeOpen={setAtributeOpen}
-
-                />
-              </TableCell>
-              <TableCell>
-                <PopUpVerCampos
-                  contenido={activity.participacion_ciudadana}
-                  titulo="Participación ciudadana"
-                  setAtributeContent={setAtributeContent}
-                  setAtributeOpen={setAtributeOpen}
-                />
-              </TableCell>
-              <TableCell>
-                <IconButton
-                  color="primary"
-                  onClick={() => handleEditActivity(index)}
+                <TableSortLabel
+                  active={orderBy === "nombre"}
+                  direction={order}
+                  onClick={() => handleSort("nombre")}
                 >
-                  <EditIcon />
-                </IconButton>
-                <IconButton
+                  Nombre
+                </TableSortLabel>
+              </TableCell>
+              <TableCell>
+                <TableSortLabel
+                  active={orderBy === "fechaInicio"}
+                  direction={order}
+                  onClick={() => handleSort("fechaInicio")}
+                >
+                  Fecha Inicio
+                </TableSortLabel>
+              </TableCell>
+              <TableCell>
+                <TableSortLabel
+                  active={orderBy === "fechaFin"}
+                  direction={order}
+                  onClick={() => handleSort("fechaFin")}
+                >
+                  Fecha Fin
+                </TableSortLabel>
+              </TableCell>
+              <TableCell>
+                <TableSortLabel
+                  active={orderBy === "area_id"}
+                  direction={order}
+                  onClick={() => handleSort("area_id")}
+                >
+                  Área
+                </TableSortLabel>
+              </TableCell>
+              <TableCell>
+                <TableSortLabel
+                  active={orderBy === "costo"}
+                  direction={order}
+                  onClick={() => handleSort("costo")}
+                >
+                  Costo Estimado
+                </TableSortLabel>
+              </TableCell>
+              <TableCell>Resultado Esperado</TableCell>
+              <TableCell>Participación ciudadana</TableCell>
+              <TableCell>Acciones</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {sortedActivities.map((activity, index) => (
+              <TableRow key={index}>
+                <TableCell>{activity.nombre}</TableCell>
+                <TableCell>{activity.fechaInicio}</TableCell>
+                <TableCell>{activity.fechaFin}</TableCell>
+                <TableCell>
+                  {activity.area_id !== ""
+                    ? dataArea.find((item) => item.id === activity.area_id)
+                        .nombre
+                    : ""}
+                </TableCell>
+                <TableCell>{activity.costo}</TableCell>
+                <TableCell>
+                  <PopUpVerCampos
+                    contenido={activity.resultado_esperado}
+                    titulo="Resultado esperado"
+                    setAtributeContent={setAtributeContent}
+                    setAtributeOpen={setAtributeOpen}
+                  />
+                </TableCell>
+                <TableCell>
+                  <PopUpVerCampos
+                    contenido={activity.participacion_ciudadana}
+                    titulo="Participación ciudadana"
+                    setAtributeContent={setAtributeContent}
+                    setAtributeOpen={setAtributeOpen}
+                  />
+                </TableCell>
+                <TableCell>
+                  <IconButton
+                    color="primary"
+                    onClick={() => handleEditActivity(index)}
+                  >
+                    <EditIcon />
+                  </IconButton>
+                  <IconButton
+                    color="secondary"
+                    onClick={() => (
+                      setOpenModalDelete(true), setDeleteActivityIndex(index)
+                    )}
+                  >
+                    <DeleteIcon />
+                  </IconButton>
+                </TableCell>
+              </TableRow>
+            ))}
+            <TableRow>
+              <TableCell colSpan={9} align="center">
+                <Button
+                  variant="contained"
                   color="secondary"
-                  onClick={() => (setOpenModalDelete(true),
-                    setDeleteActivityIndex(index))
-                  }
+                  onClick={handleClick({ condition: true })}
                 >
-                  <DeleteIcon />
-                </IconButton>
+                  Agregar Nueva Actividad
+                </Button>
               </TableCell>
             </TableRow>
-          ))}
-          <TableRow>
-            <TableCell colSpan={9} align="center">
-              <Button
-                variant="contained"
-                color="secondary"
-                onClick={handleClick({ condition: true })}
-              >
-                Agregar Nueva Actividad
-              </Button>
-            </TableCell>
-          </TableRow>
-        </TableBody>
-      </Table>
+          </TableBody>
+        </Table>
 
-      <ActivityDialog
-        
-        open={open}
-        isEditing={isEditing}
-        newActivity={newActivity}
-        setNewActivity={setNewActivity}
-        onChange={handleChange}
-        onSave={isEditing ? handleSaveEditActivity : handleAddActivity}
-        onCancel={handleClick({ condition: false })}
-        onClose={handleClick({ condition: false })}
-      />
+        <ActivityDialog
+          open={open}
+          isEditing={isEditing}
+          newActivity={newActivity}
+          setNewActivity={setNewActivity}
+          onChange={handleChange}
+          onSave={isEditing ? handleSaveEditActivity : handleAddActivity}
+          onCancel={handleClick({ condition: false })}
+          onClose={handleClick({ condition: false })}
+        />
 
-      <AtributesDialog
-        open={atributeOpen}
-        nombre={atributeContent.nombre || ""}
-        atributesContent={atributeContent.contenido || ""}
-        onClose={handleCloseDescription}
+        <AtributesDialog
+          open={atributeOpen}
+          nombre={atributeContent.nombre || ""}
+          atributesContent={atributeContent.contenido || ""}
+          onClose={handleCloseDescription}
+        />
+      </TableContainer>
+      <ConfirmDialog
+        open={openModalDelete}
+        onClose={() => setOpenModalDelete(false)}
+        onConfirm={() => {
+          handleDeleteActivity(deleteActivityIndex);
+          setOpenModalDelete(false);
+        }}
+        title="Eliminar Actividad"
+        content="¿Estás seguro de que deseas eliminar esta actividad?"
       />
-    </TableContainer>
-    <ConfirmDialog
-      open={openModalDelete}
-      onClose={() => setOpenModalDelete(false)}
-      onConfirm={() => {
-        handleDeleteActivity(deleteActivityIndex);
-        setOpenModalDelete(false);
-      }}
-      title="Eliminar Actividad"
-      content="¿Estás seguro de que deseas eliminar esta actividad?"
-    />
     </>
   );
 };
@@ -312,7 +302,5 @@ TablaDeActividades.propTypes = {
   activities: propTypes.array,
   setActivities: propTypes.func,
 };
-
-
 
 export default TablaDeActividades;

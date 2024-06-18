@@ -18,7 +18,7 @@ const NavBar2 = () => {
             case "/CrearPolitica":
                 setValue("2");
                 break;
-            case "/Planificacion":
+            case "/GestionPolitica":
                 setValue("3");
                 break;
             default:
@@ -71,9 +71,9 @@ const NavBar2 = () => {
                                 />
                             <Tab
                                 sx={sx}
-                                label="Planificación"
+                                label="Gestión de PPP"
                                 component={NavLink}
-                                to="/Planificacion"
+                                to="/GestionPolitica"
                                 value="3"
                             />
                         </Tabs>

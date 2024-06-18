@@ -11,6 +11,9 @@ const getObjetivosByEjes = (idEje) =>{
 }
 
 
+
+
+
 const getAll = () =>{
     return axios.get(baseUrl)
 }
