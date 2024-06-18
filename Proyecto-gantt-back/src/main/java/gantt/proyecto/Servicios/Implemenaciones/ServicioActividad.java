@@ -14,10 +14,10 @@ public class ServicioActividad{
     private ActividadDAO ActividadDAO;
     public ActividadDTO insertar(ActividadDTO Actividad, Item item, ServicioArea ServicioArea) {
         item.getActividades().add(this.mapToEntity(Actividad, item, ServicioArea));
-       return this.mapToDTO(ActividadDAO.save(this.mapToEntity(Actividad, item, ServicioArea)));
+       return this.mapToDTO(ActividadDAO.save(this.mapToEntity(Actividad, item, ServicioArea)), ServicioArea);
     }
     public ActividadDTO modificar(ActividadDTO Actividad, Item item, ServicioArea ServicioArea) {
-         return this.mapToDTO(ActividadDAO.save(this.mapToEntity(Actividad, item, ServicioArea)));
+         return this.mapToDTO(ActividadDAO.save(this.mapToEntity(Actividad, item, ServicioArea)), ServicioArea);
     }
     public void eliminar(ActividadDTO Actividad, Item item, ServicioArea ServicioArea) {
         ActividadDAO.delete(this.mapToEntity(Actividad, item, ServicioArea));
@@ -40,7 +40,7 @@ public class ServicioActividad{
     public List<Actividad> buscarPorArea(long area, ServicioArea servicioArea) {
         return ActividadDAO.findByArea(servicioArea.buscarPorId(area));
     }
-    public final ActividadDTO mapToDTO(Actividad actividad){
+    public final ActividadDTO mapToDTO(Actividad actividad, ServicioArea servicioArea){
         ActividadDTO dto = new ActividadDTO();
         dto.setId(actividad.getActividad_id());
         dto.setNombre(actividad.getNombre());
@@ -48,14 +48,13 @@ public class ServicioActividad{
         dto.setFechaInicio(actividad.getFecha_inicio());
         dto.setFechaFin(actividad.getFecha_fin());
         dto.setParticipacion_ciudadana(actividad.getParticipacion_ciudadana());
-        dto.setArea(actividad.getArea().getNombre());
-        dto.setArea_id(actividad.getArea().getid());
+        dto.setArea(servicioArea.mapToDTO(actividad.getArea()));
         dto.setItem(actividad.getItem().getNombre());
         dto.setResultado_esperado(actividad.getResultado_esperado());
         dto.setCosto(actividad.getCosto());
         return dto;
     }
-    public final Actividad mapToEntity(ActividadDTO dto, Item item, ServicioArea ServicioArea){
+    public final Actividad mapToEntity(ActividadDTO dto, Item item, ServicioArea servicioArea){
         Actividad actividad = new Actividad();
         actividad.setNombre(dto.getNombre());
         actividad.setDescripcion(dto.getDescripcion());
@@ -64,7 +63,7 @@ public class ServicioActividad{
         actividad.setParticipacion_ciudadana(dto.getParticipacion_ciudadana());
         actividad.setResultado_esperado(dto.getResultado_esperado());
         actividad.setItem(item);
-        actividad.setArea(ServicioArea.buscarPorId(dto.getArea_id()));
+        actividad.setArea(servicioArea.mapToEntity(dto.getArea()));
         actividad.setCosto(dto.getCosto());
         return actividad;
     }

@@ -28,7 +28,7 @@ public class ServicioPolitica{
                     ServicioSecretaria, 
                     servicioItem, 
                     ServicioArea, 
-                    ServicioActividad)), servicioItem);
+                    ServicioActividad)), servicioItem, ServicioArea, ServicioActividad);
     }
     public PoliticaDTO modificar(PoliticaDTO obj, ServicioObjetivo ServicioObjetivo, ServicioSecretaria ServicioSecretaria, ServicioItem servicioItem, ServicioArea ServicioArea, ServicioActividad ServicioActividad) {
         return this.mapToDTO(
@@ -39,7 +39,7 @@ public class ServicioPolitica{
                     ServicioSecretaria, 
                     servicioItem, 
                     ServicioArea, 
-                    ServicioActividad)), servicioItem);
+                    ServicioActividad)), servicioItem, ServicioArea, ServicioActividad);
         
     }
     public void eliminar(PoliticaDTO obj, ServicioObjetivo ServicioObjetivo, ServicioSecretaria ServicioSecretaria, ServicioItem servicioItem, ServicioArea ServicioArea, ServicioActividad ServicioActividad) {
@@ -68,7 +68,7 @@ public class ServicioPolitica{
     public List<Politica> buscarPorSecretaria(long secretaria, ServicioSecretaria ServicioSecretaria) {
         return PoliticaDAO.findBySecretaria(ServicioSecretaria.buscarPorId(secretaria));
     }
-    public PoliticaDTO mapToDTO(Politica obj, ServicioItem servicioItem) {
+    public PoliticaDTO mapToDTO(Politica obj, ServicioItem servicioItem, ServicioArea ServicioArea, ServicioActividad ServicioActividad) {
         PoliticaDTO dto = new PoliticaDTO();
         dto.setId(obj.getPolitica_id());
         dto.setNombre(obj.getNombre());
@@ -77,7 +77,7 @@ public class ServicioPolitica{
         dto.setObjetivo_id(obj.getObjetivo().getId());
         dto.setSecretaria(obj.getSecretaria().getNombre());
         dto.setSecretaria_id(obj.getSecretaria().getid());
-        dto.setItems(obj.getItems().stream().map(x -> servicioItem.mapToDTO(x)).collect(Collectors.toList()));
+        dto.setItems(obj.getItems().stream().map(x -> servicioItem.mapToDTO(x, ServicioActividad, ServicioArea)).collect(Collectors.toList()));
         return dto;
     }
     public Politica mapToEntity(PoliticaDTO obj, ServicioObjetivo ServicioObjetivo, ServicioSecretaria ServicioSecretaria, ServicioItem servicioItem, ServicioArea ServicioArea, ServicioActividad ServicioActividad) {

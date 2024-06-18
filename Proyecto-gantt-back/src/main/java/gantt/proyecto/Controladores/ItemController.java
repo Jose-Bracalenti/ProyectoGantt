@@ -34,7 +34,7 @@ public class ItemController {
     private ServicioActividad servicioActividad;
     @GetMapping
     public ResponseEntity<List<ItemDTO>> getItems(){
-        return ResponseEntity.ok().body(servicioItem.buscarTodo().stream().map(x -> servicioItem.mapToDTO(x)).collect(Collectors.toList()));
+        return ResponseEntity.ok().body(servicioItem.buscarTodo().stream().map(x -> servicioItem.mapToDTO(x, servicioActividad, servicioArea)).collect(Collectors.toList()));
     }
     @PostMapping
     public ResponseEntity<ItemDTO> createItem(@RequestBody ItemDTO item){
@@ -50,10 +50,8 @@ public class ItemController {
         return ResponseEntity.ok().body(servicioItem.mapToDTO(
             servicioItem.buscarPorId(
                 id, 
-                servicioPolitica.mapToEntity(servicioPolitica.mapToDTO(servicioPolitica.buscarPorId(politica).get(), 
-                servicioItem), servicioObjetivo,servicioSecretaria, servicioItem, servicioArea, servicioActividad)
+                servicioPolitica.buscarPorId(politica).get()), servicioActividad, servicioArea)
                 )
-                    )
-                        );
+                    ;
     }
 }

@@ -33,11 +33,11 @@ public class PoliticaController {
     }
     @GetMapping
     public ResponseEntity<List<PoliticaDTO>> getPoliticas(){
-        return ResponseEntity.ok().body(servicioPolitica.buscarTodo().stream().map(x -> servicioPolitica.mapToDTO(x, servicioItem)).collect(Collectors.toList()));
+        return ResponseEntity.ok().body(servicioPolitica.buscarTodo().stream().map(x -> servicioPolitica.mapToDTO(x, servicioItem, servicioArea, servicioActividad)).collect(Collectors.toList()));
     }
     @GetMapping("{politica_id}")
     public ResponseEntity<PoliticaDTO> getPolitica(@PathVariable(value = "politica_id") long id){
-        return ResponseEntity.ok().body(servicioPolitica.mapToDTO(servicioPolitica.buscarPorId(id).get(), servicioItem));
+        return ResponseEntity.ok().body(servicioPolitica.mapToDTO(servicioPolitica.buscarPorId(id).get(), servicioItem, servicioArea, servicioActividad));
     }
     @DeleteMapping
     public ResponseEntity<Void> deletePolitica(@RequestBody PoliticaDTO politica){
@@ -46,10 +46,10 @@ public class PoliticaController {
     }
     @GetMapping("/objetivo/{objetivo_id}")
     public ResponseEntity<List<PoliticaDTO>> getPoliticasPorObjetivo(@PathVariable(value = "objetivo_id") long id){
-        return ResponseEntity.ok().body(servicioPolitica.buscarPorObjetivo(id, servicioObjetivo).stream().map(x -> servicioPolitica.mapToDTO(x, servicioItem)).collect(Collectors.toList()));
+        return ResponseEntity.ok().body(servicioPolitica.buscarPorObjetivo(id, servicioObjetivo).stream().map(x -> servicioPolitica.mapToDTO(x, servicioItem, servicioArea, servicioActividad)).collect(Collectors.toList()));
     }
     @GetMapping("/secretaria/{secretaria_id}")
     public ResponseEntity<List<PoliticaDTO>> getPoliticasPorSecretaria(@PathVariable(value = "secretaria_id") long id){
-        return ResponseEntity.ok().body(servicioPolitica.buscarPorSecretaria(id, servicioSecretaria).stream().map(x -> servicioPolitica.mapToDTO(x, servicioItem)).collect(Collectors.toList()));
+        return ResponseEntity.ok().body(servicioPolitica.buscarPorSecretaria(id, servicioSecretaria).stream().map(x -> servicioPolitica.mapToDTO(x, servicioItem,servicioArea,servicioActividad)).collect(Collectors.toList()));
     }
 }

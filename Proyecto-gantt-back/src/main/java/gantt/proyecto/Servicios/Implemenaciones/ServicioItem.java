@@ -14,7 +14,7 @@ public class ServicioItem {
     @Autowired
     private ItemDAO itemDAO;
     public ItemDTO insertar(ItemDTO item, ServicioPolitica servicioPolitica, ServicioActividad servicioActividad, ServicioArea servicioArea) {
-        return this.mapToDTO(itemDAO.save(this.mapToEntity(item, servicioPolitica.buscarPorId(item.getPolitica_id()).get(), servicioActividad, servicioArea)));
+        return this.mapToDTO(itemDAO.save(this.mapToEntity(item, servicioPolitica.buscarPorId(item.getPolitica_id()).get(), servicioActividad, servicioArea)), servicioActividad, servicioArea);
     }
     public Item buscarPorId(long id, Politica politica) {
         ItemId item_id = new ItemId();
@@ -35,13 +35,13 @@ public class ServicioItem {
         itemDAO.delete(item);
     }
 
-    public final ItemDTO mapToDTO(Item item){
+    public final ItemDTO mapToDTO(Item item, ServicioActividad servicioActividad, ServicioArea servicioArea){
         ItemDTO dto = new ItemDTO();
         dto.setId(item.getItem_id());
         dto.setNombre(item.getNombre());
         dto.setPolitica(item.getPolitica().getNombre());
         dto.setPolitica_id(item.getPolitica().getPolitica_id());
-        dto.setActividades(item.getActividades().stream().map(x -> new ServicioActividad().mapToDTO(x)).collect(Collectors.toList()));
+        dto.setActividades(item.getActividades().stream().map(x -> servicioActividad.mapToDTO(x, servicioArea)).collect(Collectors.toList()));
         return dto;
     }
     public final Item mapToEntity(ItemDTO dto, Politica politica, ServicioActividad servicioActividad, ServicioArea servicioArea){

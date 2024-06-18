@@ -40,11 +40,11 @@ public class ActividadesController {
     }
     @GetMapping
     public ResponseEntity<List<ActividadDTO>> getActividades(){
-        return ResponseEntity.ok().body(servicioActividad.buscarTodos().stream().map(x -> servicioActividad.mapToDTO(x)).collect(Collectors.toList()));
+        return ResponseEntity.ok().body(servicioActividad.buscarTodos().stream().map(x -> servicioActividad.mapToDTO(x, servicioArea)).collect(Collectors.toList()));
     }
     @GetMapping("{actividad_id}")
     public ResponseEntity<ActividadDTO> getActividad(@PathVariable(value = "actividad_id") long id){
-        return ResponseEntity.ok().body(servicioActividad.mapToDTO(servicioActividad.buscarPorId(id)));
+        return ResponseEntity.ok().body(servicioActividad.mapToDTO(servicioActividad.buscarPorId(id), servicioArea));
     }
     @DeleteMapping
     public ResponseEntity<Void> deleteActividad(@RequestBody ActividadDTO actividad){
@@ -54,7 +54,7 @@ public class ActividadesController {
     }
     @GetMapping("/area/{area_id}")
     public ResponseEntity<List<ActividadDTO>> getActividadesPorArea(@PathVariable(value = "area_id") long id){
-        return ResponseEntity.ok().body(servicioActividad.buscarPorArea(id, servicioArea).stream().map(x -> servicioActividad.mapToDTO(x)).collect(Collectors.toList()));
+        return ResponseEntity.ok().body(servicioActividad.buscarPorArea(id, servicioArea).stream().map(x -> servicioActividad.mapToDTO(x, servicioArea)).collect(Collectors.toList()));
     }
     
 }
