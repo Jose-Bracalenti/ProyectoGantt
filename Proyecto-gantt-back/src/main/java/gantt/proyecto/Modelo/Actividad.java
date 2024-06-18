@@ -27,7 +27,7 @@ public class Actividad {
         @JoinColumn(name = "politica_id", referencedColumnName = "politica_id")
     })
     private Item item;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "area_id",nullable = true, referencedColumnName = "area_id", foreignKey = @ForeignKey(name = "FK_ACTIVIDAD_AREA", value = ConstraintMode.CONSTRAINT))
     private Area area;
     @Column(columnDefinition = "text")

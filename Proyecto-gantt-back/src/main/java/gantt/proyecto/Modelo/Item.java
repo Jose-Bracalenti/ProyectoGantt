@@ -12,6 +12,7 @@ import jakarta.persistence.IdClass;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
 import gantt.proyecto.IDclasses.ItemId;
@@ -21,7 +22,8 @@ import gantt.proyecto.IDclasses.ItemId;
 @Table(name = "item")
 public class Item {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name="my_seq", sequenceName="my_db_table_seq", allocationSize=1)
+    @GeneratedValue(generator = "my_seq")
     private Long item_id;
 
     @Id

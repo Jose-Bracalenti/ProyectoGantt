@@ -9,8 +9,7 @@ public class ActividadDTO {
     private LocalDate fechaInicio;
     private LocalDate fechaFin;
     private String participacion_ciudadana;
-    private long area_id;
-    private String Area;
+    private AreaDTO area;
     private String item;
     private String resultado_esperado;
     private float costo;
@@ -18,16 +17,14 @@ public class ActividadDTO {
     public ActividadDTO() {
     }
 
-    public ActividadDTO(long id, String nombre, String descripcion, LocalDate fechaInicio, LocalDate fechaFin,
-            String participacion_ciudadana, long area_id, String area, String item, String resultado_esperado,
-            float costo) {
+    public ActividadDTO(String nombre, String descripcion, LocalDate fechaInicio, LocalDate fechaFin,
+            String participacion_ciudadana, AreaDTO area, String item, String resultado_esperado, float costo) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
         this.participacion_ciudadana = participacion_ciudadana;
-        this.area_id = area_id;
-        Area = area;
+        this.area = area;
         this.item = item;
         this.resultado_esperado = resultado_esperado;
         this.costo = costo;
@@ -81,20 +78,12 @@ public class ActividadDTO {
         this.participacion_ciudadana = participacion_ciudadana;
     }
 
-    public long getArea_id() {
-        return area_id;
+    public AreaDTO getArea() {
+        return area;
     }
 
-    public void setArea_id(long area_id) {
-        this.area_id = area_id;
-    }
-
-    public String getArea() {
-        return Area;
-    }
-
-    public void setArea(String area) {
-        Area = area;
+    public void setArea(AreaDTO area) {
+        this.area = area;
     }
 
     public String getItem() {
@@ -119,7 +108,9 @@ public class ActividadDTO {
 
     public void setCosto(float costo) {
         this.costo = costo;
-    }      
+    }
+
+   
     
         
 }
