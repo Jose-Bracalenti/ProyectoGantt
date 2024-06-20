@@ -1,6 +1,10 @@
 package gantt.proyecto.Controladores;
+import gantt.proyecto.DTOS.AreaDTO;
+import gantt.proyecto.DTOS.EjeDTO;
 import gantt.proyecto.DTOS.FiltroDTO;
+import gantt.proyecto.DTOS.ObjetivoDTO;
 import gantt.proyecto.DTOS.PoliticaDTO;
+import gantt.proyecto.DTOS.SecretariaDTO;
 import gantt.proyecto.Servicios.Implemenaciones.*;
 
 import java.util.List;
@@ -56,10 +60,13 @@ public class PoliticaController {
         return ResponseEntity.ok().body(servicioPolitica.buscarPorSecretaria(id, servicioSecretaria).stream().map(x -> servicioPolitica.mapToDTO(x, servicioItem,servicioArea,servicioActividad)).collect(Collectors.toList()));
     }
     @GetMapping("/filtro")
-    public ResponseEntity<List<PoliticaDTO>> getPoliticasPorFiltro(@RequestBody FiltroDTO filtro){
+    public ResponseEntity<List<PoliticaDTO>> getPoliticasPorFiltro(@RequestParam List<EjeDTO> ejes, @RequestParam List<ObjetivoDTO>objetivos, @RequestParam List<SecretariaDTO> secretarias, @RequestParam List<AreaDTO> areas){
         return ResponseEntity.ok().body(
             servicioPolitica.buscarPorFiltro(
-                filtro, 
+                ejes,
+                objetivos,
+                secretarias,
+                areas, 
                 servicioObjetivo, 
                 servicioSecretaria, 
                 servicioArea, 
