@@ -1,6 +1,7 @@
 package gantt.proyecto.Servicios.Implemenaciones;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,8 +23,8 @@ public class ServicioEje{
     public void eliminar(EjeDTO obj) {
         EjeDAO.delete(this.mapToEntity(obj));
     }
-    public Eje buscarPorId(long id) {
-        return EjeDAO.findById(id).get();
+    public Optional<Eje> buscarPorId(long id) {
+        return EjeDAO.findById(id);
     }
     public Eje buscarPorNombre(String nombre) {
         return EjeDAO.findByNombre(nombre);

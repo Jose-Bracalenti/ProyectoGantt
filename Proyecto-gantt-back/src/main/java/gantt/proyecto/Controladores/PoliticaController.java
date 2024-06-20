@@ -1,4 +1,5 @@
 package gantt.proyecto.Controladores;
+import gantt.proyecto.DTOS.FiltroDTO;
 import gantt.proyecto.DTOS.PoliticaDTO;
 import gantt.proyecto.Servicios.Implemenaciones.*;
 
@@ -22,6 +23,8 @@ public class PoliticaController {
     private ServicioObjetivo servicioObjetivo;
     @Autowired
     private ServicioSecretaria servicioSecretaria;
+    @Autowired
+    private ServicioEje servicioEje;
     @Autowired
     private ServicioArea servicioArea;
     @Autowired
@@ -51,5 +54,17 @@ public class PoliticaController {
     @GetMapping("/secretaria/{secretaria_id}")
     public ResponseEntity<List<PoliticaDTO>> getPoliticasPorSecretaria(@PathVariable(value = "secretaria_id") long id){
         return ResponseEntity.ok().body(servicioPolitica.buscarPorSecretaria(id, servicioSecretaria).stream().map(x -> servicioPolitica.mapToDTO(x, servicioItem,servicioArea,servicioActividad)).collect(Collectors.toList()));
+    }
+    @GetMapping("/filtro")
+    public ResponseEntity<List<PoliticaDTO>> getPoliticasPorFiltro(@RequestBody FiltroDTO filtro){
+        return ResponseEntity.ok().body(
+            servicioPolitica.buscarPorFiltro(
+                filtro, 
+                servicioObjetivo, 
+                servicioSecretaria, 
+                servicioArea, 
+                servicioPolitica, 
+                servicioActividad, 
+                servicioEje).stream().map(x -> servicioPolitica.mapToDTO(x, servicioItem, servicioArea, servicioActividad)).collect(Collectors.toList()));
     }
 }

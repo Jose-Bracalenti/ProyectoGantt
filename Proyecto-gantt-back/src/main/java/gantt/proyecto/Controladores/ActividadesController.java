@@ -29,8 +29,6 @@ public class ActividadesController {
     @Autowired
     private ServicioActividad servicioActividad;
     @Autowired
-    private ServicioPolitica servicioPolitica;
-    @Autowired
     private ServicioArea servicioArea;
 
     @PostMapping

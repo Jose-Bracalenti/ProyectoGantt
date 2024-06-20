@@ -34,7 +34,7 @@ public class EjesController {
     }
     @GetMapping("{Eje_id}")
     public ResponseEntity<EjeDTO> getEje(@PathVariable(value = "Eje_id") long id){
-        return ResponseEntity.ok().body(servicioEje.mapToDTO(servicioEje.buscarPorId(id)));
+        return ResponseEntity.ok().body(servicioEje.mapToDTO(servicioEje.buscarPorId(id).get()));
     }
     @DeleteMapping
     public ResponseEntity<Void> deleteEje(@RequestBody EjeDTO Eje){

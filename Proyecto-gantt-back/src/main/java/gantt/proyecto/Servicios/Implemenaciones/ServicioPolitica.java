@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
 
+import gantt.proyecto.DTOS.FiltroDTO;
 import gantt.proyecto.DTOS.PoliticaDTO;
 import gantt.proyecto.Modelo.*;
 
@@ -67,6 +68,29 @@ public class ServicioPolitica{
     }
     public List<Politica> buscarPorSecretaria(long secretaria, ServicioSecretaria ServicioSecretaria) {
         return PoliticaDAO.findBySecretaria(ServicioSecretaria.buscarPorId(secretaria));
+    }
+
+    public List<Politica> buscarPorFiltro(FiltroDTO filtro, ServicioObjetivo ServicioObjetivo, ServicioSecretaria ServicioSecretaria, ServicioArea ServicioArea, ServicioPolitica servicioPolitica, ServicioActividad ServicioActividad, ServicioEje ServicioEje) {
+        List<Long> ejes = filtro.getEjes().stream().map(x -> x.getId()).collect(Collectors.toList());
+        List<Long> objetivos = filtro.getObjetivos().stream().map(x -> x.getId()).collect(Collectors.toList());
+        List<Long> secretarias = filtro.getSecretarias().stream().map(x -> x.getId()).collect(Collectors.toList());
+        List<Long> areas = filtro.getAreas().stream().map(x -> x.getId()).collect(Collectors.toList());
+        List<Long> filteredPoliticas = PoliticaDAO.findAll().stream().map(x -> x.getPolitica_id()).collect(Collectors.toList());
+        if (ejes.size() > 0) {
+            filteredPoliticas = filteredPoliticas.stream().filter(x -> ejes.contains(servicioPolitica.buscarPorId(x).get().getObjetivo().getEje().getid())).collect(Collectors.toList());
+        }
+        if (objetivos.size() > 0) {
+            filteredPoliticas = filteredPoliticas.stream().filter(x -> objetivos.contains(servicioPolitica.buscarPorId(x).get().getObjetivo().getId())).collect(Collectors.toList());
+        }
+        if (secretarias.size() > 0) {
+            filteredPoliticas = filteredPoliticas.stream().filter(x -> secretarias.contains(servicioPolitica.buscarPorId(x).get().getSecretaria().getid())).collect(Collectors.toList());
+        }
+        if (areas.size() > 0) {
+            filteredPoliticas = filteredPoliticas.stream().filter(x -> servicioPolitica.buscarPorId(x).get().getItems().stream().map(y -> y.getActividades().stream().map(z -> areas.contains(z.getArea().getid())).reduce((a, b) -> a || b).get()).reduce((a, b) -> a || b).get()).collect(Collectors.toList());
+        }
+        List<Politica> politicas = filteredPoliticas.stream().map(x -> servicioPolitica.buscarPorId(x).get()).collect(Collectors.toList());
+        return politicas;
+
     }
     public PoliticaDTO mapToDTO(Politica obj, ServicioItem servicioItem, ServicioArea ServicioArea, ServicioActividad ServicioActividad) {
         PoliticaDTO dto = new PoliticaDTO();
