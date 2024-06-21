@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import gantt.proyecto.DTOS.EjeDTO;
 import gantt.proyecto.DTOS.ObjetivoDTO;
-import gantt.proyecto.Modelo.Eje;
 import gantt.proyecto.Servicios.Implemenaciones.*;
 
 @RestController
