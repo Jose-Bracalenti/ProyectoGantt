@@ -9,7 +9,7 @@ public class Area {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long area_id;
-    @Column
+    @Column(unique = true, nullable = false)
     private String nombre;
     @OneToMany(mappedBy = "area",fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Actividad> actividades;

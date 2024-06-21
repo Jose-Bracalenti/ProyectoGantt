@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import gantt.proyecto.DTOS.*;
-import gantt.proyecto.Modelo.*;
 import gantt.proyecto.Servicios.Implemenaciones.*;
 @Controller
 @CrossOrigin(origins = "http://localhost:5174")
@@ -26,10 +25,6 @@ public class ItemController {
     private ServicioPolitica servicioPolitica;
     @Autowired
     private ServicioArea servicioArea;
-    @Autowired
-    private ServicioObjetivo servicioObjetivo;
-    @Autowired
-    private ServicioSecretaria servicioSecretaria;
     @Autowired
     private ServicioActividad servicioActividad;
     @GetMapping

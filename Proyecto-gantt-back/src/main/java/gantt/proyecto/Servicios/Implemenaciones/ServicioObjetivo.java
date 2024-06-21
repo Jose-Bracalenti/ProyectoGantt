@@ -1,11 +1,12 @@
 package gantt.proyecto.Servicios.Implemenaciones;
 
 import java.util.List;
-
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import gantt.proyecto.DTOS.EjeDTO;
 import gantt.proyecto.DTOS.ObjetivoDTO;
 import gantt.proyecto.Modelo.*;
 import gantt.proyecto.Repositorios.DAOS.ObjetivoDAO;
@@ -38,6 +39,12 @@ public class ServicioObjetivo{
     }
     public List<Objetivo> buscarPorEje(Long id, ServicioEje ServicioEje) {
         return ObjetivoDAO.findByEje(ServicioEje.buscarPorId(id).get());
+    }
+    public List<Objetivo> buscarConEjes(List<EjeDTO> ejes) {
+        List<Objetivo> objetivos = ObjetivoDAO.findAll();
+        List<Long> eje_ids = ejes.stream().map(x -> x.getId()).toList();
+        objetivos = objetivos.stream().filter(x -> eje_ids.contains(x.getEje().getid())).collect(Collectors.toList());
+        return objetivos; 
     }
     public final ObjetivoDTO mapToDTO(Objetivo objetivo){
         ObjetivoDTO dto = new ObjetivoDTO();

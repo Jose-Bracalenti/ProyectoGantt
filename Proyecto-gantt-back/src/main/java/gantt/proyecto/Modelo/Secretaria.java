@@ -21,7 +21,7 @@ public class Secretaria {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long secretaria_id;
-    @Column
+    @Column(unique = true, nullable = false)
     private String nombre;
     @OneToMany(mappedBy = "secretaria",fetch = FetchType.LAZY,cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Politica> politicas;

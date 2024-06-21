@@ -13,7 +13,7 @@ public class Eje {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long eje_id;
-    @Column
+    @Column(unique = true, nullable = false)
     private String nombre;
     @Column
     private String descripcion;

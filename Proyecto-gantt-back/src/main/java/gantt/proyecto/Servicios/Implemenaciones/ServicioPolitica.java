@@ -9,8 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
 
-import gantt.proyecto.DTOS.FiltroDTO;
-import gantt.proyecto.DTOS.PoliticaDTO;
+import gantt.proyecto.DTOS.*;
 import gantt.proyecto.Modelo.*;
 
 import gantt.proyecto.Repositorios.DAOS.PoliticaDAO;
@@ -70,27 +69,25 @@ public class ServicioPolitica{
         return PoliticaDAO.findBySecretaria(ServicioSecretaria.buscarPorId(secretaria));
     }
 
-    public List<Politica> buscarPorFiltro(FiltroDTO filtro, ServicioObjetivo ServicioObjetivo, ServicioSecretaria ServicioSecretaria, ServicioArea ServicioArea, ServicioPolitica servicioPolitica, ServicioActividad ServicioActividad, ServicioEje ServicioEje) {
-        List<Long> ejes = filtro.getEjes().stream().map(x -> x.getId()).collect(Collectors.toList());
-        List<Long> objetivos = filtro.getObjetivos().stream().map(x -> x.getId()).collect(Collectors.toList());
-        List<Long> secretarias = filtro.getSecretarias().stream().map(x -> x.getId()).collect(Collectors.toList());
-        List<Long> areas = filtro.getAreas().stream().map(x -> x.getId()).collect(Collectors.toList());
-        List<Long> filteredPoliticas = PoliticaDAO.findAll().stream().map(x -> x.getPolitica_id()).collect(Collectors.toList());
-        if (ejes.size() > 0) {
-            filteredPoliticas = filteredPoliticas.stream().filter(x -> ejes.contains(servicioPolitica.buscarPorId(x).get().getObjetivo().getEje().getid())).collect(Collectors.toList());
+    public List<Politica> buscarPorFiltro(List<EjeDTO> ejes, List<ObjetivoDTO>objetivos, List<SecretariaDTO> secretarias, List<AreaDTO> areas, ServicioObjetivo ServicioObjetivo, ServicioSecretaria ServicioSecretaria, ServicioArea ServicioArea, ServicioPolitica ServicioPolitica, ServicioActividad ServicioActividad, ServicioEje ServicioEje) {
+        List<Long> ejes_id = ejes.stream().map(EjeDTO::getId).collect(Collectors.toList());
+        List<Long> objetivos_id = objetivos.stream().map(ObjetivoDTO::getId).collect(Collectors.toList());
+        List<Long> secretarias_id = secretarias.stream().map(SecretariaDTO::getId).collect(Collectors.toList());
+        List<Long> areas_id = areas.stream().map(AreaDTO::getId).collect(Collectors.toList());
+        List<Politica> politicas = ServicioPolitica.buscarTodo();
+        if(ejes_id.size() > 0){
+            politicas = politicas.stream().filter(x -> ejes_id.contains(x.getObjetivo().getEje().getid())).collect(Collectors.toList());
+            }
+        if(objetivos_id.size() > 0){
+            politicas = politicas.stream().filter(x -> objetivos_id.contains(x.getObjetivo().getId())).collect(Collectors.toList());
         }
-        if (objetivos.size() > 0) {
-            filteredPoliticas = filteredPoliticas.stream().filter(x -> objetivos.contains(servicioPolitica.buscarPorId(x).get().getObjetivo().getId())).collect(Collectors.toList());
+        if(secretarias_id.size() > 0){
+            politicas = politicas.stream().filter(x -> secretarias_id.contains(x.getSecretaria().getid())).collect(Collectors.toList());
         }
-        if (secretarias.size() > 0) {
-            filteredPoliticas = filteredPoliticas.stream().filter(x -> secretarias.contains(servicioPolitica.buscarPorId(x).get().getSecretaria().getid())).collect(Collectors.toList());
+        if(areas_id.size() > 0){
+            politicas = politicas.stream().filter(x -> x.getItems().stream().anyMatch(y -> y.getActividades().stream().anyMatch(z -> areas_id.contains(z.getArea().getid())))).collect(Collectors.toList());
         }
-        if (areas.size() > 0) {
-            filteredPoliticas = filteredPoliticas.stream().filter(x -> servicioPolitica.buscarPorId(x).get().getItems().stream().map(y -> y.getActividades().stream().map(z -> areas.contains(z.getArea().getid())).reduce((a, b) -> a || b).get()).reduce((a, b) -> a || b).get()).collect(Collectors.toList());
-        }
-        List<Politica> politicas = filteredPoliticas.stream().map(x -> servicioPolitica.buscarPorId(x).get()).collect(Collectors.toList());
         return politicas;
-
     }
     public PoliticaDTO mapToDTO(Politica obj, ServicioItem servicioItem, ServicioArea ServicioArea, ServicioActividad ServicioActividad) {
         PoliticaDTO dto = new PoliticaDTO();
