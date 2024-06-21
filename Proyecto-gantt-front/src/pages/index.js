@@ -1,5 +1,5 @@
 export * from "./CrearPolitica/CrearPolitica"
 export * from "./GestionPolitica/GestionPolitica.jsx"
-export * from "./VerPoliticas/VerPoliticas.jsx"
 export * from "./Login/Login.jsx"
 export * from "./Inicio/Inicio.jsx"
+export * from "./ModificarPolitica/ModificarPolitica.jsx"

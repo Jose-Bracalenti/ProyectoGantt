@@ -15,14 +15,15 @@ import PopUpVerCampos from "../../../components/PopUpVerCampos";
 import AtributesDialog from "../../../components/AtributesDialog";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
+import { NavLink } from "react-router-dom";
 
 export const TablaDePoliticas = () => {
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState("nombre");
   const [atributeOpen, setAtributeOpen] = useState(false);
   const [atributeContent, setAtributeContent] = useState("");
-    const [openModalDelete, setOpenModalDelete] = useState(false);
-    const [deletePoliticaIndex, setDeletePoliticaIndex] = useState(-1);
+  const [openModalDelete, setOpenModalDelete] = useState(false);
+  const [deletePoliticaIndex, setDeletePoliticaIndex] = useState(-1);
 
   const { politicas } = useContext(FiltroDePoliticasContext);
 
@@ -44,11 +45,8 @@ export const TablaDePoliticas = () => {
     setAtributeOpen(false);
   };
 
-    const handleEditPolitica = (index) => {
-    console.log("Editando politica", index);
-    }
 
-    
+
 
 
   return (
@@ -105,26 +103,27 @@ export const TablaDePoliticas = () => {
                 <TableCell>{politica.secretaria}</TableCell>
                 <TableCell>{politica.objetivo}</TableCell>
                 <TableCell>
-                  {politica.actividades.reduce(
-                    (acc, act) => acc + act.costo,
-                    0
-                  )}
+                  {
+                    politica.items.reduce ( (acc, item) => { return acc + 
+                      item.actividades.reduce( (acc, actividad) => { return acc + actividad.costo }, 0)
+                    } 
+                      , 0) 
+                  }
                 </TableCell>
                 <TableCell>
                   <PopUpVerCampos
-                    title="Descripción"
-                    content={politica.descripcion}
+                    titulo="Descripción"
+                    contenido={politica.descripcion || ""}
                     setAtributeContent={setAtributeContent}
                     setAtributeOpen={setAtributeOpen}
                   />
                 </TableCell>
                 <TableCell>
-                  <IconButton
-                    color="primary"
-                    onClick={() => handleEditPolitica(index)}
-                  >
-                    <EditIcon />
-                  </IconButton>
+                  <NavLink to = {`./ModificarPolitica`}>
+                    <IconButton color="primary">
+                      <EditIcon />
+                    </IconButton>
+                  </NavLink>
                   <IconButton
                     color="secondary"
                     onClick={() => (

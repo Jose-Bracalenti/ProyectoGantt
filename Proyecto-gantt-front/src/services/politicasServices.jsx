@@ -14,11 +14,22 @@ const getAll = () =>{
     return axios.get(baseUrl)
 }
 
+const getWithFilter = (secretaria, eje, objetivo, areas) =>{
+    const filtro = {
+        secretarias: secretaria,
+        ejes: eje,
+        objetivos: objetivo,
+        areas: areas
+    }
+    return axios.post(`${baseUrl}/filtro`, filtro);
+}
+
 
 const politicasService = {
     create: create,
     createwithActivities: createwithActivities,
-    getAll: getAll
+    getAll: getAll,
+    getWithFilter: getWithFilter
 }
 
 export default politicasService;

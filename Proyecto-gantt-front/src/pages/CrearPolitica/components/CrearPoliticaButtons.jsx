@@ -50,9 +50,10 @@
     //POST de la política
     console.log("items", items);
     console.log("nombre", nombre);
-    console.log("secretaria", secretaria.id);
-    console.log("objetivo", objetivo.id);
+    console.log("secretaria", secretaria?.id);
+    console.log("objetivo", objetivo?.id);
     console.log("descripcion", descripcion);
+    
     const handleConfirmCrear = () => {
       setConfirmDialogOpen(false);
       const politica = {

@@ -27,6 +27,9 @@ const CamposPolitica = () => {
     alertaServidor,
     openAlerta,
     setOpenAlerta,
+    dataMeta,
+    meta,
+    setMeta,
   } = useContext(FormularioPoliticaContext);
   const [nombreVacio, setNombreVacio] = useState(false);
 
@@ -113,6 +116,14 @@ const CamposPolitica = () => {
         sx={{ marginY: 0.5 }}
 
 
+      />
+      <ListaDesplegable
+        isRequired
+        list={dataMeta}
+        stateComponent={meta}
+        setState={setMeta}
+        nombre="Meta"
+        sx={{ marginY: 0.5 }}
       />
       <TextField
         id="descripcion"

@@ -21,7 +21,8 @@ export const FormularioPoliticaProvider = ({ children }) => {
   const [camposCompletos, setCamposCompletos] = useState(false);
   const [alertaServidor, setAlertaServidor] = useState("");
   const[openAlerta, setOpenAlerta] = useState(false);
-
+const [dataMeta, setDataMeta] = useState([]);
+const [meta, setMeta] = useState(null);
 
   useEffect(() => {
     secretariaServices
@@ -71,7 +72,9 @@ export const FormularioPoliticaProvider = ({ children }) => {
       descripcion, setDescripcion,
       camposCompletos, setCamposCompletos,
       alertaServidor, setAlertaServidor,
-      openAlerta, setOpenAlerta
+      openAlerta, setOpenAlerta,
+      dataMeta, setDataMeta,
+      meta, setMeta
     }}>
       {children}
     </FormularioPoliticaContext.Provider>

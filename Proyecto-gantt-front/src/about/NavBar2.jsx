@@ -29,13 +29,6 @@ const NavBar2 = () => {
 
 
 
-    const handleMenuOpen = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
-
-    const handleMenuClose = () => {
-        setAnchorEl(null);
-    };
 
     const sx = { blockSize: '100', borderRadius: '10px', marginX: '10px', fontSize: '1rem', '&.active': { fontSize: '1.1rem' } };
 
@@ -59,15 +52,10 @@ const NavBar2 = () => {
                             />
                             <Tab
                                 sx={sx}
-                                label="Políticas"
-                                aria-controls="politics-menu"
-                                aria-haspopup="true"
-                                //onMouseEnter={handleMenuOpen}
-                                onClick={handleMenuOpen}
-                                //onMouseLeave={handleMenuClose}
+                                label="Crear Política"
+                                component={NavLink}
+                                to="/CrearPolitica"
                                 value="2"
-                                icon={<KeyboardArrowDownIcon />}
-                                iconPosition="end"
                                 />
                             <Tab
                                 sx={sx}
@@ -77,28 +65,6 @@ const NavBar2 = () => {
                                 value="3"
                             />
                         </Tabs>
-                        <Menu
-                            id="politics-menu"
-                            anchorEl={anchorEl}
-                            open={Boolean(anchorEl)}
-                            onClose={handleMenuClose}
-                            onMouseLeave={handleMenuClose}>
-                            <MenuItem
-                                component={NavLink}
-                                to="/CrearPolitica"
-                                onClick={handleMenuClose}
-                            >
-                                Crear Política  Pública Prioritaria
-                            </MenuItem>
-                            <MenuItem
-                                component={NavLink}
-                                to="/VerPoliticas"
-                                onClick={handleMenuClose}
-                            >
-                                Gestionar Políticas Públicas Prioritarias	
-                            </MenuItem>
-    
-                        </Menu>
                     </Box>
                     <h2 style={{ margin: 10 }}>Gestión de Políticas Públicas Prioritarias</h2>
                     <img src={logo} alt="santa fe" width="160px"  />

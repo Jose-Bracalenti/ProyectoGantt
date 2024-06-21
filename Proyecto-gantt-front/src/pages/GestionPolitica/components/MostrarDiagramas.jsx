@@ -4,7 +4,7 @@ import { FiltroDePoliticasContext } from "../hooks/FiltroDePoliticasProvider"
 import TimelineComponent from "../../../components/TimelineComponent";
 
 export const MostrarDiagramas = () => {
-    const {showDiagram, setShowDiagram } = useContext(FiltroDePoliticasContext);
+    const {showDiagram, setShowDiagram, politicas } = useContext(FiltroDePoliticasContext);
 
 
 
@@ -21,7 +21,10 @@ export const MostrarDiagramas = () => {
             }
                 </Button>
             {showDiagram && 
-            <TimelineComponent />}
+            <TimelineComponent 
+            politicas={politicas}
+                   
+            />}
         </div>
     )
 }

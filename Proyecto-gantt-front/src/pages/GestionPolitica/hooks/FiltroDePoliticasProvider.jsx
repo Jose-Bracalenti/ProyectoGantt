@@ -19,6 +19,7 @@ export const FiltroDePoliticasProvider = ({ children }) => {
     const [dataPoliticas, setDataPoliticas] = useState([]);
     const [politicas, setPoliticas] = useState([]);
     const [dataAreas, setDataAreas] = useState([]);
+    const [areas, setAreas] = useState([]);
     const [showDiagram, setShowDiagram] = useState(false);
 
     useEffect(() => {
@@ -72,6 +73,7 @@ export const FiltroDePoliticasProvider = ({ children }) => {
             politicas, setPoliticas,
             dataAreas, setDataAreas,
             showDiagram, setShowDiagram,
+            areas, setAreas
         }}>
             {children}
         </FiltroDePoliticasContext.Provider>
