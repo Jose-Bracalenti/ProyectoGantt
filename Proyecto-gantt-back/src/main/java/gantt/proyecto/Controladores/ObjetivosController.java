@@ -11,9 +11,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import gantt.proyecto.DTOS.EjeDTO;
 import gantt.proyecto.DTOS.ObjetivoDTO;
+import gantt.proyecto.Modelo.Eje;
 import gantt.proyecto.Servicios.Implemenaciones.*;
 
 @RestController
@@ -44,5 +47,9 @@ public class ObjetivosController {
     @GetMapping("/eje/{eje_id}")
     public ResponseEntity<List<ObjetivoDTO>> getObjetivosPorEje(@PathVariable(value = "eje_id") long id){
         return ResponseEntity.ok().body(servicioObjetivo.buscarPorEje(id, servicioEje).stream().map(x -> servicioObjetivo.mapToDTO(x)).toList());
+    }
+    @GetMapping("/ejes")
+    public ResponseEntity<List<ObjetivoDTO>> getObjetivosPorEjes(@RequestParam List<EjeDTO> ejes){
+        return ResponseEntity.ok().body(servicioObjetivo.buscarConEjes(ejes).stream().map(x -> servicioObjetivo.mapToDTO(x)).toList());
     }
 }
