@@ -16,8 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import gantt.proyecto.DTOS.ActividadDTO;
-import gantt.proyecto.Modelo.Item;
-import gantt.proyecto.Modelo.Politica;
+import gantt.proyecto.Modelo.*;
 import gantt.proyecto.Servicios.Implemenaciones.*;
 
 

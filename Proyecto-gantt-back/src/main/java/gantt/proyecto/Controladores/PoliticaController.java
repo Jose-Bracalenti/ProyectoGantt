@@ -1,9 +1,5 @@
 package gantt.proyecto.Controladores;
-import gantt.proyecto.DTOS.AreaDTO;
-import gantt.proyecto.DTOS.EjeDTO;
-import gantt.proyecto.DTOS.FiltroDTO;
-import gantt.proyecto.DTOS.ObjetivoDTO;
-import gantt.proyecto.DTOS.PoliticaDTO;
+import gantt.proyecto.DTOS.*;
 import gantt.proyecto.DTOS.SecretariaDTO;
 import gantt.proyecto.Servicios.Implemenaciones.*;
 
