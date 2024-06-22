@@ -24,6 +24,8 @@ public class Politica {
     private Objetivo objetivo;
     @OneToMany(mappedBy = "politica", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Item> items;
+    @OneToMany(mappedBy = "politica", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Meta> metas;
 
 
     public Politica() {

@@ -2,6 +2,7 @@ package gantt.proyecto.Servicios.Implemenaciones;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 
@@ -69,11 +70,11 @@ public class ServicioPolitica{
         return PoliticaDAO.findBySecretaria(ServicioSecretaria.buscarPorId(secretaria));
     }
 
-    public List<Politica> buscarPorFiltro(List<EjeDTO> ejes, List<ObjetivoDTO>objetivos, List<SecretariaDTO> secretarias, List<AreaDTO> areas, ServicioObjetivo ServicioObjetivo, ServicioSecretaria ServicioSecretaria, ServicioArea ServicioArea, ServicioPolitica ServicioPolitica, ServicioActividad ServicioActividad, ServicioEje ServicioEje) {
-        List<Long> ejes_id = ejes.stream().map(EjeDTO::getId).collect(Collectors.toList());
-        List<Long> objetivos_id = objetivos.stream().map(ObjetivoDTO::getId).collect(Collectors.toList());
-        List<Long> secretarias_id = secretarias.stream().map(SecretariaDTO::getId).collect(Collectors.toList());
-        List<Long> areas_id = areas.stream().map(AreaDTO::getId).collect(Collectors.toList());
+    public List<Politica> buscarPorFiltro(FiltroDTO filtro, ServicioObjetivo ServicioObjetivo, ServicioSecretaria ServicioSecretaria, ServicioArea ServicioArea, ServicioPolitica ServicioPolitica, ServicioActividad ServicioActividad, ServicioEje ServicioEje) {
+        List<Long> ejes_id = filtro.getEjes().stream().map(x -> x.getId()).collect(Collectors.toList());
+        List<Long> objetivos_id = filtro.getObjetivos().stream().map(x-> x.getId()).collect(Collectors.toList());
+        List<Long> secretarias_id = filtro.getSecretarias().stream().map(x->x.getId()).collect(Collectors.toList());
+        List<Long> areas_id = filtro.getAreas().stream().map(x->x.getId()).collect(Collectors.toList());
         List<Politica> politicas = ServicioPolitica.buscarTodo();
         if(ejes_id.size() > 0){
             politicas = politicas.stream().filter(x -> ejes_id.contains(x.getObjetivo().getEje().getid())).collect(Collectors.toList());

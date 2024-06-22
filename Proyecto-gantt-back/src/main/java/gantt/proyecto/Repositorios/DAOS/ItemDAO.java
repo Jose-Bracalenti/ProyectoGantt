@@ -10,6 +10,8 @@ import gantt.proyecto.Modelo.*;
 import gantt.proyecto.IDclasses.ItemId;
 
 public interface ItemDAO extends JpaRepository<Item, ItemId> {
+    
+    @SuppressWarnings("null")
     Optional<Item> findById(ItemId id);
     List<Item> findByNombre(String nombre);
     List<Item> findByPolitica(Politica politica);

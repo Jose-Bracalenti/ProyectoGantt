@@ -12,11 +12,12 @@ public class PoliticaDTO {
     private long secretaria_id;
     private float costo;
     private List<ItemDTO> items;
+    private List<MetaDTO> metas;
     public PoliticaDTO() {
     }
     
     public PoliticaDTO(long id, String nombre, String descripcion, String objetivo, long objetivo_id, String secretaria,
-            long secretaria_id, float costo, List<ItemDTO> items) {
+            long secretaria_id, float costo, List<ItemDTO> items, List<MetaDTO> metas) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.objetivo = objetivo;
@@ -25,8 +26,9 @@ public class PoliticaDTO {
         this.secretaria_id = secretaria_id;
         this.costo = costo;
         this.items = items;
+        this.metas = metas;
     }
-
+    
     public long getId() {
         return id;
     }
@@ -80,6 +82,14 @@ public class PoliticaDTO {
     }
     public void setItems(List<ItemDTO> items) {
         this.items = items;
+    }
+
+    public List<MetaDTO> getMetas() {
+        return metas;
+    }
+
+    public void setMetas(List<MetaDTO> metas) {
+        this.metas = metas;
     }
     
    
