@@ -13,7 +13,7 @@ function App() {
           <Route path="/crearPolitica" element={<CrearPolitica />} />
           <Route path="/GestionPolitica" element={<GestionPolitica />} />
         </Route>
-        <Route path="/GestionPolitica/ModificarPolitica" element={<ModificarPolitica />} />
+        <Route path="/ModificarPolitica" element={<ModificarPolitica />} />
       </Routes>
 
     </div>

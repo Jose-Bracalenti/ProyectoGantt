@@ -11,17 +11,18 @@ export const FiltroDePoliticasContext = createContext();
 
 export const FiltroDePoliticasProvider = ({ children }) => {
     const [dataSecretaria, setDataSecretaria] = useState([]);
-    const [secretaria, setSecretaria] = useState([]);
+    const [secretarias, setSecretarias] = useState([]);
     const [dataEje, setDataEje] = useState([]);
-    const [eje, setEje] = useState([]);
+    const [ejes, setEjes] = useState([]);
     const [dataObjetivo, setDataObjetivo] = useState([]);
-    const [objetivo, setObjetivo] = useState([]);
+    const [objetivos, setObjetivos] = useState([]);
     const [dataPoliticas, setDataPoliticas] = useState([]);
     const [politicas, setPoliticas] = useState([]);
     const [dataAreas, setDataAreas] = useState([]);
     const [areas, setAreas] = useState([]);
     const [showDiagram, setShowDiagram] = useState(false);
-
+    const [fechaInicio, setFechaInicio] = useState("");
+    const [fechaFin, setFechaFin] = useState("");
     useEffect(() => {
         secretariaServices
             .getAll()
@@ -41,13 +42,13 @@ export const FiltroDePoliticasProvider = ({ children }) => {
 
 
     useEffect(() => {
-        if (eje.length === 0) setDataObjetivo([]);
+        if (ejes.length === 0) setDataObjetivo([]);
         else {
-            objetivoServices.getObjetivosByEjes(eje).then((response) => {
+            objetivoServices.getObjetivosByEjes(ejes).then((response) => {
                 setDataObjetivo(response.data);
             });
         }
-    }, [eje]);
+    }, [ejes]);
 
     useEffect(() => {
         politicasServices.getAll().then((response) => {
@@ -64,16 +65,18 @@ export const FiltroDePoliticasProvider = ({ children }) => {
     return (
         <FiltroDePoliticasContext.Provider value={{
             dataSecretaria, setDataSecretaria,
-            secretaria, setSecretaria,
+            secretarias, setSecretarias,
             dataEje, setDataEje,
-            eje, setEje,
+            ejes, setEjes,
             dataObjetivo, setDataObjetivo,
-            objetivo, setObjetivo,
+            objetivos, setObjetivos,
             dataPoliticas, setDataPoliticas,
             politicas, setPoliticas,
             dataAreas, setDataAreas,
             showDiagram, setShowDiagram,
-            areas, setAreas
+            areas, setAreas,
+            fechaInicio, setFechaInicio,
+            fechaFin, setFechaFin
         }}>
             {children}
         </FiltroDePoliticasContext.Provider>

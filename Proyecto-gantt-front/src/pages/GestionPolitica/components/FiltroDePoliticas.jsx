@@ -8,27 +8,28 @@ import politicasService from "../../../services/politicasServices";
 export const FiltroDePoliticas = () => {
     const { dataSecretaria, dataEje, 
         dataObjetivo,  dataAreas,
-        secretaria, setSecretaria,
-        eje, setEje,
-        objetivo, setObjetivo,
+        secretarias, setSecretarias,
+        ejes, setEjes,
+        objetivos, setObjetivos,
        setShowDiagram,
        setPoliticas,
        areas, setAreas,
+        fechaInicio, setFechaInicio,
+        fechaFin, setFechaFin
      } = useContext(FiltroDePoliticasContext);
-     const [fechaInicio, setFechaInicio] = useState("");
-      const [fechaFin, setFechaFin] = useState("");
+
       const [errorFechaInicio, setErrorFechaInicio] = useState(false);
       const [errorFechaFin, setErrorFechaFin] = useState(false);
       const [errorComparacionFechas, setErrorComparacionFechas] = useState(false);
 
 
-     console.log("secretaria",secretaria);
-      console.log("eje",eje);
+     console.log("secretaria",secretarias);
+      console.log("eje",ejes);
 
     const handleLimpiar = () => {
-        setSecretaria([]);
-        setEje([]);
-        setObjetivo([]);
+        setSecretarias([]);
+        setEjes([]);
+        setObjetivos([]);
         setAreas([]);
         setFechaInicio("");
         setFechaFin("");
@@ -36,7 +37,7 @@ export const FiltroDePoliticas = () => {
 
     const handleBuscar = () => {
         setShowDiagram(false)
-        politicasService.getWithFilter(secretaria, eje, objetivo, areas, fechaInicio, fechaFin)
+        politicasService.getWithFilter(secretarias, ejes, objetivos, areas, fechaInicio, fechaFin)
         .then((response) => {
             console.log("response", response.data);
             setPoliticas(response.data);
@@ -75,8 +76,8 @@ export const FiltroDePoliticas = () => {
         multiple
         isRequired
         list={dataSecretaria}
-        stateComponent={secretaria}
-        setState={setSecretaria}
+        stateComponent={secretarias}
+        setState={setSecretarias}
         nombre="Secretaria"
         titleTrue
         sx={{ marginY: 0.5 }}
@@ -85,16 +86,16 @@ export const FiltroDePoliticas = () => {
       multiple
         isRequired
         list={dataEje}
-        stateComponent={eje}
-        setState={setEje}
+        stateComponent={ejes}
+        setState={setEjes}
         nombre="eje"
       />
       <ListaDesplegable
       multiple
         isRequired
         list={dataObjetivo}
-        stateComponent={objetivo}
-        setState={setObjetivo}
+        stateComponent={objetivos}
+        setState={setObjetivos}
         nombre="Objetivo Principal"
         sx={{ marginY: 0.5 }}
       />

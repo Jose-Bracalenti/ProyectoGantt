@@ -15,9 +15,7 @@ export const GestionPolitica = () => {
             </div>
             <div className="gestion-politica-body">
               <TablaDePoliticas />
-              <div className="gestion-politica-footer">
               <MostrarDiagramas />
-            </div>
             </div>
 
           </div>

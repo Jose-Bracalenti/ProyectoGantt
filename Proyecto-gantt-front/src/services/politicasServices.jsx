@@ -14,14 +14,14 @@ const getAll = () =>{
     return axios.get(baseUrl)
 }
 
-const getWithFilter = (secretaria, eje, objetivo, areas) =>{
-    const filtro = {
-        secretarias: secretaria,
-        ejes: eje,
-        objetivos: objetivo,
+const getWithFilter = (secretarias, ejes, objetivos, areas) =>{
+    const body = {
+        secretarias: secretarias,
+        ejes: ejes,
+        objetivos: objetivos,
         areas: areas
     }
-    return axios.post(`${baseUrl}/filtro`, filtro);
+    return axios.post(baseUrl + "/filtro", body)
 }
 
 

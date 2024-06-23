@@ -15,7 +15,8 @@ import PopUpVerCampos from "../../../components/PopUpVerCampos";
 import AtributesDialog from "../../../components/AtributesDialog";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import { NavLink } from "react-router-dom";
+import { useNavigate  } from 'react-router-dom';
+
 
 export const TablaDePoliticas = () => {
   const [order, setOrder] = useState("asc");
@@ -24,6 +25,10 @@ export const TablaDePoliticas = () => {
   const [atributeContent, setAtributeContent] = useState("");
   const [openModalDelete, setOpenModalDelete] = useState(false);
   const [deletePoliticaIndex, setDeletePoliticaIndex] = useState(-1);
+
+
+
+  const navigate = useNavigate();
 
   const { politicas } = useContext(FiltroDePoliticasContext);
 
@@ -119,11 +124,15 @@ export const TablaDePoliticas = () => {
                   />
                 </TableCell>
                 <TableCell>
-                  <NavLink to = {`./ModificarPolitica`}>
-                    <IconButton color="primary">
-                      <EditIcon />
-                    </IconButton>
-                  </NavLink>
+                  <IconButton
+                    color="primary"
+                    onClick={() =>navigate(`/ModificarPolitica`,{
+                      politica: politica
+                    })}
+                  >
+                    <EditIcon />
+                  </IconButton>
+
                   <IconButton
                     color="secondary"
                     onClick={() => (
