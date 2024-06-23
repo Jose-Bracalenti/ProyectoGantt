@@ -12,6 +12,6 @@ import gantt.proyecto.Modelo.*;
 public interface AreaDAO extends JpaRepository<Area, Long>{
     @SuppressWarnings("null")
     Optional<Area> findById(Long id);
-    List<Area> findByNombre(String nombre);
+    Area findByNombre(String nombre);
 
 }

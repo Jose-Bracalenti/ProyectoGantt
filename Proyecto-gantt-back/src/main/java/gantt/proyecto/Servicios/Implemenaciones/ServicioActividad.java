@@ -1,5 +1,6 @@
 package gantt.proyecto.Servicios.Implemenaciones;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,7 +26,7 @@ public class ServicioActividad{
     public Actividad buscarPorId(long id) {
         return ActividadDAO.findById(id).get();
     }
-    public List<Actividad> buscarPorNombre(String nombre) {
+    public Optional<Actividad> buscarPorNombre(String nombre) {
         return ActividadDAO.findByNombre(nombre);
     }
     public List<Actividad> buscarTodo() {
@@ -63,7 +64,7 @@ public class ServicioActividad{
         actividad.setParticipacion_ciudadana(dto.getParticipacion_ciudadana());
         actividad.setResultado_esperado(dto.getResultado_esperado());
         actividad.setItem(item);
-        actividad.setArea(servicioArea.mapToEntity(dto.getArea()));
+        actividad.setArea(servicioArea.buscarPorNombre(dto.getArea().getNombre()));
         actividad.setCosto(dto.getCosto());
         return actividad;
     }
