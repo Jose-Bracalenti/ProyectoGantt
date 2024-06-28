@@ -47,8 +47,8 @@ public class ObjetivosController {
     public ResponseEntity<List<ObjetivoDTO>> getObjetivosPorEje(@PathVariable(value = "eje_id") long id){
         return ResponseEntity.ok().body(servicioObjetivo.buscarPorEje(id, servicioEje).stream().map(x -> servicioObjetivo.mapToDTO(x)).toList());
     }
-    @GetMapping("/ejes")
-    public ResponseEntity<List<ObjetivoDTO>> getObjetivosPorEjes(@RequestParam List<EjeDTO> ejes){
+    @PostMapping("/ejes")
+    public ResponseEntity<List<ObjetivoDTO>> getObjetivosPorEjes(@RequestBody List<EjeDTO> ejes){
         return ResponseEntity.ok().body(servicioObjetivo.buscarConEjes(ejes).stream().map(x -> servicioObjetivo.mapToDTO(x)).toList());
     }
 }

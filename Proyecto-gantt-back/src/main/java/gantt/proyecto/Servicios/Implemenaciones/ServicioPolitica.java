@@ -97,6 +97,8 @@ public class ServicioPolitica{
         dto.setDescripcion(obj.getDescripcion()); 
         dto.setObjetivo(obj.getObjetivo().getNombre());
         dto.setObjetivo_id(obj.getObjetivo().getId());
+        dto.setEje_id(obj.getObjetivo().getEje().getid());
+        dto.setEje(obj.getObjetivo().getEje().getNombre());
         dto.setSecretaria(obj.getSecretaria().getNombre());
         dto.setSecretaria_id(obj.getSecretaria().getid());
         dto.setItems(obj.getItems().stream().map(x -> servicioItem.mapToDTO(x, ServicioActividad, ServicioArea)).collect(Collectors.toList()));
