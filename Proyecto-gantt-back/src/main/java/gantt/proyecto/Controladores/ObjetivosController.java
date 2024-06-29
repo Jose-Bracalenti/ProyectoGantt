@@ -43,6 +43,10 @@ public class ObjetivosController {
         servicioObjetivo.eliminar(Objetivo, servicioEje);
         return ResponseEntity.ok().build();
     }
+    @PostMapping
+    public ResponseEntity<ObjetivoDTO> modificarObjetivo(@RequestBody ObjetivoDTO Objetivo){
+        return ResponseEntity.ok().body(servicioObjetivo.modificar(Objetivo, servicioEje));
+    }
     @GetMapping("/eje/{eje_id}")
     public ResponseEntity<List<ObjetivoDTO>> getObjetivosPorEje(@PathVariable(value = "eje_id") long id){
         return ResponseEntity.ok().body(servicioObjetivo.buscarPorEje(id, servicioEje).stream().map(x -> servicioObjetivo.mapToDTO(x)).toList());

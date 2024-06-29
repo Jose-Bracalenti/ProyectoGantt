@@ -34,6 +34,9 @@ public class ServicioItem {
     public void eliminar(Item item) {
         itemDAO.delete(item);
     }
+    public ItemDTO modificar(ItemDTO item, ServicioPolitica servicioPolitica, ServicioActividad servicioActividad, ServicioArea servicioArea) {
+        return this.mapToDTO(itemDAO.save(this.mapToEntity(item, servicioPolitica.buscarPorId(item.getPolitica_id()).get(), servicioActividad, servicioArea)), servicioActividad, servicioArea);
+    }
 
     public final ItemDTO mapToDTO(Item item, ServicioActividad servicioActividad, ServicioArea servicioArea){
         ItemDTO dto = new ItemDTO();

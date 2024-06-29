@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import gantt.proyecto.DTOS.ActividadDTO;
+import gantt.proyecto.DTOS.ItemDTO;
 import gantt.proyecto.Modelo.*;
 import gantt.proyecto.Servicios.Implemenaciones.*;
 
@@ -29,7 +30,8 @@ public class ActividadesController {
     private ServicioActividad servicioActividad;
     @Autowired
     private ServicioArea servicioArea;
-
+    @Autowired
+    private ServicioItem servicioItem;
     @PostMapping
     public ResponseEntity<ActividadDTO> createActividad(@RequestBody ActividadDTO actividad){
         Item item = new Item();

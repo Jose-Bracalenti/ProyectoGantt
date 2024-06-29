@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import gantt.proyecto.DTOS.AreaDTO;
-
+import gantt.proyecto.DTOS.ItemDTO;
 import gantt.proyecto.Servicios.Implemenaciones.ServicioArea;
 
 @RestController
@@ -41,6 +41,10 @@ public class AreasController {
     public ResponseEntity<Void> deleteArea(@RequestBody AreaDTO Area){
         servicioArea.eliminar(Area);
         return ResponseEntity.ok().build();
+    }
+    @PostMapping
+    public ResponseEntity<AreaDTO> modificarItem(@RequestBody AreaDTO area){
+        return ResponseEntity.ok().body(servicioArea.modificar(area));
     }
     @PutMapping("{Area_id}")
     public ResponseEntity<AreaDTO> updateArea(@PathVariable(value = "Area_id") long id, @RequestBody AreaDTO Area){

@@ -55,6 +55,10 @@ public class PoliticaController {
     public ResponseEntity<List<PoliticaDTO>> getPoliticasPorSecretaria(@PathVariable(value = "secretaria_id") long id){
         return ResponseEntity.ok().body(servicioPolitica.buscarPorSecretaria(id, servicioSecretaria).stream().map(x -> servicioPolitica.mapToDTO(x, servicioItem,servicioArea,servicioActividad)).collect(Collectors.toList()));
     }
+    @PostMapping
+    public ResponseEntity<PoliticaDTO> modificarPolitica(@RequestBody PoliticaDTO politica){
+        return ResponseEntity.ok().body(servicioPolitica.modificar(politica, servicioObjetivo, servicioSecretaria, servicioItem, servicioArea, servicioActividad));
+    }
     @PostMapping("/filtro")
     public ResponseEntity<List<PoliticaDTO>> getPoliticasPorFiltro(@RequestBody FiltroDTO filtro){
         return ResponseEntity.ok().body(

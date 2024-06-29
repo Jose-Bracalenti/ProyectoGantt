@@ -40,6 +40,10 @@ public class ItemController {
         servicioItem.eliminar(servicioItem.mapToEntity(item, servicioPolitica.buscarPorId(item.getPolitica_id()).get(), servicioActividad, servicioArea));
         return ResponseEntity.ok().build();
     }
+    @PostMapping
+    public ResponseEntity<ItemDTO> modificarItem(@RequestBody ItemDTO item){
+        return ResponseEntity.ok().body(servicioItem.modificar(item, servicioPolitica, servicioActividad, servicioArea));
+    }
     @GetMapping("{politica_id}/{item_id}")
     public ResponseEntity<ItemDTO> getItem(@PathVariable(value = "item_id") long id, @PathVariable(value = "politica_id") long politica){
         return ResponseEntity.ok().body(servicioItem.mapToDTO(
