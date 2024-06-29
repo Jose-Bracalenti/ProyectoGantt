@@ -43,7 +43,7 @@ public class ObjetivosController {
         servicioObjetivo.eliminar(Objetivo, servicioEje);
         return ResponseEntity.ok().build();
     }
-    @PostMapping
+    @PostMapping("/modificar")
     public ResponseEntity<ObjetivoDTO> modificarObjetivo(@RequestBody ObjetivoDTO Objetivo){
         return ResponseEntity.ok().body(servicioObjetivo.modificar(Objetivo, servicioEje));
     }

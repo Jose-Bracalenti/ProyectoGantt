@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import gantt.proyecto.DTOS.*;
+import gantt.proyecto.Modelo.Politica;
 import gantt.proyecto.Servicios.Implemenaciones.*;
 @Controller
 @CrossOrigin(origins = "http://localhost:5174")
@@ -32,17 +33,19 @@ public class ItemController {
         return ResponseEntity.ok().body(servicioItem.buscarTodo().stream().map(x -> servicioItem.mapToDTO(x, servicioActividad, servicioArea)).collect(Collectors.toList()));
     }
     @PostMapping
-    public ResponseEntity<ItemDTO> createItem(@RequestBody ItemDTO item){
-        return ResponseEntity.ok().body(servicioItem.insertar(item, servicioPolitica, servicioActividad, servicioArea));
+    public ResponseEntity<ItemDTO> createItem(@RequestBody PoliticaDTO politica, @RequestBody ItemDTO item){
+        Politica politicaCargada = servicioPolitica.buscarPorId(politica.getId()).get();
+        return ResponseEntity.ok().body(servicioItem.insertar(item, politicaCargada, servicioActividad, servicioArea));
     }
     @DeleteMapping
     public ResponseEntity<Void> deleteItem(@RequestBody ItemDTO item){
         servicioItem.eliminar(servicioItem.mapToEntity(item, servicioPolitica.buscarPorId(item.getPolitica_id()).get(), servicioActividad, servicioArea));
         return ResponseEntity.ok().build();
     }
-    @PostMapping
+    @PostMapping("/modificar")
     public ResponseEntity<ItemDTO> modificarItem(@RequestBody ItemDTO item){
-        return ResponseEntity.ok().body(servicioItem.modificar(item, servicioPolitica, servicioActividad, servicioArea));
+        Politica politica = servicioPolitica.buscarPorId(item.getPolitica_id()).get();
+        return ResponseEntity.ok().body(servicioItem.modificar(item, politica, servicioActividad, servicioArea));
     }
     @GetMapping("{politica_id}/{item_id}")
     public ResponseEntity<ItemDTO> getItem(@PathVariable(value = "item_id") long id, @PathVariable(value = "politica_id") long politica){

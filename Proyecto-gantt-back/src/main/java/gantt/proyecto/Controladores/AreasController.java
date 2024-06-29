@@ -42,8 +42,8 @@ public class AreasController {
         servicioArea.eliminar(Area);
         return ResponseEntity.ok().build();
     }
-    @PostMapping
-    public ResponseEntity<AreaDTO> modificarItem(@RequestBody AreaDTO area){
+    @PostMapping("/modificar")
+    public ResponseEntity<AreaDTO> modificarArea(@RequestBody AreaDTO area){
         return ResponseEntity.ok().body(servicioArea.modificar(area));
     }
     @PutMapping("{Area_id}")

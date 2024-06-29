@@ -13,8 +13,8 @@ import gantt.proyecto.Repositorios.DAOS.ItemDAO;
 public class ServicioItem {
     @Autowired
     private ItemDAO itemDAO;
-    public ItemDTO insertar(ItemDTO item, ServicioPolitica servicioPolitica, ServicioActividad servicioActividad, ServicioArea servicioArea) {
-        return this.mapToDTO(itemDAO.save(this.mapToEntity(item, servicioPolitica.buscarPorId(item.getPolitica_id()).get(), servicioActividad, servicioArea)), servicioActividad, servicioArea);
+    public ItemDTO insertar(ItemDTO item, Politica politica, ServicioActividad servicioActividad, ServicioArea servicioArea) {
+        return this.mapToDTO(itemDAO.save(this.mapToEntity(item, politica, servicioActividad, servicioArea)), servicioActividad, servicioArea);
     }
     public Item buscarPorId(long id, Politica politica) {
         ItemId item_id = new ItemId();
@@ -34,8 +34,17 @@ public class ServicioItem {
     public void eliminar(Item item) {
         itemDAO.delete(item);
     }
-    public ItemDTO modificar(ItemDTO item, ServicioPolitica servicioPolitica, ServicioActividad servicioActividad, ServicioArea servicioArea) {
-        return this.mapToDTO(itemDAO.save(this.mapToEntity(item, servicioPolitica.buscarPorId(item.getPolitica_id()).get(), servicioActividad, servicioArea)), servicioActividad, servicioArea);
+    public ItemDTO modificar(ItemDTO item, Politica politica, ServicioActividad servicioActividad, ServicioArea servicioArea) {
+        Item itemViejo = this.buscarPorId(item.getId(), politica);
+        itemViejo.setNombre(item.getNombre());
+        for(ActividadDTO actividad : item.getActividades()){
+            if(actividad.getId() != 0){
+                servicioActividad.modificar(actividad, itemViejo, servicioArea);
+            }else{
+                servicioActividad.insertar(actividad, itemViejo, servicioArea);
+            }
+        }
+        return this.mapToDTO(itemDAO.save(itemViejo), servicioActividad, servicioArea);
     }
 
     public final ItemDTO mapToDTO(Item item, ServicioActividad servicioActividad, ServicioArea servicioArea){

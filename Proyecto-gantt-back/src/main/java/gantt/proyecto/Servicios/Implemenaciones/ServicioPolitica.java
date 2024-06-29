@@ -32,15 +32,21 @@ public class ServicioPolitica{
                     ServicioActividad)), servicioItem, ServicioArea, ServicioActividad);
     }
     public PoliticaDTO modificar(PoliticaDTO obj, ServicioObjetivo ServicioObjetivo, ServicioSecretaria ServicioSecretaria, ServicioItem servicioItem, ServicioArea ServicioArea, ServicioActividad ServicioActividad) {
+        Politica politica = PoliticaDAO.getReferenceById(obj.getId());
+        politica.setNombre(obj.getNombre());
+        politica.setDescripcion(obj.getDescripcion());
+        politica.setObjetivo(ServicioObjetivo.buscarPorId(obj.getObjetivo_id()));
+        politica.setSecretaria(ServicioSecretaria.buscarPorId(obj.getSecretaria_id()));
+        politica.setCosto(obj.getCosto());
+        for(ItemDTO item : obj.getItems()){
+            if(item.getId() != 0){
+                servicioItem.modificar(item, politica, ServicioActividad, ServicioArea);
+            }else{
+                servicioItem.insertar(item, politica, ServicioActividad, ServicioArea);
+            }
+        }
         return this.mapToDTO(
-            PoliticaDAO.save(
-                this.mapToEntity(
-                    obj, 
-                    ServicioObjetivo, 
-                    ServicioSecretaria, 
-                    servicioItem, 
-                    ServicioArea, 
-                    ServicioActividad)), servicioItem, ServicioArea, ServicioActividad);
+            PoliticaDAO.save(politica), servicioItem, ServicioArea, ServicioActividad);
         
     }
     public void eliminar(PoliticaDTO obj, ServicioObjetivo ServicioObjetivo, ServicioSecretaria ServicioSecretaria, ServicioItem servicioItem, ServicioArea ServicioArea, ServicioActividad ServicioActividad) {

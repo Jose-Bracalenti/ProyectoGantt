@@ -18,7 +18,17 @@ public class ServicioActividad{
        return this.mapToDTO(ActividadDAO.save(this.mapToEntity(Actividad, item, ServicioArea)), ServicioArea);
     }
     public ActividadDTO modificar(ActividadDTO Actividad, Item item, ServicioArea ServicioArea) {
-         return this.mapToDTO(ActividadDAO.save(this.mapToEntity(Actividad, item, ServicioArea)), ServicioArea);
+        Actividad actividad = ActividadDAO.getReferenceById(Actividad.getId());
+        actividad.setNombre(Actividad.getNombre());
+        actividad.setDescripcion(Actividad.getDescripcion());
+        actividad.setFecha_inicio(Actividad.getFechaInicio());
+        actividad.setFecha_fin(Actividad.getFechaFin());
+        actividad.setParticipacion_ciudadana(Actividad.getParticipacion_ciudadana());
+        actividad.setResultado_esperado(Actividad.getResultado_esperado());
+        actividad.setItem(item);
+        actividad.setArea(ServicioArea.buscarPorNombre(Actividad.getArea().getNombre()));
+        actividad.setCosto(Actividad.getCosto());
+        return this.mapToDTO(ActividadDAO.save(actividad), ServicioArea);
     }
     public void eliminar(ActividadDTO Actividad, Item item, ServicioArea ServicioArea) {
         ActividadDAO.delete(this.mapToEntity(Actividad, item, ServicioArea));

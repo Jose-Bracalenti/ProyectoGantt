@@ -31,7 +31,7 @@ public class SecretariaController {
     public ResponseEntity<SecretariaDTO> getSecretaria(@PathVariable (value = "secretaria_id") long id){
         return ResponseEntity.ok().body(servicioSecretaria.mapToDTO(servicioSecretaria.buscarPorId(id)));
     }
-    @PostMapping
+    @PostMapping("/modificar")
     public ResponseEntity<SecretariaDTO> modificarSecretaria(@RequestBody SecretariaDTO secretaria){
         return ResponseEntity.ok().body(servicioSecretaria.modificar(secretaria));
     }

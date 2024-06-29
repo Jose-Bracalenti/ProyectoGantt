@@ -18,7 +18,9 @@ public class ServicioSecretaria{
        return this.mapToDTO(secretariaDAO.save(this.mapToEntity(secretaria)));
     }
     public SecretariaDTO modificar(SecretariaDTO obj) {
-        return this.mapToDTO(secretariaDAO.save(this.mapToEntity(obj)));
+        Secretaria secretaria = secretariaDAO.getReferenceById(obj.getId());
+        secretaria.setNombre(obj.getNombre());
+        return this.mapToDTO(secretariaDAO.save(secretaria));
     }
     public void eliminar(SecretariaDTO obj) {
         secretariaDAO.delete(this.mapToEntity(obj));

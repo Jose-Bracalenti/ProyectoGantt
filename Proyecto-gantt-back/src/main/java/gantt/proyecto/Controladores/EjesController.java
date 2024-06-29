@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import gantt.proyecto.DTOS.EjeDTO;
-
+import gantt.proyecto.DTOS.ItemDTO;
 import gantt.proyecto.Servicios.Implemenaciones.*;
 
 @RestController
@@ -36,6 +36,11 @@ public class EjesController {
     public ResponseEntity<EjeDTO> getEje(@PathVariable(value = "Eje_id") long id){
         return ResponseEntity.ok().body(servicioEje.mapToDTO(servicioEje.buscarPorId(id).get()));
     }
+    @PostMapping("/modificar")
+    public ResponseEntity<EjeDTO> modificarEje(@RequestBody EjeDTO Eje){
+        return ResponseEntity.ok().body(servicioEje.modificar(Eje));
+    }
+    
     @DeleteMapping
     public ResponseEntity<Void> deleteEje(@RequestBody EjeDTO Eje){
         servicioEje.eliminar(Eje);
