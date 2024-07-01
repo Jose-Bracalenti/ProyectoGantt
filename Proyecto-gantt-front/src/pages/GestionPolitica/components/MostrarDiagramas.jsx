@@ -1,7 +1,8 @@
+import React, { useContext, useState } from "react";
 import { Button } from "@mui/material";
-import { useContext, useState } from "react";
 import { FiltroDePoliticasContext } from "../hooks/FiltroDePoliticasProvider";
 import TimelineComponent from "../../../components/TimelineComponent";
+import ExportPDFButton from "../components/ExportPDFButton";
 
 export const MostrarDiagramas = () => {
   const { showDiagram, setShowDiagram, politicas, fechaInicio, fechaFin } =
@@ -24,15 +25,17 @@ export const MostrarDiagramas = () => {
             color="primary"
             onClick={() => setActivarGrupos(!activarGrupos)}
           >
-            {activarGrupos ? "Desagrupar items"
-            : "Agrupar por items"}
+            {activarGrupos ? "Desagrupar items" : "Agrupar por items"}
           </Button>
-          <TimelineComponent
-            politicas={politicas}
-            activarGrupos = {activarGrupos}
-            fechaInicio={fechaInicio}
-            fechaFin={fechaFin}
-          />
+          <div id="timeline-container">
+            <TimelineComponent
+              politicas={politicas}
+              activarGrupos={activarGrupos}
+              fechaInicio={fechaInicio}
+              fechaFin={fechaFin}
+            />
+          </div>
+          <ExportPDFButton elementId="timeline-container" />
         </>
       )}
     </div>
